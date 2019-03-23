@@ -69,7 +69,7 @@ public class UserRealm extends AuthorizingRealm {
         //1、判断用户名
         UsernamePasswordToken token =(UsernamePasswordToken)authenticationToken;
 
-        User user =userService.findByUsername(token.getUsername());
+        User user =userService.findById(Integer.parseInt(token.getUsername()));
 
         if(user==null){
             //用户名不存在

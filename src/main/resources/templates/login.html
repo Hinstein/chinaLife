@@ -21,8 +21,8 @@
                 <form action="#" name="f" method="post">
                     <div class="input_outer">
                         <span class="u_user"></span>
-                        <input name="username" class="text" style="color: #FFFFFF !important" type="text"
-                               placeholder="请输入账户" id="username">
+                        <input name="id" class="text" style="color: #FFFFFF !important" type="text"
+                               placeholder="请输入账户" id="id">
                     </div>
                     <div class="input_outer">
                         <span class="us_uer"></span>
@@ -58,13 +58,13 @@
     //加载弹出层组件
     $(function () {
         $("#login").click(function () {
-            var username = $("#username").val();
+            var id = $("#id").val();
             var password = $("#password").val();
             var tryCode = $("#tryCode").val();
             $.ajax({
                 url: "/login/post",
                 data: {
-                    username: username,
+                    id: id,
                     password: password,
                     tryCode:tryCode
                 },

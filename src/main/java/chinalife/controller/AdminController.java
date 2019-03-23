@@ -184,7 +184,6 @@ public class AdminController {
         }
 
         Map<String, Object> map = new HashMap<>(10);
-
         return map;
     }
 

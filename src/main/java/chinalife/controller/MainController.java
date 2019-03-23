@@ -54,9 +54,9 @@ public class MainController {
 
         //1.获取subject
         Subject subject = SecurityUtils.getSubject();
-
+        System.out.println(user.getId());
         //2.封装用户数据
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getId().toString(), user.getPassword());
 
         //3.判断验证码是否正确
         if (tryCode.equals(rightCode)) {
