@@ -1,0 +1,58 @@
+<body>
+<form class="layui-form" action="" lay-filter="example">
+    <div class="layui-form-item">
+        <label class="layui-form-label">工号</label>
+        <div class="layui-input-block">
+            <input type="text" name="id" lay-verify="required|number" autocomplete="off"
+                   placeholder="请输入工号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" lay-verify="required|name" placeholder="请输入用户名"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="text" name="password" lay-verify="required" placeholder="请输入密码"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号添加时间</label>
+        <div class="layui-input-block">
+            <input type="text" name="addTime" lay-verify="required" placeholder="请输入账号添加时间"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码最后修改时间</label>
+        <div class="layui-input-block">
+            <input type="text" name="passwordTime" lay-verify="required"
+                   placeholder="请输入密码最后修改时间" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限框</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="create" title="添加">
+            <input type="checkbox" name="delete" title="删除">
+            <input type="checkbox" name="retrieve" title="查找">
+            <input type="checkbox" name="update" title="修改">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="save">保存</button>
+        </div>
+    </div>
+
+</form>
+</body>
