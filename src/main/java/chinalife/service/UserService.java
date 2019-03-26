@@ -44,4 +44,6 @@ public class UserService {
     public void deleteById(int id){
         userRepository.deleteById(id);
     }
+
+    public void changePassword(String password,int id){userRepository.changePassword(password,id);}
 }

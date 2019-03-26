@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class MainController {
 
     @ResponseBody
     @PostMapping("/login/post")
-    public Map<String, Object> loginPost(User user, HttpServletRequest request) {
+    public Map<String, Object> loginPost(User user, HttpServletRequest request, HttpSession session) {
         String rightCode = (String) request.getSession().getAttribute("rightCode");
         String tryCode = request.getParameter("tryCode");
         Map<String, Object> map = new HashMap<>(10);
@@ -63,6 +64,8 @@ public class MainController {
             //4.执行登录方法
             try {
                 subject.login(token);
+                User user1 =userService.findById(user.getId());
+                session.setAttribute("user",user1);
                 map.put("success", "登录成功");
                 //登录成功
             } catch (UnknownAccountException e) {
