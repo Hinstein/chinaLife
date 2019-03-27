@@ -1,7 +1,9 @@
 package chinalife.controller;
 
+import chinalife.entity.Insurance;
 import chinalife.entity.Permission;
 import chinalife.entity.User;
+import chinalife.service.InsuranceService;
 import chinalife.service.PermissionService;
 import chinalife.service.UserService;
 import net.sf.json.JSONArray;
@@ -32,6 +34,9 @@ public class AdminController {
 
     @Autowired
     PermissionService permsService;
+
+    @Autowired
+    InsuranceService insuranceService;
 
     @GetMapping("/allUser")
     public String allUser() {
@@ -196,5 +201,22 @@ public class AdminController {
         Map<String,String> map =new HashMap<>();
         map.put("success","删除成功！");
         return map;
+    }
+
+
+
+    @ResponseBody
+    @GetMapping("/insurance/data")
+    public Map<String, Object> insuranceData(HttpServletRequest request) {
+        int pageSize = Integer.parseInt(request.getParameter("limit"));
+        int pageNumber = Integer.parseInt(request.getParameter("page"));
+        Page<Insurance> insurances = insuranceService.findAll(pageNumber, pageSize);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        result.put("count", insurances.getTotalElements());
+        JSONArray json = JSONArray.fromObject(insurances.getContent());
+        result.put("data", json);
+        return result;
     }
 }

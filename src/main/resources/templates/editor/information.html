@@ -26,22 +26,20 @@
                 </li>
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
-
-
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
                         <cite>用户名</cite>
                     </a>
                     <dl class="layui-nav-child">
+                        <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/editor/password}">修改密码</a></dd>
+                        <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/editor/information}">修改信息</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
                     </dl>
                 </li>
-
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
                     <a href="javascript:;" layadmin-event="about"><i
                             class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
-
             </ul>
         </div>
 
@@ -62,51 +60,58 @@
                             <dd><a th:href="@{/admin/createUser}">添加管理员</a></dd>
                         </dl>
                     </li>
-                </ul>
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all"
-                    lay-filter="layadmin-system-side-menu">
                     <li class="layui-nav-item">
                         <a class="" href="javascript:;">保单管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
-                            <dd><a th:href="@{/admin/createUser}">添加管理员</a></dd>
+                            <dd><a class="" th:href="@{/create}">添加</a></dd>
+                            <dd><a class="" th:href="@{/delete}">删除</a></dd>
+                            <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
+                            <dd><a class="" th:href="@{/update}">更新</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item" shiro:hasPermission="create">
-                        <a class="" th:href="@{/create}">添加</a>
-                    </li>
-                    <li class="layui-nav-item" shiro:hasPermission="delete">
-                        <a class="" th:href="@{/delete}">删除</a>
-                    </li>
-                    <li class="layui-nav-item" shiro:hasPermission="retrieve">
-                        <a class="" th:href="@{/retrieve}">查找</a>
-                    </li>
-                    <li class="layui-nav-item" shiro:hasPermission="update">
-                        <a class="" th:href="@{/update}">更新</a>
-                    </li>
-                </ul>
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all"
-                    lay-filter="layadmin-system-side-menu">
-
-                    <li class="layui-nav-item">
+                    <li class="layui-nav-item layui-nav-itemed" >
                         <a class="" href="javascript:;">个人信息管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a th:href="@{/admin/allUser}">修改密码</a></dd>
-                            <dd><a th:href="@{/admin/createUser}">修改个人信息</a></dd>
+                            <dd ><a th:href="@{/editor/password}">修改密码</a></dd>
+                            <dd class="layui-this"><a th:href="@{/editor/information}">修改信息</a></dd>
                         </dl>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="layadmin-pagetabs" id="LAY_app_tabs">
-            <a>主页</a>
+            <a>个人信息管理/修改信息</a>
         </div>
         <!-- 主体内容 -->
         <div class="layui-body">
             <div class="layui-fluid">
                 <div class="layui-card">
-                    <div class="layui-card-header">控制台</div>
+                    <div class="layui-card-header">修改信息</div>
                     <div class="layui-card-body">
+                        <form class="layui-form" action="" lay-filter="example">
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">工号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="id" autocomplete="off"
+                                            class="layui-input" disabled="disabled" th:value="${user.id}">
+                                </div>
+                            </div>
+                            <div class="layui-form-item ">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-block ">
+                                    <input type="text" name="username" lay-verify="required|name" placeholder="请输入用户名"
+                                           autocomplete="off" class="layui-input" th:value="${user.username}">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="save">保存</button>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>

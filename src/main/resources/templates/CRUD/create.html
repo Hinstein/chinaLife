@@ -1,10 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/assets/layui/css/layui.css"
+          th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/adminLogin/admin.css}">
+
 </head>
-<body>
-添加页面
+<body class="layui-layout-body">
+
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a th:href="@{/admin/index}" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-home"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;">
+                        <cite>用户名</cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd layadmin-event="logout" style="text-align: center;"><a
+                                th:href="@{/editor/password}">修改密码</a></dd>
+                        <dd layadmin-event="logout" style="text-align: center;"><a
+                                th:href="@{/editor/information}">修改信息</a></dd>
+                        <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="about"><i
+                            class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo" lay-href="home/console.html">
+                    <span>后台管理系统</span>
+                </div>
+
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
+                    lay-filter="layadmin-system-side-menu">
+
+                    <li class="layui-nav-item" shiro:hasPermission="admin">
+                        <a class="" href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
+                            <dd><a th:href="@{/admin/createUser}">添加管理员</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">保单管理</a>
+                        <dl class="layui-nav-child">
+                            <dd class="layui-this"><a class="" th:href="@{/create}">添加</a></dd>
+                            <dd><a class="" th:href="@{/delete}">删除</a></dd>
+                            <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
+                            <dd><a class="" th:href="@{/update}">更新</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">个人信息管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a th:href="@{/editor/password}">修改密码</a></dd>
+                            <dd><a th:href="@{/editor/information}">修改信息</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <a>主页</a>
+        </div>
+        <!-- 主体内容 -->
+        <div class="layui-body">
+            <div class="layui-fluid">
+                <div class="layui-card">
+                    <div class="layui-card-header">添加保单</div>
+                    <div class="layui-card-body">
+                        <form class="layui-form layui-form-pane" action="" lay-filter="example">
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">投保人姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="holderName" autocomplete="off"
+                                           class="layui-input" placeholder="请输入投保人姓名" lay-verify="required|name">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item " pane>
+                                <label class="layui-form-label">投保人性别</label>
+                                <div class="layui-input-block ">
+                                    <input type="radio" name="sex" value="0" title="男" checked>
+                                    <input type="radio" name="sex" value="1" title="女" >
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item ">
+                                <label class="layui-form-label">出生日期</label>
+                                <div class="layui-input-block ">
+                                    <input type="text" class="layui-input" lay-verify="required" id="test1" name="birthDate"
+                                           placeholder="请输入出生日期">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item ">
+                                <label class="layui-form-label">电话号码</label>
+                                <div class="layui-input-block ">
+                                    <input type="text" class="layui-input" lay-verify="required|phone"  name="mobile"
+                                           placeholder="请输入电话号码">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item ">
+                                <label class="layui-form-label">险种名称</label>
+                                <div class="layui-input-block">
+                                    <select name="polName" lay-verify="required">
+                                        <option value=""></option>
+                                        <option value="0">意外险</option>
+                                        <option value="1">健康险</option>
+                                        <option value="2">补充医疗险</option>
+                                        <option value="3">分红险</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item ">
+                                <label class="layui-form-label">保费金额</label>
+                                <div class="layui-input-block ">
+                                    <input type="text" name="money" lay-verify="required|number" placeholder="请输入保费金额"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item ">
+                                <label class="layui-form-label">被险保人1</label>
+                                <input type="text" name="insuredName1" lay-verify="required|name"
+                                       placeholder="请输入被险保人姓名"
+                                       autocomplete="off" class="layui-input layui-input-inline">
+                                <label class="layui-form-label">关系</label>
+                                <input type="text" name="rel1" lay-verify="required"
+                                       placeholder="请输入与投保人关系"
+                                       autocomplete="off" class="layui-input layui-input-inline">
+                            </div>
+
+                            <div class="layui-form-item ">
+                                <label class="layui-form-label">被险保人2</label>
+                                <input type="text" name="insuredName2" lay-verify="required|name"
+                                       placeholder="请输入被险保人姓名"
+                                       autocomplete="off" class="layui-input layui-input-inline">
+                                <label class="layui-form-label">关系</label>
+                                <input type="text" name="rel2" lay-verify="required"
+                                       placeholder="请输入与投保人关系"
+                                       autocomplete="off" class="layui-input layui-input-inline">
+                            </div>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="save">保存保单</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/jquery/jquery.js}"></script>
+<script th:src="@{/layui/layui.all.js}"></script>
+<script>
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+        form.verify({
+            password: [
+                /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[_\-@&=])[a-z0-9_\-@&=]{6,12}/
+                , '密码必须6到12位，且必须包含字母数字和特殊字符'
+            ],
+            name: [
+                /^([\u4e00-\u9fa5]){2,7}$/
+                , '姓名只能是中文，长度为2-7位'
+            ]
+        });
+        form.on('submit(save)', function (data) {
+            console.log(data.elem);//被执行事件的元素DOM对象，一般为button对象
+            console.log(data.form);//被执行提交的form对象，一般在存在form标签时才会返回
+            console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
+            $.ajax({
+                url:  "/create/insurance",
+                method: "post",
+                data: data.field,
+                dataType: "json",
+                success: function (msg) {
+                    // //清除表单内容
+                    layer.msg(msg.success);
+                    // setTimeout(function () {
+                    //     location.href="/admin/allUser";
+                    // },2000)
+                },
+                error: function () {
+                    layer.msg("网络错误，注册失败");
+                }
+            });
+
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    });
+</script>
 </body>
 </html>

@@ -5,6 +5,7 @@ import chinalife.service.UserService;
 import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,9 @@ public class EditorController {
     }
 
     @GetMapping("/information")
-    public String editorInformation() {
+    public String editorInformation(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user",user);
         return "/editor/information";
     }
 

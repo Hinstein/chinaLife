@@ -17,7 +17,7 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(length =50)
     private String perms;
 
     @Column
