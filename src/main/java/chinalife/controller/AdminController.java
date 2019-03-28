@@ -203,7 +203,11 @@ public class AdminController {
         return map;
     }
 
-
+    @GetMapping("/insurance")
+    public String insurance()
+    {
+        return "/admin/insurance/allInsurance";
+    }
 
     @ResponseBody
     @GetMapping("/insurance/data")

@@ -64,6 +64,7 @@
                     <li class="layui-nav-item">
                         <a class="" href="javascript:;">保单管理</a>
                         <dl class="layui-nav-child">
+                            <dd shiro:hasPermission="admin" ><a class="" th:href="@{/admin}">所有保单</a></dd>
                             <dd><a class="" th:href="@{/create}">添加</a></dd>
                             <dd><a class="" th:href="@{/delete}">删除</a></dd>
                             <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
