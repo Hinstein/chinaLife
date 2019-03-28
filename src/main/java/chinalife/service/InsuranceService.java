@@ -33,4 +33,11 @@ public class InsuranceService {
         return insuranceRepository.findAll(pageable);
     }
 
+    public Page<Insurance> findAllByClerkId(int clerkId,int pageNo, int pageSize){
+        if (pageNo == 0) {
+            pageNo = 1;
+        }
+        PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
+        return insuranceRepository.findAllByClerkId(clerkId,pageable);
+    }
 }

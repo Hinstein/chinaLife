@@ -1,6 +1,7 @@
 package chinalife.controller;
 
 import chinalife.entity.Insurance;
+import chinalife.entity.User;
 import chinalife.service.InsuranceService;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,18 +36,19 @@ public class RetrieveController {
         return "/CRUD/retrieve";
     }
 
-//    @ResponseBody
-//    @GetMapping("/insurance/data")
-//    public Map<String, Object> insuranceData(HttpServletRequest request) {
-//        int pageSize = Integer.parseInt(request.getParameter("limit"));
-//        int pageNumber = Integer.parseInt(request.getParameter("page"));
-//        Page<Insurance> insurances = insuranceService.findAll(pageNumber, pageSize);
-//        Map<String, Object> result = new HashMap<String, Object>();
-//        result.put("code", 0);
-//        result.put("msg", "");
-//        result.put("count", insurances.getTotalElements());
-//        JSONArray json = JSONArray.fromObject(insurances.getContent());
-//        result.put("data", json);
-//        return result;
-//    }
+    @ResponseBody
+    @GetMapping("/insurance/data")
+    public Map<String, Object> insuranceData(HttpServletRequest request, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        int pageSize = Integer.parseInt(request.getParameter("limit"));
+        int pageNumber = Integer.parseInt(request.getParameter("page"));
+        Page<Insurance> insurances = insuranceService.findAllByClerkId(user.getId(),pageNumber, pageSize);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        result.put("count", insurances.getTotalElements());
+        JSONArray json = JSONArray.fromObject(insurances.getContent());
+        result.put("data", json);
+        return result;
+    }
 }

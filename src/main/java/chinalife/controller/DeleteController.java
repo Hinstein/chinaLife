@@ -20,4 +20,5 @@ public class DeleteController {
     public String delete(){
         return "/CRUD/delete";
     }
+
 }

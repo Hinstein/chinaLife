@@ -63,12 +63,14 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed">
+                        <a shiro:hasPermission="admin" th:href="@{/admin/insurance}">所有保单</a>
+                    </li>
+                    <li class="layui-nav-item " shiro:lacksPermission="admin">
                         <a class="" href="javascript:;">保单管理</a>
                         <dl class="layui-nav-child">
-                            <dd shiro:hasPermission="admin" class="layui-this"><a class="" th:href="@{/admin}">所有保单</a></dd>
                             <dd><a class="" th:href="@{/create}">添加</a></dd>
                             <dd><a class="" th:href="@{/delete}">删除</a></dd>
-                            <dd ><a class="" th:href="@{/retrieve}">查找</a></dd>
+                            <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
                             <dd><a class="" th:href="@{/update}">更新</a></dd>
                         </dl>
                     </li>

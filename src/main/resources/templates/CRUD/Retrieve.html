@@ -62,14 +62,16 @@
                             <dd><a th:href="@{/admin/createUser}">添加管理员</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item layui-nav-itemed">
+                    <li class="layui-nav-item ">
+                        <a shiro:hasPermission="admin" th:href="@{/admin/insurance}">所有保单</a>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed" shiro:lacksPermission="admin">
                         <a class="" href="javascript:;">保单管理</a>
                         <dl class="layui-nav-child">
-                            <dd shiro:hasPermission="admin" ><a class="" th:href="@{/admin}">所有保单</a></dd>
-                            <dd><a class="" th:href="@{/create}">添加</a></dd>
-                            <dd><a class="" th:href="@{/delete}">删除</a></dd>
-                            <dd class="layui-this"><a class="" th:href="@{/retrieve}">查找</a></dd>
-                            <dd><a class="" th:href="@{/update}">更新</a></dd>
+                            <dd><a th:href="@{/create}">添加</a></dd>
+                            <dd><a th:href="@{/delete}">删除</a></dd>
+                            <dd class="layui-this"><a th:href="@{/retrieve}">查找</a></dd>
+                            <dd><a th:href="@{/update}">更新</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -89,10 +91,10 @@
         <div class="layui-body">
             <div class="layui-fluid">
                 <div class="layui-card">
-                    <div class="layui-card-header">查找</div>
+                    <div class="layui-card-header">查找保单</div>
                     <div class="layui-card-body">
                         <table class="layui-table" id="userData" lay-filter="test"
-                               lay-skin="line">
+                               lay-skin="line" shiro:lacksPermission="admin">
                         </table>
                         <script type="text/html" id="toolbarDemo">
                             <div class="layui-btn-container">
@@ -129,6 +131,7 @@
             , limit: 10 //每页默认显示的数量
             , skin: 'line'
             , size: 'lg'
+            ,cellMinWidth: 80
             , cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'id', title: '工号'}
@@ -148,8 +151,8 @@
                             return "分红险";
                     }
                 }
-                , {field: 'clerkId', title: '操作员'}
-                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#action'}
+                , {field: 'inforceTime', title: '添加时间'}
+                , { title: '操作', align: 'center', toolbar: '#action'}
             ]]
         });
         table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"

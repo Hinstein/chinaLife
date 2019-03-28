@@ -17,4 +17,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface InsuranceRepository extends JpaRepository<Insurance,Integer> {
     @Override
     Page<Insurance> findAll(Pageable pageable);
+
+    Page<Insurance> findAllByClerkId(int id,Pageable pageable);
 }

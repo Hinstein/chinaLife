@@ -32,8 +32,10 @@
                         <cite>用户名</cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/editor/password}">修改密码</a></dd>
-                        <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/editor/information}">修改信息</a></dd>
+                        <dd layadmin-event="logout" style="text-align: center;"><a
+                                th:href="@{/editor/password}">修改密码</a></dd>
+                        <dd layadmin-event="logout" style="text-align: center;"><a
+                                th:href="@{/editor/information}">修改信息</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
                     </dl>
                 </li>
@@ -61,17 +63,19 @@
                             <dd class="layui-this"><a th:href="@{/admin/createUser}">添加管理员</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item">
+                    <li class="layui-nav-item ">
+                        <a shiro:hasPermission="admin" th:href="@{/admin/insurance}">所有保单</a>
+                    </li>
+                    <li class="layui-nav-item " shiro:lacksPermission="admin">
                         <a class="" href="javascript:;">保单管理</a>
                         <dl class="layui-nav-child">
-                            <dd shiro:hasPermission="admin" ><a class="" th:href="@{/admin}">所有保单</a></dd>
-                            <dd><a class="" th:href="@{/create}">添加</a></dd>
-                            <dd><a class="" th:href="@{/delete}">删除</a></dd>
-                            <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
-                            <dd><a class="" th:href="@{/update}">更新</a></dd>
+                            <dd><a th:href="@{/create}">添加</a></dd>
+                            <dd><a th:href="@{/delete}">删除</a></dd>
+                            <dd><a th:href="@{/retrieve}">查找</a></dd>
+                            <dd><a th:href="@{/update}">更新</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item" >
+                    <li class="layui-nav-item">
                         <a class="" href="javascript:;">个人信息管理</a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/editor/password}">修改密码</a></dd>
@@ -165,8 +169,8 @@
                     // //清除表单内容
                     layer.msg(msg.success);
                     setTimeout(function () {
-                        location.href="/admin/allUser";
-                    },2000)
+                        location.href = "/admin/allUser";
+                    }, 2000)
                 },
                 error: function () {
                     layer.msg("网络错误，注册失败");
