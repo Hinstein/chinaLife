@@ -37,7 +37,7 @@
                                type="text" placeholder="请输入验证码" id="tryCode" >
 
                     </div>
-                    <img alt="验证码" onclick="this.src='/defaultKaptcha?d='+new Date()*1" src="/defaultKaptcha" />
+                    <img alt="验证码" onclick="this.src='/defaultKaptcha?d='+new Date()*1" src="/defaultKaptcha" id="code"/>
                     <div class="mb2">
                         <a id="login" lay-filter="sub" class="act-but submit" href="javascript:;"
                                         style="color: #FFFFFF">登录</a>
@@ -75,7 +75,8 @@
                         location.href="/index";
                     }
                    else
-                       layer.msg(data.error)
+                    {layer.msg(data.error);
+                    $("#code").click();}
                 }, error: function () {
                     layer.msg("网络错误，登录失败");
                 }

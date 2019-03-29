@@ -31,11 +31,14 @@
                         <cite>用户名</cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd layadmin-event="logout" style="text-align: center;"><a
-                                th:href="@{/editor/password}">修改密码</a></dd>
-                        <dd layadmin-event="logout" style="text-align: center;"><a
-                                th:href="@{/editor/information}">修改信息</a></dd>
-                        <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
+                        <dd layadmin-event="logout" style="text-align: center;">
+                            <a th:href="@{/editor/password}">修改密码</a</dd>
+                        <dd layadmin-event="logout" style="text-align: center;">
+                            <a th:href="@{/editor/information}">修改信息</a>
+                        </dd>
+                        <dd layadmin-event="logout" style="text-align: center;">
+                            <a th:href="@{/exit}">退出</a>
+                        </dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>

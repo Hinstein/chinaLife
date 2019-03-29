@@ -133,7 +133,6 @@
             , size: 'lg'
             , cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: '工号'}
                 , {field: 'holderName', title: '投保人'}
                 , {field: 'mobile', title: '电话号码'}
                 , {field: 'birthDate', title: '出生日期'}
@@ -161,21 +160,20 @@
             if (layEvent === 'pass') { //通过
                 layer.open({
                     type: 2
-                    , title: '编辑用户'
-                    , content: ["/admin/user/editor/" + data.id, 'no']
+                    , title: '保单更改'
+                    , content: ["/update/insurance/" + data.id, 'no']
                     , maxmin: true
-                    , area: ['550px', '470px']
+                    , area: ['550px', '680px']
                 });
             } else if (layEvent === 'delete') { //删除
-                layer.confirm('删除工号为' + data.id + '账号么', function (index) {
+                layer.confirm('删除投保人姓名为“' + data.holderName+ '”的保单么', function (index) {
                     $.ajax({
-                        url: '/admin/user/delete/' + data.id,
-                        method: "post",
+                        url: '/delete/insurance/' + data.id,
+                        method: "delete",
                         dataType: "json",
                         success: function (msg) {
                             layer.msg(msg.success);
                             // //清除表单内容
-
                             tableIns.reload();
                         },
                         error: function () {
@@ -195,15 +193,15 @@
                     var ids = '';
                     for (var i = 0; i < data.length; i++) {
                         if (i !== (data.length - 1)) {
-                            ids += data[i].id + ",";
+                            ids += data[i].holderName + ",";
                         } else {
-                            ids += data[i].id;
+                            ids += data[i].holderName;
                         }
                     }
-                    layer.confirm('删除工号为' + ids + '账号么', function (index) {
+                    layer.confirm('删除投保人姓名为“' + ids + '”的保单么', function (index) {
                         for (var i = 0; i < data.length; i++) {
                             $.ajax({
-                                url: '/admin/user/delete/' + data[i].id,
+                                url: '/delete/insurance/' + data.id,
                                 method: "post",
                                 dataType: "json",
                                 success: function (msg) {

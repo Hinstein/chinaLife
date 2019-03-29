@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/assets/layui/css/layui.css"
+          th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/adminLogin/admin.css}">
+
+</head>
+<body>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-row" id="popSearchRoleTest">
+            <div class="layui-col-md11">
+
+                <form class="layui-form" action="" lay-filter="example">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">保单号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="baodanNo" lay-verify="required" autocomplete="off"
+                                   placeholder="请输入工号" class="layui-input" th:value="${insurance.baodanNo}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">投保人姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="holderName" lay-verify="required|name" placeholder="请输入用户名"
+                                   autocomplete="off" class="layui-input" th:value="${insurance.holderName}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">投保人性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="0" title="男" th:checked="${insurance.sex==0}">
+                            <input type="radio" name="sex" value="1" title="女" th:checked="${insurance.sex==1}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">出生日期</label>
+                        <div class="layui-input-block ">
+                            <input type="text" class="layui-input" lay-verify="required" id="test1"
+                                   name="birthDate"
+                                   placeholder="请输入出生日期" th:value="${insurance.birthDate}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item ">
+                        <label class="layui-form-label">电话号码</label>
+                        <div class="layui-input-block ">
+                            <input type="text" class="layui-input" lay-verify="required|phone" name="mobile"
+                                   placeholder="请输入电话号码" th:value="${insurance.mobile}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item ">
+                        <label class="layui-form-label">险种名称</label>
+                        <div class="layui-input-block">
+                            <select name="polName" lay-verify="required">
+                                <option value=""></option>
+                                <option value="0" th:selected="${insurance.polName==0}">意外险</option>
+                                <option value="1" th:selected="${insurance.polName==1}">健康险</option>
+                                <option value="2" th:selected="${insurance.polName==2}">补充医疗险</option>
+                                <option value="3" th:selected="${insurance.polName==3}">分红险</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item ">
+                        <label class="layui-form-label">保费金额</label>
+                        <div class="layui-input-block ">
+                            <input type="text" name="money" lay-verify="required|number" placeholder="请输入保费金额"
+                                   autocomplete="off" class="layui-input" th:value="${insurance.money}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item ">
+                        <label class="layui-form-label">被险保人1</label>
+                        <div class="layui-input-block ">
+                            <input type="text" name="insuredName1" lay-verify="required" placeholder="请输入被险保人姓名"
+                                   autocomplete="off" class="layui-input" th:value="${insurance.insuredName1}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item ">
+                        <label class="layui-form-label">关系</label>
+                        <div class="layui-input-block ">
+                            <input type="text" name="rel1" lay-verify="required" placeholder="请输入被险保人姓名"
+                                   autocomplete="off" class="layui-input" th:value="${insurance.rel1}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item ">
+                        <label class="layui-form-label">被险保人2</label>
+                        <div class="layui-input-block ">
+                            <input type="text" name="insuredName2" lay-verify="required" placeholder="请输入被险保人姓名"
+                                   autocomplete="off" class="layui-input" th:value="${insurance.insuredName2}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item ">
+                        <label class="layui-form-label">关系</label>
+                        <div class="layui-input-block ">
+                            <input type="text" name="rel2" lay-verify="required" placeholder="请输入被险保人姓名"
+                                   autocomplete="off" class="layui-input" th:value="${insurance.rel2}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input  name="id" hidden="hidden" th:value="${insurance.id}">
+                            <button class="layui-btn" lay-submit="" lay-filter="save">保存</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/jquery/jquery.js}"></script>
+<script th:src="@{/layui/layui.all.js}"></script>
+<script>
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+        form.verify({
+            password: [
+                /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[_\-@&=])[a-z0-9_\-@&=]{6,12}/
+                , '密码必须6到12位，且必须包含字母数字和特殊字符'
+            ],
+            name: [
+                /^([\u4e00-\u9fa5]){2,7}$/
+                , '姓名只能是中文，长度为2-7位'
+            ]
+        });
+        form.on('submit(save)', function (data) {
+            console.log(data.elem);//被执行事件的元素DOM对象，一般为button对象
+            console.log(data.form);//被执行提交的form对象，一般在存在form标签时才会返回
+            console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
+            $.ajax({
+                url: "/update/insurance/save",
+                method: "post",
+                data: data.field,
+                dataType: "json",
+                success: function (msg) {
+                    // //清除表单内容
+                    layer.msg(msg.success);
+                },
+                error: function () {
+                    layer.msg("网络错误，注册失败");
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
+</body>
+</html>

@@ -40,4 +40,16 @@ public class InsuranceService {
         PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
         return insuranceRepository.findAllByClerkId(clerkId,pageable);
     }
+
+    public void deleteById(int id){
+        insuranceRepository.deleteById(id);
+    }
+
+    public Insurance findById(int id){
+       return insuranceRepository.findById(id);
+    }
+
+    public void update(Insurance insurance){
+        insuranceRepository.updateInsruance(insurance);
+    }
 }
