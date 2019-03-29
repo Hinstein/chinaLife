@@ -20,7 +20,13 @@
             <!-- 头部区域 -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                    <a th:href="@{/index}" layadmin-event="flexible" title="侧边伸缩">
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a th:href="@{/index}" layadmin-event="flexible" title="">
                         <i class="layui-icon layui-icon-home"></i>
                     </a>
                 </li>
@@ -246,5 +252,6 @@
 </div>
 <script th:src="@{/jquery/jquery.js}"></script>
 <script th:src="@{/layui/layui.all.js}"></script>
+
 </body>
 </html>
