@@ -51,10 +51,7 @@
                 <div class="layui-logo" lay-href="home/console.html">
                     <span>后台管理系统</span>
                 </div>
-
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
-                    lay-filter="layadmin-system-side-menu">
-
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu" lay-filter="layadmin-system-side-menu">
                     <li class="layui-nav-item layui-nav-itemed" shiro:hasPermission="admin">
                         <a class="" href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
@@ -93,9 +90,7 @@
                 <div class="layui-card">
                     <div class="layui-card-header">兼职者信息管理</div>
                     <div class="layui-card-body">
-                        <table class="layui-table" id="userData" lay-filter="test"
-                               lay-skin="line">
-                        </table>
+                        <table class="layui-table" id="userData" lay-filter="test" lay-skin="line"></table>
                         <script type="text/html" id="toolbarDemo">
                             <div class="layui-btn-container">
                                 <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchDelete">批量删除
@@ -111,7 +106,6 @@
                         </script>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
