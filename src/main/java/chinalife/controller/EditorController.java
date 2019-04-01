@@ -1,12 +1,16 @@
 package chinalife.controller;
 
+import chinalife.entity.Photo;
 import chinalife.entity.User;
+import chinalife.service.PhotoService;
 import chinalife.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
 import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +37,9 @@ public class EditorController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PhotoService photoService;
 
     @GetMapping("/password")
     public String editorPassword() {
@@ -62,92 +69,73 @@ public class EditorController {
     }
 
     @GetMapping("/headPhoto")
-    public String editorHeadPhoto() {
+    public String editorHeadPhoto(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        Photo photo = photoService.findByUserId(user.getId());
+        if (photo != null) {
+            model.addAttribute("src", photo.getRelativePath());
+        } else {
+            model.addAttribute("src", "/images/head.png");
+        }
         return "/editor/headPhoto";
     }
 
     @ResponseBody
     @PostMapping("/addPhoto")
-    public Map<String,Object> addPhoto(@RequestParam("file") MultipartFile file, HttpSession session,   HttpServletRequest request) {
-//        Photo photo = new Photo();
+    public Map<String, Object> addPhoto(@RequestParam("file") MultipartFile file, HttpSession session, HttpServletRequest request) {
         HashMap<String, Object> map = new HashMap<>();
-        String str = "";
-        String league_id="2";
-
-        System.out.println("联赛id：" + league_id);
-
-        String url = request.getRequestURI();
-        System.out.println("URL:" + url);
-
+        User user = (User) session.getAttribute("user");
         try {
             if (null != file) {
-                //获得当前项目所在路径
-                String pathRoot = request.getSession().getServletContext().getRealPath("");
-                System.out.println("当前项目所在路径：" + pathRoot);
-
                 //生成uuid作为文件名称
                 String uuid = UUID.randomUUID().toString().replaceAll("-", "");
                 System.out.println("文件名称：" + uuid);
-
                 //获得文件类型（判断如果不是图片文件类型，则禁止上传）
                 String contentType = file.getContentType();
                 System.out.println("文件类型：" + contentType);
-
                 //获得文件后缀名称
                 String imageName = contentType.substring(contentType.indexOf("/") + 1);
                 System.out.println("文件后缀名称：" + imageName);
-                String filePath = "D:/temp-rainy/";
-
+                String filePath = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/images/";
                 //根据日期来创建对应的文件夹
-                String datePath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
+                String datePath = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
                 System.out.println("日期：" + datePath);
-
                 //根据id分类来创建对应的文件夹
-                String leagueIdPath = league_id + "/";
-
-                //日期
-                /*String path=filePath+datePath;*/
-                //联赛id
+                String leagueIdPath = user.getId() + "/";
+                //userId
                 String path = filePath + leagueIdPath;
-
                 //如果不存在，则创建新文件夹
                 File f = new File(path);
                 if (!f.exists()) {
                     f.mkdirs();
                 }
-
                 //新生成的文件名称
                 String fileName = uuid + "." + imageName;
-                System.out.println("新生成的文件名称：" + fileName);
-                session.setAttribute("fileName", fileName);
-
+                System.out.println("新生成的文件名称: " + fileName);
                 //图片保存的完整路径
                 String pathName = path + fileName;
-                System.out.println("图片保存的完整路径"+pathName);
-
-                //获取所属联赛ID
-                int leagueID = Integer.parseInt(league_id);
-
-                //图片的静态资源路径
-                String staticPath = "/upload/images/" + leagueID + "/" + fileName;
-                System.out.println("静态资源路径：" + staticPath);
-
+                String relativePath = "/images/" + leagueIdPath + fileName;
+                System.out.println("图片保存的完整路径: " + pathName);
+                System.out.println("相对路径: " + relativePath);
                 //复制操作
                 //将图片从源位置复制到目标位置
                 file.transferTo(new File(pathName));
-
-                HashMap<String,String> srcmap =new HashMap<>();
-                map.put("conde",0);
-                map.put("msg","上传成功！");
-                srcmap.put("src",pathName);
-                map.put("data",srcmap);
-
-//                photo.setStaticPath(staticPath);    //将图片保存的静态资源路径插入数据库
-//                photo.setLeagueID(leagueID);        //将所属联赛ID插入数据库
-//                photo.setUploadDate(datePath);      //将上传日期插入数据库
-//                photo.setDestFile(pathName);        //将完整路径插入数据库
-//                photo.setFileName(fileName);        //将最后保存的完整文件名插入数据库
-//                photoRepository.save(photo);
+                HashMap<String, String> srcmap = new HashMap<>();
+                map.put("conde", 0);
+                map.put("msg", "上传成功！");
+                srcmap.put("src", pathName);
+                map.put("data", srcmap);
+                Photo photo = new Photo();
+                photo.setUserId(user.getId());
+                photo.setDatePath(datePath);
+                photo.setPathName(pathName);
+                photo.setFileName(fileName);
+                photo.setRelativePath(relativePath);
+                if (photoService.findByUserId(user.getId()) != null) {
+                    photoService.update(photo);
+                } else {
+                    photoService.save(photo);
+                }
             } else {
                 System.out.println("文件为空");
             }
