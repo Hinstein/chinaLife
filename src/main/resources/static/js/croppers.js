@@ -7,7 +7,7 @@ layui.config({
 }).define(['jquery','layer','cropper'],function (exports) {
     var $ = layui.jquery
         ,layer = layui.layer;
-    var html = "<link rel=\"stylesheet\" href=\"/static/cropper/cropper.css\">\n" +
+    var html = "<link rel=\"stylesheet\" href=\"/static/static/cropper/cropper.css\">\n" +
         "<div class=\"layui-fluid showImgEdit\" style=\"display: none\">\n" +
         "    <div class=\"layui-form-item\">\n" +
         "        <div class=\"layui-input-inline layui-btn-container\" style=\"width: auto;\">\n" +

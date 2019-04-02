@@ -3,11 +3,11 @@
  */
 
 layui.config({
-    base: '/static/cropper/' //layui自定义layui组件目录
+   base: './' //layui自定义layui组件目录
 }).define(['jquery','layer','cropper'],function (exports) {
     var $ = layui.jquery
         ,layer = layui.layer;
-    var html = "<link rel=\"stylesheet\" href=\"/static/cropper/cropper.css\">\n" +
+    var html = "<link rel=\"stylesheet\" href=\"./cropper.css\">\n" +
         "<div class=\"layui-fluid showImgEdit\" style=\"display: none\">\n" +
         "    <div class=\"layui-form-item\">\n" +
         "        <div class=\"layui-input-inline layui-btn-container\" style=\"width: auto;\">\n" +
@@ -37,9 +37,9 @@ layui.config({
         "                    <button type=\"button\" class=\"layui-btn layui-icon layui-icon-right\" cropper-event=\"rotate\" data-option=\"15\" title=\"Rotate 90 degrees\"> 向右旋转</button>\n" +
         "                </div>\n" +
         "                <div class=\"layui-col-xs5\" style=\"text-align: right;\">\n" +
-        "                    <button type=\"button\" class=\"layui-btn\" title=\"移动\"></button>\n" +
-        "                    <button type=\"button\" class=\"layui-btn\" title=\"放大图片\"></button>\n" +
-        "                    <button type=\"button\" class=\"layui-btn\" title=\"缩小图片\"></button>\n" +
+        //"                    <button type=\"button\" class=\"layui-btn\" title=\"移动\"></button>\n" + 用move
+        "                    <button type=\"button\" class=\"layui-btn\" title=\"放大图片\" cropper-event=\"enlarge\">+</button>\n" +
+        "                    <button type=\"button\" class=\"layui-btn\" title=\"缩小图片\" cropper-event=\"narrow\">-</button>\n" +
         "                    <button type=\"button\" class=\"layui-btn layui-icon layui-icon-refresh\" cropper-event=\"reset\" title=\"重置图片\"></button>\n" +
         "                </div>\n" +
         "            </div>\n" +
@@ -91,7 +91,7 @@ layui.config({
                         height: saveH
                     }).toBlob(function(blob){
                         var formData=new FormData();
-                        formData.append('file',blob,'head.jpg');
+                        formData.append('file',blob,'head.jpg');//可以传其他参数，比如sessionID
                         $.ajax({
                             method:"post",
                             url: url, //用于文件上传的服务器端请求地址
@@ -99,13 +99,18 @@ layui.config({
                             processData: false,
                             contentType: false,
                             success:function(result){
-                                if(result.code == 0){
-                                    layer.msg(result.msg,{icon: 1});
+                                //上传成功之后的回调，done是页面中处理成功的done
+
+                                console.log(result)
                                     layer.closeAll('page');
-                                    return done(result.data.src);
-                                }else if(result.code == -1){
-                                    layer.alert(result.msg,{icon: 2});
-                                }
+                                    return done(result);
+                                // if(result.code > 0){
+                                //     layer.msg(result.msg,{icon: 1});
+                                //     layer.closeAll('page');
+                                //     return done(result.data.src);
+                                // }else{
+                                //     layer.alert(result.msg,{icon: 2});
+                                // }
 
                             }
                         });
@@ -117,6 +122,10 @@ layui.config({
                     //重设图片
                 }else if(event === 'reset'){
                     image.cropper('reset');
+                }else if(event === 'enlarge'){
+                    image.cropper('zoom',0.1);
+                }else if(event === 'narrow'){
+                    image.cropper('zoom',-0.1);
                 }
                 //文件选择
                 file.change(function () {

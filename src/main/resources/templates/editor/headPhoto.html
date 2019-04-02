@@ -9,122 +9,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/css/adminLogin/admin.css}">
-    <link rel="stylesheet" th:href="@{/css/cropper.css}">
+    <link rel="stylesheet" th:href="@{/cropper/cropper.css}">
+    <script th:src="@{/jquery/jquery.js}"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>-->
+    <script th:src="@{/layui/layui.all.js}"></script>
+    <script th:src="@{/cropper/croppers.js}"></script>
+    <script th:src="@{/cropper/cropper.js}"></script>
+
     <!--<style type="text/css">-->
-    <!--* {-->
-    <!--margin: 0;-->
-    <!--padding: 0;-->
-    <!--}-->
+        <!--* {-->
+            <!--margin: 0;-->
+            <!--padding: 0;-->
+        <!--}-->
 
-    <!--#upload_D {-->
-    <!--position: fixed;-->
-    <!--top: 0;-->
-    <!--left: 0;-->
-    <!--width: 100%;-->
-    <!--height: 100%;-->
-    <!--background: rgba(0, 0, 0, 0.5);-->
-    <!--display: none;-->
-    <!--}-->
+        <!--#upload_D {-->
+            <!--position: fixed;-->
+            <!--top: 0;-->
+            <!--left: 0;-->
+            <!--width: 100%;-->
+            <!--height: 100%;-->
+            <!--background: rgba(0, 0, 0, 0.5);-->
+            <!--display: none;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame {-->
-    <!--width: 666px;-->
-    <!--height: 580px;-->
-    <!--background: #FFFFFF;-->
-    <!--border-radius: 10px;-->
-    <!--position: fixed;-->
-    <!--top: 0;-->
-    <!--left: 0;-->
-    <!--right: 0;-->
-    <!--bottom: 0;-->
-    <!--margin: auto;-->
-    <!--overflow: hidden;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame {-->
+            <!--width: 666px;-->
+            <!--height: 580px;-->
+            <!--background: #FFFFFF;-->
+            <!--border-radius: 10px;-->
+            <!--position: fixed;-->
+            <!--top: 0;-->
+            <!--left: 0;-->
+            <!--right: 0;-->
+            <!--bottom: 0;-->
+            <!--margin: auto;-->
+            <!--overflow: hidden;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_title {-->
-    <!--padding: 28px 46px 28px 46px;-->
-    <!--border-bottom: 1px solid #e7e7e7;-->
-    <!--overflow: hidden;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_title {-->
+            <!--padding: 28px 46px 28px 46px;-->
+            <!--border-bottom: 1px solid #e7e7e7;-->
+            <!--overflow: hidden;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_title > .upload_title_left {-->
-    <!--float: left;-->
-    <!--line-height: 24px;-->
-    <!--font-size: 18px;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_title > .upload_title_left {-->
+            <!--float: left;-->
+            <!--line-height: 24px;-->
+            <!--font-size: 18px;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_title > .upload_title_right {-->
-    <!--float: right;-->
-    <!--cursor: pointer;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_title > .upload_title_right {-->
+            <!--float: right;-->
+            <!--cursor: pointer;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_fileBtn {-->
-    <!--padding: 24px 46px;-->
-    <!--line-height: 34px;-->
-    <!--font-size: 16px;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_fileBtn {-->
+            <!--padding: 24px 46px;-->
+            <!--line-height: 34px;-->
+            <!--font-size: 16px;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_fileBtn > input {-->
-    <!--display: none;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_fileBtn > input {-->
+            <!--display: none;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_fileBtn > label {-->
-    <!--display: inline-block;-->
-    <!--width: 88px;-->
-    <!--height: 34px;-->
-    <!--text-align: center;-->
-    <!--border-radius: 5px;-->
-    <!--background: #ff5757;-->
-    <!--margin-left: 22px;-->
-    <!--color: #FFFFFF;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_fileBtn > label {-->
+            <!--display: inline-block;-->
+            <!--width: 88px;-->
+            <!--height: 34px;-->
+            <!--text-align: center;-->
+            <!--border-radius: 5px;-->
+            <!--background: #ff5757;-->
+            <!--margin-left: 22px;-->
+            <!--color: #FFFFFF;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_content {-->
-    <!--padding: 0 46px;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_content {-->
+            <!--padding: 0 46px;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_content > #clipArea {-->
-    <!--width: 388px;-->
-    <!--height: 388px;-->
-    <!--float: left;-->
-    <!--margin-left: 20px;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_content > #clipArea {-->
+            <!--width: 388px;-->
+            <!--height: 388px;-->
+            <!--float: left;-->
+            <!--margin-left: 20px;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_content .upload_content_right {-->
-    <!--float: right;-->
-    <!--width: 120px;-->
-    <!--margin-right: 20px;-->
-    <!--text-align: center;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_content .upload_content_right {-->
+            <!--float: right;-->
+            <!--width: 120px;-->
+            <!--margin-right: 20px;-->
+            <!--text-align: center;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_content .upload_content_right .upload_view {-->
-    <!--width: 120px;-->
-    <!--height: 120px;-->
-    <!--border-radius: 50%;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_content .upload_content_right .upload_view {-->
+            <!--width: 120px;-->
+            <!--height: 120px;-->
+            <!--border-radius: 50%;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_content .upload_content_right #clipBtn {-->
-    <!--width: 90px;-->
-    <!--height: 34px;-->
-    <!--border: none;-->
-    <!--outline: none;-->
-    <!--border-radius: 5px;-->
-    <!--background: #FF5757;-->
-    <!--color: #FFFFFF;-->
-    <!--margin-top: 196px;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_content .upload_content_right #clipBtn {-->
+            <!--width: 90px;-->
+            <!--height: 34px;-->
+            <!--border: none;-->
+            <!--outline: none;-->
+            <!--border-radius: 5px;-->
+            <!--background: #FF5757;-->
+            <!--color: #FFFFFF;-->
+            <!--margin-top: 196px;-->
+        <!--}-->
 
-    <!--#upload_D > .upload_frame > .upload_content .upload_content_right label {-->
-    <!--display: block;-->
-    <!--margin-top: 14px;-->
-    <!--font-size: 16px;-->
-    <!--color: #666666;-->
-    <!--}-->
+        <!--#upload_D > .upload_frame > .upload_content .upload_content_right label {-->
+            <!--display: block;-->
+            <!--margin-top: 14px;-->
+            <!--font-size: 16px;-->
+            <!--color: #666666;-->
+        <!--}-->
 
-    <!--#view {-->
-    <!--width: 60px;-->
-    <!--height: 60px;-->
-    <!--border-radius: 50%;-->
-    <!--}-->
+        <!--#view {-->
+            <!--width: 60px;-->
+            <!--height: 60px;-->
+            <!--border-radius: 50%;-->
+        <!--}-->
     <!--</style>-->
 </head>
 <body class="layui-layout-body">
@@ -210,55 +216,52 @@
                     <div class="layui-card-body">
                         <!--<form class="layui-form" action="" lay-filter="example">-->
 
-                        <!--<div class="layui-upload">-->
-                        <!--<button type="button" class="layui-btn" id="test1">上传图片</button>-->
-                        <!--<div class="layui-upload-list">-->
-                        <!--<img class="layui-upload-img" id="demo1" th:src="${src}">-->
-                        <!--&lt;!&ndash;<img class="layui-upload-img"  th:src="@{/images/10000002/8d8a2613933846da9627d1ce193a9397.jpeg}">&ndash;&gt;-->
-                        <!--<p id="demoText"></p>-->
-                        <!--</div>-->
+                            <!--&lt;!&ndash;<div class="layui-upload">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<button type="button" class="layui-btn" id="test1">上传图片</button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="layui-upload-list">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<img class="layui-upload-img" id="demo1" th:src="${src}">&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<img class="layui-upload-img"  th:src="@{/images/10000002/8d8a2613933846da9627d1ce193a9397.jpeg}">&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p id="demoText"></p>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
 
-                        <!--<img class="layui-upload-img" id="demo1" th:src="${src}">-->
-                        <!--<p class="upload_view" id="view"></p>-->
-                        <!--<button class="open layui-btn" type="button">修改头像</button>-->
-                        <!--<div id="upload_D">-->
-                        <!--<div class="upload_frame">-->
-                        <!--<div class="upload_title">-->
-                        <!--<span class="upload_title_left">请选择图片</span>-->
-                        <!--<span class="upload_title_right"><img th:src="@{/images/x.jpg}"></span>-->
-                        <!--</div>-->
-                        <!--<div class="upload_fileBtn">-->
-                        <!--图片上传-->
-                        <!--<input type="file" id="file" />-->
-                        <!--<label for="file">选择图片</label>-->
-                        <!--</div>-->
-                        <!--<div class="upload_content">-->
-                        <!--<div id="clipArea"></div>-->
-                        <!--<div class="upload_content_right">-->
-                        <!--<p class="upload_view"></p>-->
-                        <!--<button id="test1" type="button">保存修改</button>-->
-                        <!--<label for="file">重新选图片</label>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
+                            <!--<img class="layui-upload-img" id="demo1" th:src="${src}">-->
+                            <!--<p class="upload_view" id="view"></p>-->
+                            <!--<button class="open layui-btn" type="button">修改头像</button>-->
+                            <!--<div id="upload_D">-->
+                                <!--<div class="upload_frame">-->
+                                    <!--<div class="upload_title">-->
+                                        <!--<span class="upload_title_left">请选择图片</span>-->
+                                        <!--<span class="upload_title_right"><img th:src="@{/images/x.jpg}"></span>-->
+                                    <!--</div>-->
+                                    <!--<div class="upload_fileBtn">-->
+                                        <!--图片上传-->
+                                        <!--<input type="file" id="file"/>-->
+                                        <!--<label for="file">选择图片</label>-->
+                                    <!--</div>-->
+                                    <!--<div class="upload_content">-->
+                                        <!--<div id="clipArea"></div>-->
+                                        <!--<div class="upload_content_right">-->
+                                            <!--<p class="upload_view"></p>-->
+                                            <!--<button id="clipBtn" type="button">保存修改</button>-->
+                                            <!--<label for="file">重新选图片</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         <!--</form>-->
-
                         <div class="layui-form-item">
                             <label class="layui-form-label">头像</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="head" lay-verify="required" id="inputimgurl" placeholder="图片地址"
-                                       value="123.jpg" class="layui-input">
+                                <input type="text" name="head" lay-verify="required" id="inputimgurl" placeholder="图片地址" value="123.jpg" class="layui-input">
                             </div>
                             <div class="layui-input-inline">
                                 <div class="layui-upload-list" style="margin:0">
-                                    <img th:src="${src}" id="srcimgurl" class="layui-upload-img">
+                                    <img src="123.jpg" id="srcimgurl" class="layui-upload-img">
                                 </div>
                             </div>
                             <div class="layui-input-inline layui-btn-container" style="width: auto;">
-                                <button class="layui-btn layui-btn-primary" id="editimg">修改图片</button>
+                                <button class="layui-btn layui-btn-primary" id="editimg">修改图片</button >
                             </div>
                             <div class="layui-form-mid layui-word-aux">头像的尺寸限定150x150px,大小在50kb以内</div>
                         </div>
@@ -268,106 +271,105 @@
         </div>
     </div>
 </div>
-<script th:src="@{/jquery/jquery.js}"></script>
-<script th:src="@{/layui/layui.all.js}"></script>
+<!--<script th:src="@{/jquery/jquery.js}"></script>-->
+<!--&lt;!&ndash;<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>&ndash;&gt;-->
+<!--<script th:src="@{/layui/layui.all.js}"></script>-->
 <!--<script th:src="@{/js/iscroll-zoom.js}"></script>-->
 <!--<script th:src="@{/js/hammer.js}"></script>-->
 <!--<script th:src="@{/js/lrz.all.bundle.js}"></script>-->
 <!--<script th:src="@{/js/jquery.photoClip.min.js}"></script>-->
-<script th:src="@{/js/cropper.js}"></script>
-<script th:src="@{/js/croppers.js}"></script>
 <!--<script>-->
-<!--$(function () {-->
-<!--//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);-->
-<!--var clipArea = new bjj.PhotoClip("#clipArea", {-->
-<!--size: [260, 260],// 截取框的宽和高组成的数组。默认值为[260,260]-->
-<!--outputSize: [300, 300], // 输出图像的宽和高组成的数组。默认值为[0,0]，表示输出图像原始大小-->
-<!--//outputType: "jpg", // 指定输出图片的类型，可选 "jpg" 和 "png" 两种种类型，默认为 "jpg"-->
-<!--file: "#file", // 上传图片的<input type="file">控件的选择器或者DOM对象-->
-<!--view: ".upload_view", // 显示截取后图像的容器的选择器或者DOM对象-->
-<!--ok: "#clipBtn", // 确认截图按钮的选择器或者DOM对象-->
-<!--loadStart: function () {-->
-<!--// 开始加载的回调函数。this指向 fileReader 对象，并将正在加载的 file 对象作为参数传入-->
-<!--$('.cover-wrap').fadeIn();-->
-<!--console.log("照片读取中");-->
-<!--},-->
-<!--loadComplete: function () {-->
-<!--// 加载完成的回调函数。this指向图片对象，并将图片地址作为参数传入-->
-<!--console.log("照片读取完成");-->
-<!--},-->
-<!--//loadError: function(event) {}, // 加载失败的回调函数。this指向 fileReader 对象，并将错误事件的 event 对象作为参数传入-->
-<!--clipFinish: function (dataURL) {-->
-<!--// 裁剪完成的回调函数。this指向图片对象，会将裁剪出的图像数据DataURL作为参数传入-->
-<!--console.log(dataURL);-->
-<!--}-->
-<!--});-->
+    <!--$(function () {-->
+        <!--//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);-->
+        <!--var clipArea = new bjj.PhotoClip("#clipArea", {-->
+            <!--size: [260, 260],// 截取框的宽和高组成的数组。默认值为[260,260]-->
+            <!--outputSize: [300, 300], // 输出图像的宽和高组成的数组。默认值为[0,0]，表示输出图像原始大小-->
+            <!--//outputType: "jpg", // 指定输出图片的类型，可选 "jpg" 和 "png" 两种种类型，默认为 "jpg"-->
+            <!--file: "#file", // 上传图片的<input type="file">控件的选择器或者DOM对象-->
+            <!--view: ".upload_view", // 显示截取后图像的容器的选择器或者DOM对象-->
+            <!--ok: "#clipBtn", // 确认截图按钮的选择器或者DOM对象-->
+            <!--loadStart: function () {-->
+                <!--// 开始加载的回调函数。this指向 fileReader 对象，并将正在加载的 file 对象作为参数传入-->
+                <!--$('.cover-wrap').fadeIn();-->
+                <!--console.log("照片读取中");-->
+            <!--},-->
+            <!--loadComplete: function () {-->
+                <!--// 加载完成的回调函数。this指向图片对象，并将图片地址作为参数传入-->
+                <!--console.log("照片读取完成");-->
+            <!--},-->
+            <!--//loadError: function(event) {}, // 加载失败的回调函数。this指向 fileReader 对象，并将错误事件的 event 对象作为参数传入-->
+            <!--clipFinish: function (dataURL) {-->
+                <!--// 裁剪完成的回调函数。this指向图片对象，会将裁剪出的图像数据DataURL作为参数传入-->
+                <!--console.log(dataURL);-->
+            <!--}-->
+        <!--});-->
 
-<!--$(".upload_title_right").click(function () {-->
-<!--$("#upload_D").fadeOut();-->
-<!--});-->
+        <!--$(".upload_title_right").click(function () {-->
+            <!--$("#upload_D").fadeOut();-->
+        <!--});-->
 
-<!--$(".open").click(function () {-->
-<!--$("#upload_D").fadeIn();-->
-<!--});-->
-<!--});-->
-<!--layui.use('upload', function () {-->
-<!--var $ = layui.jquery, upload = layui.upload;-->
+        <!--$(".open").click(function () {-->
+            <!--$("#upload_D").fadeIn();-->
+        <!--});-->
+    <!--});-->
+    <!--layui.use('upload', function () {-->
+        <!--var $ = layui.jquery, upload = layui.upload;-->
 
-<!--//普通图片上传-->
-<!--var uploadInst = upload.render({-->
-<!--elem: '#test1'-->
-<!--, url: '/editor/addPhoto'-->
-<!--, before: function (obj) {-->
-<!--//预读本地文件示例，不支持ie8-->
-<!--obj.preview(function (index, file, result) {-->
-<!--$('#demo1').attr('src', result); //图片链接（base64）-->
-<!--});-->
-<!--}-->
-<!--, done: function (res) {-->
-<!--//如果上传失败-->
-<!--if (res.code === 0) {-->
-<!--layer.msg(res.msg);-->
-<!--}-->
-<!--//上传成功-->
-<!--}-->
-<!--, error: function () {-->
-<!--//演示失败状态，并实现重传-->
-<!--var demoText = $('#demoText');-->
-<!--demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');-->
-<!--demoText.find('.demo-reload').on('click', function () {-->
-<!--uploadInst.upload();-->
-<!--});-->
-<!--}-->
-<!--});-->
-<!--})-->
-
+        <!--//普通图片上传-->
+        <!--var uploadInst = upload.render({-->
+            <!--elem: '#test1'-->
+            <!--, url: '/editor/addPhoto'-->
+            <!--, before: function (obj) {-->
+                <!--//预读本地文件示例，不支持ie8-->
+                <!--obj.preview(function (index, file, result) {-->
+                    <!--$('#demo1').attr('src', result); //图片链接（base64）-->
+                <!--});-->
+            <!--}-->
+            <!--, done: function (res) {-->
+                <!--//如果上传失败-->
+                <!--if (res.code === 0) {-->
+                    <!--layer.msg(res.msg);-->
+                <!--}-->
+                <!--//上传成功-->
+            <!--}-->
+            <!--, error: function () {-->
+                <!--//演示失败状态，并实现重传-->
+                <!--var demoText = $('#demoText');-->
+                <!--demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');-->
+                <!--demoText.find('.demo-reload').on('click', function () {-->
+                    <!--uploadInst.upload();-->
+                <!--});-->
+            <!--}-->
+        <!--});-->
+    <!--})-->
 <!--</script>-->
-<script>
-    $(function () {
-        layui.config({
-            base: '/layui/cropper/' //layui自定义layui组件目录
-        }).use(['form', 'croppers'], function () {
-            var $ = layui.jquery
-                , form = layui.form
-                , croppers = layui.croppers
-                , layer = layui.layer;
+<script >
 
-            //创建一个头像上传组件
-            croppers.render({
-                elem: '#editimg'
-                , saveW: 150     //保存宽度
-                , saveH: 150
-                , mark: 1 / 1    //选取比例
-                , area: '900px'  //弹窗宽度
-                , url: "/editor/addPhoto"  //图片上传接口返回和（layui 的upload 模块）返回的JOSN一样
-                , done: function (url) { //上传完毕回调
-                    $("#inputimgurl").val(url);
-                    $("#srcimgurl").attr('src', url);
-                }
-            });
+    layui.config({
+        base: '/cropper/' //layui自定义layui组件目录
+    }).use(['form','croppers'], function () {
+        var $ = layui.jquery
+            ,form = layui.form
+            ,croppers = layui.croppers
+            ,layer= layui.layer;
 
+        //创建一个头像上传组件
+        croppers.render({
+            elem: '#editimg'
+            ,saveW:150     //保存宽度
+            ,saveH:150
+            ,mark:1/1    //选取比例
+            ,area:'900px'  //弹窗宽度
+            ,url: '/editor/addPhoto'  //图片上传接口返回和（layui 的upload 模块）返回的JOSN一样
+            ,done: function(url){ //上传完毕回调
+                console.log(url);
+                $("#inputimgurl").val(url);
+                $("#srcimgurl").attr('src',url);
+            }
         });
+
     });
+
 </script>
 </body>
 </html>

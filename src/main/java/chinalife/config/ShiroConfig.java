@@ -2,7 +2,6 @@ package chinalife.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +19,7 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
+
     /**
      * 创建ShiroFilterBean
      */
