@@ -41,7 +41,7 @@ public class ShiroConfig {
         Map<String, String> filterMap = new LinkedHashMap<String, String>();
         filterMap.put("/index", "authc");
         filterMap.put("/editor","authc");
-
+        filterMap.put("/static/**","anon");
         //授权过滤器
         //注意：当前授权拦截后，shiro会自动跳转到未授权页面
         filterMap.put("/admin/**", "perms[admin]");
