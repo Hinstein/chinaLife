@@ -93,7 +93,7 @@ public class EditorController {
                 //获得文件后缀名称
                 String imageName = contentType.substring(contentType.indexOf("/") + 1);
                 System.out.println("文件后缀名称：" + imageName);
-                String filePath = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/css/images/";
+                String filePath = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/images/";
                 //根据日期来创建对应的文件夹
                 String datePath = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
                 System.out.println("日期：" + datePath);

@@ -37,7 +37,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("执行授权逻辑");
+//        System.out.println("执行授权逻辑");
 
         //给资源进行授权
         SimpleAuthorizationInfo info =new SimpleAuthorizationInfo();
@@ -63,7 +63,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("执行认证逻辑");
+//        System.out.println("执行认证逻辑");
 
         //编写shiro判断逻辑，判断用户名和密码
         //1、判断用户名
