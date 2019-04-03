@@ -82,6 +82,9 @@
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/editor/password}">修改密码</a></dd>
                             <dd><a th:href="@{/editor/information}">修改信息</a></dd>
+                            <dd layadmin-event="logout" style="text-align: center;" shiro:lacksPermission="admin">
+                                <a th:href="@{/editor/headPhoto}">修改头像</a>
+                            </dd>
                         </dl>
                     </li>
                 </ul>

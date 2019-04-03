@@ -120,11 +120,10 @@ public class EditorController {
                 //复制操作
                 //将图片从源位置复制到目标位置
                 file.transferTo(new File(pathName));
-                HashMap<String, String> srcmap = new HashMap<>();
-                map.put("conde", 0);
+                map.put("code", 0);
                 map.put("msg", "上传成功！");
-                srcmap.put("src", pathName);
-                map.put("data", srcmap);
+               map.put("relativePath",relativePath);
+                map.put("data", pathName);
                 Photo photo = new Photo();
                 photo.setUserId(user.getId());
                 photo.setDatePath(datePath);
