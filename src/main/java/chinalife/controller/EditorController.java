@@ -4,9 +4,6 @@ import chinalife.entity.Photo;
 import chinalife.entity.User;
 import chinalife.service.PhotoService;
 import chinalife.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,7 +93,7 @@ public class EditorController {
                 //获得文件后缀名称
                 String imageName = contentType.substring(contentType.indexOf("/") + 1);
                 System.out.println("文件后缀名称：" + imageName);
-                String filePath = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/images/";
+                String filePath = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/css/images/";
                 //根据日期来创建对应的文件夹
                 String datePath = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
                 System.out.println("日期：" + datePath);
