@@ -7,13 +7,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/cropper/cropper.css}">
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/css/adminLogin/admin.css}">
-    <link rel="stylesheet" th:href="@{/cropper/cropper.css}">
-    <script th:src="@{/layui/layui.js}"></script>
-    <script th:src="@{/cropper/cropper.js}"></script>
-    <script th:src="@{/cropper/croppers.js}"></script>
-
 
 
 </head>
@@ -25,15 +21,28 @@
             <!-- 头部区域 -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                    <a th:href="@{/admin/index}" layadmin-event="flexible" title="侧边伸缩">
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a th:href="@{/index}" layadmin-event="flexible" title="侧边伸缩">
                         <i class="layui-icon layui-icon-home"></i>
                     </a>
                 </li>
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
-                <li class="layui-nav-item" lay-unselect>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
                     <a href="javascript:;">
-                        <cite>用户名</cite>
+                        <cite>工号：[[${session.user.id}]]</cite>
+                    </a>
+                </li>
+
+                <li class="layui-nav-item" lay-unselect>
+
+                    <a href="javascript:;">
+                        <cite>姓名：[[${session.user.username}]]</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd layadmin-event="logout" style="text-align: center;"><a
@@ -83,8 +92,8 @@
                         <a class="" href="javascript:;">个人信息管理</a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/editor/password}">修改密码</a></dd>
-                            <dd ><a th:href="@{/editor/information}">修改信息</a></dd>
-                            <dd class="layui-this" layadmin-event="logout" style="text-align: center;" shiro:lacksPermission="admin">
+                            <dd><a th:href="@{/editor/information}">修改信息</a></dd>
+                            <dd class="layui-this" shiro:lacksPermission="admin">
                                 <a th:href="@{/editor/headPhoto}">修改头像</a>
                             </dd>
                         </dl>
@@ -103,15 +112,27 @@
                     <div class="layui-card-body">
                         <div class="layui-form-item">
                             <label class="layui-form-label">头像</label>
-                            <div >
+                            <div>
                                 <div class="layui-upload-list" style="margin:0">
-                                    <img  id="srcimgurl" th:src="${src}" class="layui-upload-img">
+                                    <img id="srcimgurl" th:src="${src}" class="layui-upload-img">
                                 </div>
                             </div>
-                            <div class="layui-input-inline layui-btn-container" style="width: auto;">
-                                <button class="layui-btn layui-btn-primary" id="editimg">修改图片</button >
+                        </div>
+                        <!--<div>-->
+                        <!--<div class="layui-input-inline layui-btn-container" style="width: auto;">-->
+                        <!--<button class="layui-btn layui-btn-primary" id="editimg">修改图片</button >-->
+                        <!--</div>-->
+                        <!--<div class="layui-form-mid layui-word-aux">头像的尺寸限定150x150px,大小在50kb以内</div>-->
+                        <!--</div>-->
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn " id="editimg">修改图片</button>
                             </div>
-                            <div class="layui-form-mid layui-word-aux">头像的尺寸限定150x150px,大小在50kb以内</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <div class="layui-form-mid layui-word-aux">头像的尺寸限定150x150px,大小在50kb以内</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,28 +140,31 @@
         </div>
     </div>
 </div>
-<script >
+<script th:src="@{/layui/layui.all.js}"></script>
+<script th:src="@{/cropper/cropper.js}"></script>
+<script th:src="@{/cropper/croppers.js}"></script>
+<script>
     layui.config({
         base: '/cropper/' //layui自定义layui组件目录
-    }).use(['form','croppers'], function () {
+    }).use(['form', 'croppers'], function () {
         var $ = layui.jquery
-            ,form = layui.form
-            ,croppers = layui.croppers
-            ,layer= layui.layer;
-        var src=$("#src").val();
+            , form = layui.form
+            , croppers = layui.croppers
+            , layer = layui.layer;
+        var src = $("#src").val();
         $('#demo1').attr('src', src);
         //创建一个头像上传组件
         croppers.render({
             elem: '#editimg'
-            ,saveW:150     //保存宽度
-            ,saveH:150
-            ,mark:1/1    //选取比例
-            ,area:'900px'  //弹窗宽度
-            ,url: '/editor/addPhoto'  //图片上传接口返回和（layui 的upload 模块）返回的JOSN一样
-            ,done: function(){ //上传完毕回调
-               setTimeout(function () {
-                   location.href="/editor/headPhoto";
-               },100)
+            , saveW: 150     //保存宽度
+            , saveH: 150
+            , mark: 1 / 1    //选取比例
+            , area: '900px'  //弹窗宽度
+            , url: '/editor/addPhoto'  //图片上传接口返回和（layui 的upload 模块）返回的JOSN一样
+            , done: function () { //上传完毕回调
+                setTimeout(function () {
+                    location.href = "/editor/headPhoto";
+                }, 100)
             }
         });
     });
