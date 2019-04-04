@@ -114,13 +114,15 @@
                                 <label class="layui-form-label">工号</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="id" autocomplete="off"
-                                            class="layui-input" disabled="disabled" th:value="${user.id}">
+                                            class="layui-input layui-disabled" disabled="disabled" th:value="${user.id}">
                                 </div>
                             </div>
                             <div class="layui-form-item ">
                                 <label class="layui-form-label">姓名</label>
                                 <div class="layui-input-block ">
-                                    <input type="text" name="username" lay-verify="required|name" placeholder="请输入用户名"
+                                    <input shiro:hasPermission="admin" type="text" name="username" lay-verify="required|name" placeholder="请输入用户名"
+                                           autocomplete="off" class="layui-input layui-disabled" th:value="${user.username}">
+                                    <input shiro:lacksPermission="admin" Permission="admin" type="text" name="username" lay-verify="required|name" placeholder="请输入用户名"
                                            autocomplete="off" class="layui-input" th:value="${user.username}">
                                 </div>
                             </div>

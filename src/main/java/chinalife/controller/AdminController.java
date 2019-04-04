@@ -189,6 +189,7 @@ public class AdminController {
         }
 
         Map<String, Object> map = new HashMap<>(10);
+        map.put("success","保存成功！");
         return map;
     }
 
