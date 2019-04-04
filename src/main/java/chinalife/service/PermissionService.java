@@ -39,4 +39,19 @@ public class PermissionService {
     public void deleteByUserId(int userId){
         permsRepository.deleteByUserId(userId);
     }
+
+    public long createCounts(){
+        return permsRepository.countByPerms("create");
+    }
+
+    public long updateCounts(){
+        return permsRepository.countByPerms("update");
+    }
+    public long deleteCounts(){
+        return permsRepository.countByPerms("delete");
+    }
+    public long retrieveCounts(){
+        return permsRepository.countByPerms("retrieve");
+    }
+
 }

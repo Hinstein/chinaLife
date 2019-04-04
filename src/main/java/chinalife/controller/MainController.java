@@ -2,6 +2,8 @@ package chinalife.controller;
 
 
 import chinalife.entity.User;
+import chinalife.service.InsuranceService;
+import chinalife.service.PermissionService;
 import chinalife.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -33,6 +35,12 @@ public class MainController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    InsuranceService insuranceService;
+
+    @Autowired
+    PermissionService permissionService;
 
     @GetMapping("/login")
     public String login() {
@@ -67,6 +75,24 @@ public class MainController {
                 User user1 =userService.findById(user.getId());
                 session.setAttribute("user",user1);
                 map.put("success", "登录成功");
+                //判断是否是管理员登录
+                if(user1.getId()==10000000) {
+                    session.setAttribute("baodan0", insuranceService.baodan0());
+                    session.setAttribute("baodan1", insuranceService.baodan1());
+                    session.setAttribute("baodan2", insuranceService.baodan2());
+                    session.setAttribute("baodan3", insuranceService.baodan3());
+                    session.setAttribute("baodanNumbers", insuranceService.numbers());
+                    session.setAttribute("createCounts",permissionService.createCounts());
+                    session.setAttribute("updateCounts",permissionService.updateCounts());
+                    session.setAttribute("deleteCounts",permissionService.deleteCounts());
+                    session.setAttribute("retrieveCounts",permissionService.retrieveCounts());
+                }else{
+                    session.setAttribute("baodan0", insuranceService.baodan0(user1.getId()));
+                    session.setAttribute("baodan1", insuranceService.baodan1(user1.getId()));
+                    session.setAttribute("baodan2", insuranceService.baodan2(user1.getId()));
+                    session.setAttribute("baodan3", insuranceService.baodan3(user1.getId()));
+                    session.setAttribute("baodanNumbers", insuranceService.numbers(user1.getId()));
+                }
                 //登录成功
             } catch (UnknownAccountException e) {
                 map.put("error", "不存在此用户");

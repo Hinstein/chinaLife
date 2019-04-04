@@ -41,4 +41,13 @@ public interface InsuranceRepository extends JpaRepository<Insurance, Integer> {
             "i.sex= :#{#insurance.sex} " +
             "WHERE i.id = :#{#insurance.id}")
     void updateInsruance(Insurance insurance);
+
+    int countByPolName(int id);
+
+    int countByPolNameAndClerkId(int id,int clerkId);
+
+    @Override
+    long count();
+
+    long countByClerkId(int clerkId);
 }

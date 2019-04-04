@@ -19,18 +19,18 @@
         <div class="layui-header">
             <!-- 头部区域 -->
             <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
-                    <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
-                </a>
-            </li>
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
 
-            <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                <a th:href="@{/index}" layadmin-event="flexible" title="">
-                    <i class="layui-icon layui-icon-home"></i>
-                </a>
-            </li>
-        </ul>
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a th:href="@{/index}" layadmin-event="flexible" title="">
+                        <i class="layui-icon layui-icon-home"></i>
+                    </a>
+                </li>
+            </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
                     <a href="javascript:;">
@@ -49,7 +49,7 @@
                         <dd layadmin-event="logout" style="text-align: center;"><a
                                 th:href="@{/editor/information}">修改信息</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a
-                            th:href="@{/editor/headPhoto}">修改头像</a></dd>
+                                th:href="@{/editor/headPhoto}">修改头像</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
                     </dl>
                 </li>
@@ -94,7 +94,7 @@
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/editor/password}">修改密码</a></dd>
                             <dd><a th:href="@{/editor/information}">修改信息</a></dd>
-                            <dd  shiro:lacksPermission="admin">
+                            <dd shiro:lacksPermission="admin">
                                 <a th:href="@{/editor/headPhoto}">修改头像</a>
                             </dd>
                         </dl>
@@ -107,7 +107,7 @@
         </div>
         <!-- 主体内容 -->
         <div class="layui-body">
-            <div class="layui-fluid">
+            <div class="layui-fluid" shiro:hasPermission="admin">
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md8">
                         <div class="layui-row layui-col-space15">
@@ -119,30 +119,65 @@
                                             <ul class="layui-row layui-col-space10">
                                                 <li class="layui-col-xs3">
                                                     <a lay-href="app/content/comment.html" class="layadmin-backlog-body"
-                                                       onclick="layer.tips('招聘者数量', this, {tips: 3});">
-                                                        <h3>招聘者数量</h3>
-                                                        <p><cite>123</cite></p>
+                                                       onclick="layer.tips('意外险数量', this, {tips: 3});">
+                                                        <h3>意外险数量</h3>
+                                                        <p><cite>[[${session.baodan0}]]</cite></p>
                                                     </a>
                                                 </li>
                                                 <li class="layui-col-xs3">
                                                     <a lay-href="app/forum/list.html" class="layadmin-backlog-body"
-                                                       onclick="layer.tips('兼职者数量', this, {tips: 3});">
-                                                        <h3>兼职者数量</h3>
-                                                        <p><cite>123</cite></p>
+                                                       onclick="layer.tips('健康险数量', this, {tips: 3});">
+                                                        <h3>健康险数量</h3>
+                                                        <p><cite>[[${session.baodan1}]]</cite></p>
                                                     </a>
                                                 </li>
                                                 <li class="layui-col-xs3">
                                                     <a lay-href="template/goodslist.html" class="layadmin-backlog-body"
-                                                       onclick="layer.tips('兼职数量', this, {tips: 3});">
-                                                        <h3>兼职数量</h3>
-                                                        <p><cite>123</cite></p>
+                                                       onclick="layer.tips('补充医疗险数量', this, {tips: 3});">
+                                                        <h3>补充医疗险数量</h3>
+                                                        <p><cite>[[${session.baodan2}]]</cite></p>
                                                     </a>
                                                 </li>
                                                 <li class="layui-col-xs3">
-                                                    <a onclick="layer.tips('发帖数', this, {tips: 3});"
+                                                    <a onclick="layer.tips('分红险数量', this, {tips: 3});"
                                                        class="layadmin-backlog-body">
-                                                        <h3>发帖数</h3>
-                                                        <p><cite>123</cite></p>
+                                                        <h3>分红险数量</h3>
+                                                        <p><cite>[[${session.baodan3}]]</cite></p>
+                                                    </a>
+                                                </li>
+                                                <li class="layui-col-xs3">
+                                                    <a onclick="layer.tips('保单总数', this, {tips: 3});"
+                                                       class="layadmin-backlog-body">
+                                                        <h3>保单总数</h3>
+                                                        <p><cite>[[${session.baodanNumbers}]]</cite></p>
+                                                    </a>
+                                                </li>
+                                                <li class="layui-col-xs3">
+                                                    <a lay-href="app/forum/list.html" class="layadmin-backlog-body"
+                                                       onclick="layer.tips('添加权限数量', this, {tips: 3});">
+                                                        <h3>添加权限数量</h3>
+                                                        <p><cite>[[${session.createCounts}]]</cite></p>
+                                                    </a>
+                                                </li>
+                                                <li class="layui-col-xs3">
+                                                    <a lay-href="template/goodslist.html" class="layadmin-backlog-body"
+                                                       onclick="layer.tips('更新权限数量', this, {tips: 3});">
+                                                        <h3>更新权限数量</h3>
+                                                        <p><cite>[[${session.updateCounts}]]</cite></p>
+                                                    </a>
+                                                </li>
+                                                <li class="layui-col-xs3">
+                                                    <a onclick="layer.tips('删除权限数量', this, {tips: 3});"
+                                                       class="layadmin-backlog-body">
+                                                        <h3>删除权限数量</h3>
+                                                        <p><cite>[[${session.deleteCounts}]]</cite></p>
+                                                    </a>
+                                                </li>
+                                                <li class="layui-col-xs3">
+                                                    <a onclick="layer.tips('查看权限数量', this, {tips: 3});"
+                                                       class="layadmin-backlog-body">
+                                                        <h3>查看权限数量</h3>
+                                                        <p><cite>[[${session.retrieveCounts}]]</cite></p>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -154,29 +189,35 @@
                                 <div class="layui-card">
                                     <div class="layui-tab layui-tab-brief layadmin-latestData">
                                         <ul class="layui-tab-title">
-                                            <li class="layui-this">热门工作</li>
-                                            <li>最新工作</li>
+                                            <li class="layui-this">保单险种分布</li>
+                                            <li >权限分布</li>
                                         </ul>
                                         <div class="layui-tab-content">
                                             <div class="layui-tab-item layui-show">
-
+                                                <div id="baodanAdmin"  style="width: 811px;height:400px;"></div>
                                             </div>
                                             <div class="layui-tab-item">
-
+                                                <div id="permissionAdmin" style="width: 811px;height:400px;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="layui-card">
-                                    <div class="layui-card-header">招聘者活跃排名</div>
-                                    <div class="layui-card-body">
+                                <div class="layui-card" >
 
-                                    </div>
-                                </div>
-                                <div class="layui-card">
-                                    <div class="layui-card-header">兼职者活跃排名</div>
-                                    <div class="layui-card-body">
 
+                                    <div class="layui-tab layui-tab-brief layadmin-latestData">
+                                        <ul class="layui-tab-title">
+                                            <li class="layui-this">员工活跃排名</li>
+                                            <li>员工成绩排名</li>
+                                        </ul>
+                                        <div class="layui-tab-content">
+                                            <div class="layui-tab-item layui-show">
+                                                ///
+                                            </div>
+                                            <div class="layui-tab-item">
+                                                //
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -252,11 +293,224 @@
                     </div>
                 </div>
             </div>
+            <div class="layui-fluid" shiro:lacksPermission="admin">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md8">
+                        <div class="layui-card">
+                            <div class="layui-tab layui-tab-brief layadmin-latestData">
+                                <ul class="layui-tab-title">
+                                    <li class="layui-this">保单险种分布</li>
+
+                                </ul>
+                                <div class="layui-tab-content">
+                                    <div class="layui-tab-item layui-show">
+                                        <div id="baodan" style="width: 841px;height:400px;"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header">控制台</div>
+                            <div class="layui-card-body">
+                                <div class="layui-carousel  layadmin-backlog" style="background-color:#fff;">
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs4">
+                                            <a lay-href="app/content/comment.html" class="layadmin-backlog-body"
+                                               onclick="layer.tips('意外险数量', this, {tips: 3});">
+                                                <h3>意外险数量</h3>
+                                                <p><cite>[[${session.baodan0}]]</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs4">
+                                            <a lay-href="app/forum/list.html" class="layadmin-backlog-body"
+                                               onclick="layer.tips('健康险数量', this, {tips: 3});">
+                                                <h3>健康险数量</h3>
+                                                <p><cite>[[${session.baodan1}]]</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs4">
+                                            <a lay-href="template/goodslist.html" class="layadmin-backlog-body"
+                                               onclick="layer.tips('补充医疗险数量', this, {tips: 3});">
+                                                <h3>补充医疗险数量</h3>
+                                                <p><cite>[[${session.baodan2}]]</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs4">
+                                            <a onclick="layer.tips('分红险数量', this, {tips: 3});"
+                                               class="layadmin-backlog-body">
+                                                <h3>分红险数量</h3>
+                                                <p><cite>[[${session.baodan3}]]</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs4">
+                                            <a onclick="layer.tips('保单总数', this, {tips: 3});"
+                                               class="layadmin-backlog-body">
+                                                <h3>保单总数</h3>
+                                                <p><cite>[[${session.baodanNumbers}]]</cite></p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script th:src="@{/jquery/jquery.js}"></script>
 <script th:src="@{/layui/layui.all.js}"></script>
-
+<script th:src="@{/js/echarts.js}"></script>
+<script shiro:lacksPermission="admin">
+    // 绘制图表。
+    echarts.init(document.getElementById('baodan')).setOption({
+        title: {
+            text: '保单种类分布',
+            subtext: '',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['意外险', '健康险', '补充医疗险', '分红险']
+        },
+        series: [{
+            name: '种类数目',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [
+                {
+                    value: [[${session.baodan0}]],
+                    name: '意外险'
+                },
+                {
+                    value: [[${session.baodan1}]],
+                    name: '健康险'
+                },
+                {
+                    value: [[${session.baodan2}]],
+                    name: '补充医疗险'
+                },
+                {
+                    value: [[${session.baodan3}]],
+                    name: '分红险'
+                }
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }]
+    });
+</script>
+<script shiro:hasPermission="admin">
+    // 绘制图表。
+    echarts.init(document.getElementById('baodanAdmin')).setOption({
+        title: {
+            text: '保单种类分布',
+            subtext: '',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['意外险', '健康险', '补充医疗险', '分红险']
+        },
+        series: [{
+            name: '种类数目',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [
+                {
+                    value: [[${session.baodan0}]],
+                    name: '意外险'
+                },
+                {
+                    value: [[${session.baodan1}]],
+                    name: '健康险'
+                },
+                {
+                    value: [[${session.baodan2}]],
+                    name: '补充医疗险'
+                },
+                {
+                    value: [[${session.baodan3}]],
+                    name: '分红险'
+                }
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }]
+    });
+    echarts.init(document.getElementById('permissionAdmin')).setOption({
+        title: {
+            text: '权限分布',
+            subtext: '',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['添加权限', '查询权限', '修改权限', '删除权限']
+        },
+        series: [{
+            name: '权限数目',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [
+                {
+                    value: [[${session.createCounts}]],
+                    name: '添加权限'
+                },
+                {
+                    value: [[${session.retrieveCounts}]],
+                    name: '查询权限'
+                },
+                {
+                    value: [[${session.updateCounts}]],
+                    name: '修改权限'
+                },
+                {
+                    value: [[${session.deleteCounts}]],
+                    name: '删除权限'
+                }
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }]
+    });
+</script>
 </body>
 </html>

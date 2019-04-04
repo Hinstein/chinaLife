@@ -32,4 +32,6 @@ public interface PermissionRepository extends JpaRepository<Permission, Integer>
     @Modifying
     @Query(value = "delete from Permission a where a.userId =?1")
     void deleteByUserId(int userId);
+
+    Long countByPerms(String perms);
 }
