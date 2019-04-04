@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -91,5 +92,25 @@ public class InsuranceService {
     public Long numbers(int id)
     {
         return insuranceRepository.countByClerkId(id);
+    }
+
+    @Transactional
+    public Page<Insurance> findByContent(String content, int pageNo, int pageSize) {
+        if (pageNo == 0) {
+            pageNo = 1;
+        }
+        PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
+        return insuranceRepository.findBycontent(content, pageable);
+    }
+
+
+
+    @Transactional
+    public Page<Insurance> findByClerkIdAndContent(String content,int clerkId, int pageNo, int pageSize) {
+        if (pageNo == 0) {
+            pageNo = 1;
+        }
+        PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
+        return insuranceRepository.findByClerkIdAndContent(content,clerkId, pageable);
     }
 }

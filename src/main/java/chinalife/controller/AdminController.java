@@ -50,23 +50,22 @@ public class AdminController {
 
     @ResponseBody
     @PostMapping("/createUser/save")
-    public Map<String, String>createUser(User user, HttpServletRequest request)
-    {
-        Map<String,String> map = new HashMap<>();
+    public Map<String, String> createUser(User user, HttpServletRequest request) {
+        Map<String, String> map = new HashMap<>();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         user.setAddTime(df.format(new Date()));
         user.setPasswordTime(df.format(new Date()));
         userService.save(user);
-        User newUser =userService.findById(user.getId());
+        User newUser = userService.findById(user.getId());
         String create = request.getParameter("create");
         String delete = request.getParameter("delete");
         String retrieve = request.getParameter("retrieve");
         String update = request.getParameter("update");
         if (create != null) {
-                Permission permission = new Permission();
-                permission.setPerms("create");
-                permission.setUserId(newUser.getId());
-                permsService.save(permission);
+            Permission permission = new Permission();
+            permission.setPerms("create");
+            permission.setUserId(newUser.getId());
+            permsService.save(permission);
         }
         if (delete != null) {
             Permission permission = new Permission();
@@ -86,22 +85,30 @@ public class AdminController {
             permission.setUserId(newUser.getId());
             permsService.save(permission);
         }
-        map.put("success","成功添加员工，工号为"+newUser.getId());
+        map.put("success", "成功添加员工，工号为" + newUser.getId());
         return map;
     }
 
     @ResponseBody
     @GetMapping("/user/data")
-    public Map<String, Object> userData(HttpServletRequest request) {
+    public Map<String, Object> userData(HttpServletRequest request, @RequestParam(value = "content", required = false) String content) {
         int pageSize = Integer.parseInt(request.getParameter("limit"));
         int pageNumber = Integer.parseInt(request.getParameter("page"));
-        Page<User> users = userService.findAll(pageNumber, pageSize);
         Map<String, Object> result = new HashMap<String, Object>();
+        if (content != null) {
+            Page<User> users = userService.findByContent(content,pageNumber, pageSize);
+            result.put("count", users.getTotalElements());
+            JSONArray json = JSONArray.fromObject(users.getContent());
+            result.put("data", json);
+        } else {
+            Page<User> users = userService.findAll(pageNumber, pageSize);
+            result.put("count", users.getTotalElements());
+            JSONArray json = JSONArray.fromObject(users.getContent());
+            result.put("data", json);
+        }
         result.put("code", 0);
         result.put("msg", "");
-        result.put("count", users.getTotalElements());
-        JSONArray json = JSONArray.fromObject(users.getContent());
-        result.put("data", json);
+
         return result;
     }
 
@@ -174,7 +181,6 @@ public class AdminController {
             }
         }
 
-
         if (update != null) {
             if (permsService.findByUserIdAndPerms(user.getId(), "update") == null) {
                 Permission permission = new Permission();
@@ -189,39 +195,44 @@ public class AdminController {
         }
 
         Map<String, Object> map = new HashMap<>(10);
-        map.put("success","保存成功！");
+        map.put("success", "保存成功！");
         return map;
     }
 
     @ResponseBody
     @PostMapping("/user/delete/{id}")
-    public Map<String,String> userDelete(@PathVariable("id") int id)
-    {
+    public Map<String, String> userDelete(@PathVariable("id") int id) {
         userService.deleteById(id);
         permsService.deleteByUserId(id);
-        Map<String,String> map =new HashMap<>();
-        map.put("success","删除成功！");
+        Map<String, String> map = new HashMap<>();
+        map.put("success", "删除成功！");
         return map;
     }
 
     @GetMapping("/insurance")
-    public String insurance()
-    {
+    public String insurance() {
         return "/admin/insurance/allInsurance";
     }
 
     @ResponseBody
     @GetMapping("/insurance/data")
-    public Map<String, Object> insuranceData(HttpServletRequest request) {
+    public Map<String, Object> insuranceData(HttpServletRequest request, @RequestParam(value = "content", required = false) String content) {
         int pageSize = Integer.parseInt(request.getParameter("limit"));
         int pageNumber = Integer.parseInt(request.getParameter("page"));
-        Page<Insurance> insurances = insuranceService.findAll(pageNumber, pageSize);
         Map<String, Object> result = new HashMap<String, Object>();
+        if (content != null) {
+            Page<Insurance> insurances = insuranceService.findByContent(content,pageNumber, pageSize);
+            result.put("count", insurances.getTotalElements());
+            JSONArray json = JSONArray.fromObject(insurances.getContent());
+            result.put("data", json);
+        } else {
+            Page<Insurance> insurances = insuranceService.findAll(pageNumber, pageSize);
+            result.put("count", insurances.getTotalElements());
+            JSONArray json = JSONArray.fromObject(insurances.getContent());
+            result.put("data", json);
+        }
         result.put("code", 0);
         result.put("msg", "");
-        result.put("count", insurances.getTotalElements());
-        JSONArray json = JSONArray.fromObject(insurances.getContent());
-        result.put("data", json);
         return result;
     }
 }

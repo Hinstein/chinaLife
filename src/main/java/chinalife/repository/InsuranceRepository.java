@@ -50,4 +50,10 @@ public interface InsuranceRepository extends JpaRepository<Insurance, Integer> {
     long count();
 
     long countByClerkId(int clerkId);
+
+    @Query(value = "select u from Insurance u where u.clerkId like CONCAT('%',?1,'%') or u.holderName like CONCAT('%',?1,'%') or u.mobile like CONCAT('%',?1,'%')")
+    Page<Insurance> findBycontent(String content, Pageable pageable);
+
+    @Query(value = "select u from Insurance u where  u.clerkId like CONCAT('%',?2,'%') and (u.holderName like CONCAT('%',?1,'%') or u.mobile like CONCAT('%',?1,'%') )")
+    Page<Insurance> findByClerkIdAndContent(String content,int clerkId, Pageable pageable);
 }

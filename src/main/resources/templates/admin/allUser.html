@@ -105,6 +105,12 @@
                 <div class="layui-card">
                     <div class="layui-card-header">兼职者信息管理</div>
                     <div class="layui-card-body">
+                        <div class="demoTable">
+                            <div class="layui-inline">
+                                <input class="layui-input" id="content" autocomplete="off" placeholder="输入你想要查找的员工信息">
+                            </div>
+                            <button class="layui-btn" id="search" type="button">搜索</button>
+                        </div>
                         <table class="layui-table" id="userData" lay-filter="test" lay-skin="line"></table>
                         <script type="text/html" id="toolbarDemo">
                             <div class="layui-btn-container">
@@ -215,6 +221,20 @@
                     });
                     break;
             }
+        });
+        $(function () {
+            $("#search").click(function () {
+                var content = $('#content').val();
+                tableIns.reload({
+                    where: { //设定异步数据接口的额外参数，任意设
+                        content: content
+                        //…
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            })
         });
     });
 </script>

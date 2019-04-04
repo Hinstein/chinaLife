@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * @BelongsProject: chinalife
  * @BelongsPackage: chinalife.service
@@ -46,4 +48,13 @@ public class UserService {
     }
 
     public void changePassword(String password,int id){userRepository.changePassword(password,id);}
+
+    @Transactional
+    public Page<User> findByContent(String content, int pageNo, int pageSize) {
+        if (pageNo == 0) {
+            pageNo = 1;
+        }
+        PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
+        return userRepository.findBycontent(content, pageable);
+    }
 }

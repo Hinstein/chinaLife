@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -38,17 +39,25 @@ public class RetrieveController {
 
     @ResponseBody
     @GetMapping("/insurance/data")
-    public Map<String, Object> insuranceData(HttpServletRequest request, HttpSession session) {
+    public Map<String, Object> insuranceData(HttpServletRequest request, HttpSession session, @RequestParam(value = "content", required = false) String content) {
         User user = (User)session.getAttribute("user");
         int pageSize = Integer.parseInt(request.getParameter("limit"));
         int pageNumber = Integer.parseInt(request.getParameter("page"));
-        Page<Insurance> insurances = insuranceService.findAllByClerkId(user.getId(),pageNumber, pageSize);
         Map<String, Object> result = new HashMap<String, Object>();
+        if (content != null) {
+            Page<Insurance> insurances = insuranceService.findByClerkIdAndContent(content,user.getId(),pageNumber, pageSize);
+            result.put("count", insurances.getTotalElements());
+            JSONArray json = JSONArray.fromObject(insurances.getContent());
+            result.put("data", json);
+
+        } else {
+            Page<Insurance> insurances = insuranceService.findAllByClerkId(user.getId(),pageNumber, pageSize);
+            result.put("count", insurances.getTotalElements());
+            JSONArray json = JSONArray.fromObject(insurances.getContent());
+            result.put("data", json);
+        }
         result.put("code", 0);
         result.put("msg", "");
-        result.put("count", insurances.getTotalElements());
-        JSONArray json = JSONArray.fromObject(insurances.getContent());
-        result.put("data", json);
         return result;
     }
 }

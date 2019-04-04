@@ -33,4 +33,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "UPDATE User user  SET user.password=?1 " +
             "WHERE user.id = ?2")
     void changePassword(String password,int id);
+
+    @Query(value = "select u from User u where u.username like CONCAT('%',?1,'%') or u.id like CONCAT('%',?1,'%')")
+    Page<User> findBycontent(String content, Pageable pageable);
 }
