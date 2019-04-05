@@ -45,7 +45,7 @@ public class CreateController {
         insurance.setClerkId(user.getId());
         insuranceService.save(insurance);
         Map<String, Object> map = new HashMap<>();
-        map.put("success", "保存成功！");
+        map.put("success", "添加保单成功！");
         return map;
     }
 }

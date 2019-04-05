@@ -149,11 +149,11 @@
             , skin: 'line'
             , size: 'lg'
             , cols: [[ //表头
-                {type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: '工号'}
-                , {field: 'username', title: '用户名'}
-                , {field: 'addTime', title: '添加时间'}
-                , {field: 'passwordTime', title: '密码最后更改时间'}
+                {type: 'checkbox'}
+                , {field: 'id', title: '工号', sort: true,with:'7%'}
+                , {field: 'username', title: '姓名',with:'8%'}
+                , {field: 'addTime', title: '添加时间', sort: true}
+                , {field: 'passwordTime', title: '密码最后更改时间', sort: true}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#action'}
             ]]
         });

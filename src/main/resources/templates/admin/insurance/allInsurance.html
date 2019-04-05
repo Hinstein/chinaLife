@@ -163,14 +163,15 @@
             , page: true //开启分页
             , limits: [10, 20, 50, 100]  //每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。
             , limit: 10 //每页默认显示的数量
-            , skin: 'line'
+            // , skin: 'line'
             , size: 'lg'
             , cols: [[ //表头
-                {type: 'checkbox', fixed: 'left'}
-                , {field: 'holderName', title: '投保人'}
+                {type: 'checkbox'}
+                , {field: 'id', title: 'ID',width:'7%', sort: true}
+                , {field: 'holderName', title: '投保人',width:'8%'}
                 , {field: 'mobile', title: '电话号码'}
-                , {field: 'birthDate', title: '出生日期'}
-                , {field: 'money', title: '保费'}
+                , {field: 'birthDate', title: '出生日期', sort: true}
+                , {field: 'money', title: '保费', sort: true}
                 , {
                     field: 'polName', title: '险种名称', templet: function (d) {
                         if (d.polName === 0)
@@ -183,7 +184,7 @@
                             return "分红险";
                     }
                 }
-                , {field: 'clerkId', title: '操作员'}
+                , {field: 'clerkId', title: '操作员', sort: true}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#action'}
             ]]
         });

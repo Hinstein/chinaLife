@@ -95,20 +95,19 @@ public class AdminController {
         int pageSize = Integer.parseInt(request.getParameter("limit"));
         int pageNumber = Integer.parseInt(request.getParameter("page"));
         Map<String, Object> result = new HashMap<String, Object>();
-        if (content != null) {
-            Page<User> users = userService.findByContent(content, pageNumber, pageSize);
+        if (content==""||content==null){
+            Page<User> users = userService.findAll(pageNumber, pageSize);
             result.put("count", users.getTotalElements());
             JSONArray json = JSONArray.fromObject(users.getContent());
             result.put("data", json);
-        } else {
-            Page<User> users = userService.findAll(pageNumber, pageSize);
+        }else {
+            Page<User> users = userService.findByContent(content, pageNumber, pageSize);
             result.put("count", users.getTotalElements());
             JSONArray json = JSONArray.fromObject(users.getContent());
             result.put("data", json);
         }
         result.put("code", 0);
         result.put("msg", "");
-
         return result;
     }
 
