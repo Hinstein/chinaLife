@@ -57,4 +57,6 @@ public class UserService {
         PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
         return userRepository.findBycontent(content, pageable);
     }
+
+    public void changeInformation(String username,int id){userRepository.changeInformation(username,id);}
 }

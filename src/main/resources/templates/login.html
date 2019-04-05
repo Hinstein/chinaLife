@@ -27,10 +27,9 @@
                     <input type="password" placeholder="请输入密码" lay-verify="required|password"
                            class="layui-input login02" id="password" name="password">
                     <div class="relative">
-                        <input type="text" placeholder="请输入验证码" lay-verify="required" class="layui-input login03"
-                               id="tryCode">
+                        <input type="text" placeholder="请输入验证码" lay-verify="required" class="layui-input login03" id="tryCode">
                         <div class="yzm"><img onclick="this.src='/defaultKaptcha?d='+new Date()*1"
-                                              src="/defaultKaptcha"></div>
+                                              th:src="@{/defaultKaptcha}" id="code"></div>
                     </div>
                     <button class="layui-btn login-btn" lay-submit="" lay-filter="save">登录</button>
                 </div>
@@ -41,22 +40,24 @@
 <script type="text/javascript" th:src="@{/jquery/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
 <script>
-    layui.use('form', function () {
+    layui.use(['form', 'layer'], function () {
         var form = layui.form;
         //执行一个laydate实例
         form.verify({
             password: [
-                /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[_\-@&=])[a-z0-9_\-@&=]{6,12}/
+                /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[_\-@&=])[a-z0-9_\-@&=]{6,12}$/
                 , '密码必须6到12位，且必须包含字母数字和特殊字符'
             ]
         });
         form.on('submit(save)', function (data) {
+
             console.log(data.elem);//被执行事件的元素DOM对象，一般为button对象
             console.log(data.form);//被执行提交的form对象，一般在存在form标签时才会返回
             console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
             var id = $("#id").val();
             var password = $("#password").val();
             var tryCode = $("#tryCode").val();
+
             $.ajax({
                 url: "/login/post",
                 data: {
@@ -70,8 +71,8 @@
                     if (data.success) {
                         location.href = "/index";
                     } else {
-                        layer.msg(data.error);
-                        $("#tryCode").click();
+                        layer.msg(data.error, {time: 2000, icon: 5, shift: 6});
+                        $("#code").click();
                     }
                 }, error: function () {
                     layer.msg("网络错误，登录失败");

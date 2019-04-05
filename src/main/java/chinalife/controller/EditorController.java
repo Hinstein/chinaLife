@@ -119,7 +119,7 @@ public class EditorController {
                 file.transferTo(new File(pathName));
                 map.put("code", 0);
                 map.put("msg", "上传成功！");
-               map.put("relativePath",relativePath);
+                map.put("relativePath", relativePath);
                 map.put("data", pathName);
                 Photo photo = new Photo();
                 photo.setUserId(user.getId());
@@ -141,4 +141,16 @@ public class EditorController {
         return map;
     }
 
+    @ResponseBody
+    @PostMapping("/information/save")
+    public Map<String, Object> information(HttpServletRequest request, HttpSession session) {
+        String username = request.getParameter("username");
+        int id = Integer.valueOf(request.getParameter("id"));
+        userService.changeInformation(username,id);
+        User user = userService.findById(id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", "修改成功！");
+        session.setAttribute("user",user);
+        return map;
+    }
 }

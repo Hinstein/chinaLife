@@ -69,7 +69,9 @@
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
                     lay-filter="layadmin-system-side-menu">
-
+                    <li  shiro:hasPermission="admin" class="layui-nav-item ">
+                        <a th:href="@{/admin/insurance}">所有保单</a>
+                    </li>
                     <li class="layui-nav-item" shiro:hasPermission="admin">
                         <a class="" href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
@@ -77,9 +79,7 @@
                             <dd><a th:href="@{/admin/createUser}">添加管理员</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item ">
-                        <a shiro:hasPermission="admin" th:href="@{/admin/insurance}">所有保单</a>
-                    </li>
+
                     <li class="layui-nav-item layui-nav-itemed" shiro:lacksPermission="admin">
                         <a class="" href="javascript:;">保单管理</a>
                         <dl class="layui-nav-child">
