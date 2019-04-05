@@ -47,7 +47,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void changePassword(String password,int id){userRepository.changePassword(password,id);}
+    public void changePassword(String password,int id,String time){userRepository.changePassword(password,id,time);}
 
     @Transactional
     public Page<User> findByContent(String content, int pageNo, int pageSize) {

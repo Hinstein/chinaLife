@@ -106,8 +106,8 @@ public class MainController {
 
     @GetMapping("/index")
     public String index( HttpSession session) {
-        if(session.getAttribute("baodanNumbers")==null){
-            User user1 =(User)session.getAttribute("user");
+        User user1 =(User)session.getAttribute("user");
+        if(user1.getId()!=10000000){
             session.setAttribute("baodan0", insuranceService.baodan0(user1.getId()));
             session.setAttribute("baodan1", insuranceService.baodan1(user1.getId()));
             session.setAttribute("baodan2", insuranceService.baodan2(user1.getId()));

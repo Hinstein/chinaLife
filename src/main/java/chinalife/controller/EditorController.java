@@ -58,7 +58,12 @@ public class EditorController {
         Map<String, Object> map = new HashMap<>();
         User user = (User) session.getAttribute("user");
         if (user.getPassword().equals(oldPassword)) {
-            userService.changePassword(newPassword, user.getId());
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time =df.format(new Date());
+            userService.changePassword(newPassword, user.getId(),time);
+            User user1 = userService.findById(user.getId());
+            session.setAttribute("user",user1);
+            map.put("success", "更换密码成功！");
         } else {
             map.put("error", "旧密码输入错误");
         }
@@ -86,17 +91,17 @@ public class EditorController {
             if (null != file) {
                 //生成uuid作为文件名称
                 String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-                System.out.println("文件名称：" + uuid);
+//                System.out.println("文件名称：" + uuid);
                 //获得文件类型（判断如果不是图片文件类型，则禁止上传）
                 String contentType = file.getContentType();
-                System.out.println("文件类型：" + contentType);
+//                System.out.println("文件类型：" + contentType);
                 //获得文件后缀名称
                 String imageName = contentType.substring(contentType.indexOf("/") + 1);
-                System.out.println("文件后缀名称：" + imageName);
+//                System.out.println("文件后缀名称：" + imageName);
                 String filePath = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static/images/";
                 //根据日期来创建对应的文件夹
                 String datePath = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-                System.out.println("日期：" + datePath);
+//                System.out.println("日期：" + datePath);
                 //根据id分类来创建对应的文件夹
                 String leagueIdPath = user.getId() + "/";
                 //userId
@@ -108,12 +113,12 @@ public class EditorController {
                 }
                 //新生成的文件名称
                 String fileName = uuid + "." + imageName;
-                System.out.println("新生成的文件名称: " + fileName);
+//                System.out.println("新生成的文件名称: " + fileName);
                 //图片保存的完整路径
                 String pathName = path + fileName;
                 String relativePath = "/images/" + leagueIdPath + fileName;
-                System.out.println("图片保存的完整路径: " + pathName);
-                System.out.println("相对路径: " + relativePath);
+//                System.out.println("图片保存的完整路径: " + pathName);
+//                System.out.println("相对路径: " + relativePath);
                 //复制操作
                 //将图片从源位置复制到目标位置
                 file.transferTo(new File(pathName));

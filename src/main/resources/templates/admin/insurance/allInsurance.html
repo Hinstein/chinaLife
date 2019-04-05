@@ -109,9 +109,23 @@
                     <div class="layui-card-body">
                         <div class="demoTable">
                             <div class="layui-inline">
-                                <input class="layui-input" id="content" autocomplete="off" placeholder="输入你想要查找的保单信息">
+                                <input class="layui-input" id="content" autocomplete="off" placeholder="输入投保人姓名或者电话">
                             </div>
                             <button class="layui-btn" id="search" type="button">搜索</button>
+                            <div class="layui-inline">
+                                <form class="layui-form">
+                                    <div class="layui-input-block">
+                                        <select name="type" id="type"  lay-verify="required">
+                                            <option value="4">全部类型</option>
+                                            <option value="0">意外险</option>
+                                            <option value="1">健康险</option>
+                                            <option value="2">补充医疗险</option>
+                                            <option value="3">分红险</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <button class="layui-btn" id="fitter" type="button">分类</button>
                         </div>
                         <table class="layui-table" id="userData" lay-filter="test"
                                lay-skin="line">
@@ -221,8 +235,8 @@
                     layer.confirm('删除投保人姓名为“' + ids + '”的保单么', function (index) {
                         for (var i = 0; i < data.length; i++) {
                             $.ajax({
-                                url: '/delete/insurance/' + data.id,
-                                method: "post",
+                                url: '/delete/insurance/' + data[i].id,
+                                method: "delete",
                                 dataType: "json",
                                 success: function (msg) {
                                     layer.msg(msg.success);
@@ -244,6 +258,18 @@
                 tableIns.reload({
                     where: { //设定异步数据接口的额外参数，任意设
                         content: content
+                        //…
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            });
+            $("#fitter").click(function () {
+                var content = $('#type').val();
+                tableIns.reload({
+                    where: { //设定异步数据接口的额外参数，任意设
+                        fitter: content
                         //…
                     }
                     , page: {

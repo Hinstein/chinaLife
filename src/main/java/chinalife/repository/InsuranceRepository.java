@@ -52,7 +52,7 @@ public interface InsuranceRepository extends JpaRepository<Insurance, Integer> {
     long countByClerkId(int clerkId);
 
     @Query(value = "select u from Insurance u where u.clerkId like CONCAT('%',?1,'%') or u.holderName like CONCAT('%',?1,'%') or u.mobile like CONCAT('%',?1,'%')")
-    Page<Insurance> findBycontent(String content, Pageable pageable);
+    Page<Insurance> findByContent(String content, Pageable pageable);
 
     @Query(value = "select u from Insurance u where  u.clerkId = ?2 and (u.holderName like CONCAT('%',?1,'%') or u.mobile like CONCAT('%',?1,'%') )")
     Page<Insurance> findByClerkIdAndContent(String content, int clerkId, Pageable pageable);
@@ -60,6 +60,12 @@ public interface InsuranceRepository extends JpaRepository<Insurance, Integer> {
     @Query(value = "select u from Insurance u where  u.clerkId= ?2 and u.polName = ?1")
     Page<Insurance> findByPolNameFitter(int fitter, int clerkId, Pageable pageable);
 
+    @Query(value = "select u from Insurance u where  u.polName = ?1")
+    Page<Insurance> findPolNameFitterByadmin(int fitter, Pageable pageable);
+
     @Query(value = "select u from Insurance u where  u.clerkId = ?2 and u.polName = ?1 and (u.holderName like CONCAT('%',?3,'%') or u.mobile like CONCAT('%',?3,'%') )")
     Page<Insurance> findByPolNameFitterAndContent(int fitter, int clerkId, String content, Pageable pageable);
+
+    @Query(value = "select u from Insurance u where  u.polName = ?1 and (u.holderName like CONCAT('%',?2,'%') or u.mobile like CONCAT('%',?2,'%') )")
+    Page<Insurance> findPolNameFitterAndContentByAdmin(int fitter, String content, Pageable pageable);
 }

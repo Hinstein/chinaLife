@@ -96,7 +96,7 @@ public class AdminController {
         int pageNumber = Integer.parseInt(request.getParameter("page"));
         Map<String, Object> result = new HashMap<String, Object>();
         if (content != null) {
-            Page<User> users = userService.findByContent(content,pageNumber, pageSize);
+            Page<User> users = userService.findByContent(content, pageNumber, pageSize);
             result.put("count", users.getTotalElements());
             JSONArray json = JSONArray.fromObject(users.getContent());
             result.put("data", json);
@@ -138,7 +138,6 @@ public class AdminController {
         String delete = request.getParameter("delete");
         String retrieve = request.getParameter("retrieve");
         String update = request.getParameter("update");
-
         if (create != null) {
             if (permsService.findByUserIdAndPerms(user.getId(), "create") == null) {
                 Permission permission = new Permission();
@@ -151,8 +150,6 @@ public class AdminController {
                 permsService.deleteByUserIdAndPerms(user.getId(), "create");
             }
         }
-
-
         if (delete != null) {
             if (permsService.findByUserIdAndPerms(user.getId(), "delete") == null) {
                 Permission permission = new Permission();
@@ -165,8 +162,6 @@ public class AdminController {
                 permsService.deleteByUserIdAndPerms(user.getId(), "delete");
             }
         }
-
-
         if (retrieve != null) {
             if (permsService.findByUserIdAndPerms(user.getId(), "retrieve") == null) {
                 Permission permission = new Permission();
@@ -174,13 +169,11 @@ public class AdminController {
                 permission.setUserId(user.getId());
                 permsService.save(permission);
             }
-
         } else {
             if (permsService.findByUserIdAndPerms(user.getId(), "retrieve") != null) {
                 permsService.deleteByUserIdAndPerms(user.getId(), "retrieve");
             }
         }
-
         if (update != null) {
             if (permsService.findByUserIdAndPerms(user.getId(), "update") == null) {
                 Permission permission = new Permission();
@@ -193,7 +186,6 @@ public class AdminController {
                 permsService.deleteByUserIdAndPerms(user.getId(), "update");
             }
         }
-
         Map<String, Object> map = new HashMap<>(10);
         map.put("success", "保存成功！");
         return map;
@@ -216,15 +208,30 @@ public class AdminController {
 
     @ResponseBody
     @GetMapping("/insurance/data")
-    public Map<String, Object> insuranceData(HttpServletRequest request, @RequestParam(value = "content", required = false) String content) {
+    public Map<String, Object> insuranceData(HttpServletRequest request, @RequestParam(value = "content", required = false) String content,
+                                             @RequestParam(value = "fitter", required = false) String t) {
         int pageSize = Integer.parseInt(request.getParameter("limit"));
         int pageNumber = Integer.parseInt(request.getParameter("page"));
         Map<String, Object> result = new HashMap<String, Object>();
-        if (content != null) {
-            Page<Insurance> insurances = insuranceService.findByContent(content,pageNumber, pageSize);
-            result.put("count", insurances.getTotalElements());
-            JSONArray json = JSONArray.fromObject(insurances.getContent());
-            result.put("data", json);
+        int type=4;
+        if (t!=null){  type=Integer.valueOf(t);}
+        if (content != null || type != 4) {
+            if ((content != null && type != 4)) {
+                Page<Insurance> insurances = insuranceService.findPolNameFitterAndContentByAdmin(type, content, pageNumber, pageSize);
+                result.put("count", insurances.getTotalElements());
+                JSONArray json = JSONArray.fromObject(insurances.getContent());
+                result.put("data", json);
+            } else if (content != null) {
+                Page<Insurance> insurances = insuranceService.findByContent(content, pageNumber, pageSize);
+                result.put("count", insurances.getTotalElements());
+                JSONArray json = JSONArray.fromObject(insurances.getContent());
+                result.put("data", json);
+            } else {
+                Page<Insurance> insurances = insuranceService.findPolNameFitterByAdmin(type, pageNumber, pageSize);
+                result.put("count", insurances.getTotalElements());
+                JSONArray json = JSONArray.fromObject(insurances.getContent());
+                result.put("data", json);
+            }
         } else {
             Page<Insurance> insurances = insuranceService.findAll(pageNumber, pageSize);
             result.put("count", insurances.getTotalElements());

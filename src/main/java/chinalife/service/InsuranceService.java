@@ -100,7 +100,7 @@ public class InsuranceService {
             pageNo = 1;
         }
         PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
-        return insuranceRepository.findBycontent(content, pageable);
+        return insuranceRepository.findByContent(content, pageable);
     }
 
 
@@ -130,5 +130,25 @@ public class InsuranceService {
         }
         PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
         return insuranceRepository.findByPolNameFitterAndContent(fitter,clerkId,content, pageable);
+    }
+
+    @Transactional
+    public Page<Insurance> findPolNameFitterAndContentByAdmin(int fitter,String content, int pageNo, int pageSize) {
+        if (pageNo == 0) {
+            pageNo = 1;
+        }
+        PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
+        return insuranceRepository.findPolNameFitterAndContentByAdmin(fitter,content, pageable);
+    }
+
+
+
+    @Transactional
+    public Page<Insurance> findPolNameFitterByAdmin(int fitter, int pageNo, int pageSize) {
+        if (pageNo == 0) {
+            pageNo = 1;
+        }
+        PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
+        return insuranceRepository.findPolNameFitterByadmin(fitter, pageable);
     }
 }

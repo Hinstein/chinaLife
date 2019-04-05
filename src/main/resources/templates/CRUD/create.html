@@ -113,7 +113,7 @@
                     <div class="layui-card-body">
                         <div class="layui-row">
                             <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                <form class="layui-form layui-form-pane" action="" lay-filter="example">
+                                <form class="layui-form layui-form-pane" action="" lay-filter="example" id="form">
 
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">投保人姓名</label>
@@ -237,6 +237,7 @@
                 success: function (msg) {
                     // //清除表单内容
                     layer.msg(msg.success);
+                    $('#form')[0].reset();
                     setTimeout(function () {
                         location.href="/retrieve";
                     },2000)

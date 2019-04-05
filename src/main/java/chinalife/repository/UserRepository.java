@@ -30,9 +30,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE User user  SET user.password=?1 " +
+    @Query(value = "UPDATE User user  SET user.password=?1 , user.passwordTime= ?3 " +
             "WHERE user.id = ?2")
-    void changePassword(String password,int id);
+    void changePassword(String password, int id, String time);
 
     @Query(value = "select u from User u where u.username like CONCAT('%',?1,'%') or u.id like CONCAT('%',?1,'%')")
     Page<User> findBycontent(String content, Pageable pageable);
@@ -41,5 +41,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query(value = "UPDATE User user  SET user.username=?1 " +
             "WHERE user.id = ?2")
-    void changeInformation(String username,int id);
+    void changeInformation(String username, int id);
 }
