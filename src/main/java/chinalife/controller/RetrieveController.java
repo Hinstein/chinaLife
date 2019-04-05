@@ -33,25 +33,78 @@ public class RetrieveController {
     InsuranceService insuranceService;
 
     @GetMapping("")
-    public String retrieve(){
+    public String retrieve() {
         return "/CRUD/retrieve";
     }
 
     @ResponseBody
     @GetMapping("/insurance/data")
-    public Map<String, Object> insuranceData(HttpServletRequest request, HttpSession session, @RequestParam(value = "content", required = false) String content) {
-        User user = (User)session.getAttribute("user");
+    public Map<String, Object> insuranceData(HttpServletRequest request, HttpSession session, @RequestParam(value = "content", required = false) String content,
+                                             @RequestParam(value = "fitter", required = false) String fitter) {
+        User user = (User) session.getAttribute("user");
         int pageSize = Integer.parseInt(request.getParameter("limit"));
         int pageNumber = Integer.parseInt(request.getParameter("page"));
-        Map<String, Object> result = new HashMap<String, Object>();
-        if (content != null) {
-            Page<Insurance> insurances = insuranceService.findByClerkIdAndContent(content,user.getId(),pageNumber, pageSize);
-            result.put("count", insurances.getTotalElements());
-            JSONArray json = JSONArray.fromObject(insurances.getContent());
-            result.put("data", json);
 
+        Map<String, Object> result = new HashMap<String, Object>();
+        if (content != null || fitter != null) {
+            if (content != null) {
+                Page<Insurance> insurances = insuranceService.findByClerkIdAndContent(content, user.getId(), pageNumber, pageSize);
+                result.put("count", insurances.getTotalElements());
+                JSONArray json = JSONArray.fromObject(insurances.getContent());
+                result.put("data", json);
+            }
+            if (fitter != null) {
+                int type=0;
+                switch (fitter) {
+                    case "0":
+                        type=0;
+                        break;
+                    case "1":
+                        type=1;
+                        break;
+                    case "2":
+
+                        type=2;
+                        break;
+                    case "3":
+
+                        type=3;
+                        break;
+                    default:
+                        break;
+                }
+                Page<Insurance> insurances = insuranceService.findByPolNameFitter(type, user.getId(), pageNumber, pageSize);
+                result.put("count", insurances.getTotalElements());
+                JSONArray json = JSONArray.fromObject(insurances.getContent());
+                result.put("data", json);
+            }
+            if ((content != null && fitter != null)) {
+                int type=0;
+                switch (fitter) {
+                    case "0":
+                        type=0;
+                        break;
+                    case "1":
+                        type=1;
+                        break;
+                    case "2":
+
+                        type=2;
+                        break;
+                    case "3":
+
+                        type=3;
+                        break;
+                    default:
+                        break;
+                }
+                Page<Insurance> insurances = insuranceService.findByPolNameFitterAndContent(type, user.getId(), content, pageNumber, pageSize);
+                result.put("count", insurances.getTotalElements());
+                JSONArray json = JSONArray.fromObject(insurances.getContent());
+                result.put("data", json);
+            }
         } else {
-            Page<Insurance> insurances = insuranceService.findAllByClerkId(user.getId(),pageNumber, pageSize);
+            Page<Insurance> insurances = insuranceService.findAllByClerkId(user.getId(), pageNumber, pageSize);
             result.put("count", insurances.getTotalElements());
             JSONArray json = JSONArray.fromObject(insurances.getContent());
             result.put("data", json);

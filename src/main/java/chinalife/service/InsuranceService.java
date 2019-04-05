@@ -104,7 +104,6 @@ public class InsuranceService {
     }
 
 
-
     @Transactional
     public Page<Insurance> findByClerkIdAndContent(String content,int clerkId, int pageNo, int pageSize) {
         if (pageNo == 0) {
@@ -112,5 +111,24 @@ public class InsuranceService {
         }
         PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
         return insuranceRepository.findByClerkIdAndContent(content,clerkId, pageable);
+    }
+
+    @Transactional
+    public Page<Insurance> findByPolNameFitter(int fitter,int clerkId, int pageNo, int pageSize) {
+        if (pageNo == 0) {
+            pageNo = 1;
+        }
+        PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
+        return insuranceRepository.findByPolNameFitter(fitter,clerkId, pageable);
+    }
+
+
+    @Transactional
+    public Page<Insurance> findByPolNameFitterAndContent(int fitter,int clerkId,String content, int pageNo, int pageSize) {
+        if (pageNo == 0) {
+            pageNo = 1;
+        }
+        PageRequest pageable = PageRequest.of(pageNo - 1, pageSize);
+        return insuranceRepository.findByPolNameFitterAndContent(fitter,clerkId,content, pageable);
     }
 }

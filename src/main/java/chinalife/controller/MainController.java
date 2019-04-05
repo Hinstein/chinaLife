@@ -86,12 +86,6 @@ public class MainController {
                     session.setAttribute("updateCounts",permissionService.updateCounts());
                     session.setAttribute("deleteCounts",permissionService.deleteCounts());
                     session.setAttribute("retrieveCounts",permissionService.retrieveCounts());
-                }else{
-                    session.setAttribute("baodan0", insuranceService.baodan0(user1.getId()));
-                    session.setAttribute("baodan1", insuranceService.baodan1(user1.getId()));
-                    session.setAttribute("baodan2", insuranceService.baodan2(user1.getId()));
-                    session.setAttribute("baodan3", insuranceService.baodan3(user1.getId()));
-                    session.setAttribute("baodanNumbers", insuranceService.numbers(user1.getId()));
                 }
                 //登录成功
             } catch (UnknownAccountException e) {
@@ -111,7 +105,15 @@ public class MainController {
     }
 
     @GetMapping("/index")
-    public String index() {
+    public String index( HttpSession session) {
+        if(session.getAttribute("baodanNumbers")==null){
+            User user1 =(User)session.getAttribute("user");
+            session.setAttribute("baodan0", insuranceService.baodan0(user1.getId()));
+            session.setAttribute("baodan1", insuranceService.baodan1(user1.getId()));
+            session.setAttribute("baodan2", insuranceService.baodan2(user1.getId()));
+            session.setAttribute("baodan3", insuranceService.baodan3(user1.getId()));
+            session.setAttribute("baodanNumbers", insuranceService.numbers(user1.getId()));
+        }
         return "/index";
     }
 }
