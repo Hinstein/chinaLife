@@ -20,7 +20,7 @@ import java.io.ByteArrayOutputStream;
  * @BelongsPackage: chinalife.controller
  * @Author: Hinstein
  * @CreateTime: 2019-03-21 16:30
- * @Description:
+ * @Description: kaptcha验证码的控制层
  */
 
 @Controller

@@ -7,7 +7,7 @@ import javax.persistence.*;
  * @BelongsPackage: chinalife.entity
  * @Author: Hinstein
  * @CreateTime: 2019-03-17 21:04
- * @Description:
+ * @Description: 权限实体类
  */
 @Table(name = "permission")
 @Entity
@@ -17,7 +17,7 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String perms;
 
     @Column

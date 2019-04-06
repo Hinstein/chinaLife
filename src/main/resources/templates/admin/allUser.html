@@ -66,8 +66,9 @@
                 <div class="layui-logo" lay-href="home/console.html">
                     <span>后台管理系统</span>
                 </div>
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu" lay-filter="layadmin-system-side-menu">
-                    <li  shiro:hasPermission="admin" class="layui-nav-item ">
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
+                    lay-filter="layadmin-system-side-menu">
+                    <li shiro:hasPermission="admin" class="layui-nav-item ">
                         <a th:href="@{/admin/insurance}">所有保单</a>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed" shiro:hasPermission="admin">
@@ -150,10 +151,10 @@
             , size: 'lg'
             , cols: [[ //表头
                 {type: 'checkbox'}
-                , {field: 'id', title: '工号', sort: true,with:'7%'}
-                , {field: 'username', title: '姓名',with:'8%'}
-                , {field: 'activeNumber', title: '活跃度',with:'8%', sort: true}
-                , {field: 'baodanNumber', title: '保单数',with:'8%', sort: true}
+                , {field: 'id', title: '工号', sort: true, with: '7%'}
+                , {field: 'username', title: '姓名', with: '8%'}
+                , {field: 'activeNumber', title: '活跃度', with: '8%', sort: true}
+                , {field: 'baodanNumber', title: '保单数', with: '8%', sort: true}
                 , {field: 'addTime', title: '添加时间', sort: true}
                 , {field: 'passwordTime', title: '密码最后更改时间', sort: true}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#action'}

@@ -70,7 +70,7 @@
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
                     lay-filter="layadmin-system-side-menu">
-                    <li  shiro:hasPermission="admin" class="layui-nav-item ">
+                    <li shiro:hasPermission="admin" class="layui-nav-item ">
                         <a th:href="@{/admin/insurance}">所有保单</a>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed" shiro:hasPermission="admin">
@@ -114,7 +114,8 @@
                                 <label class="layui-form-label">工号</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="id" autocomplete="off"
-                                           placeholder="不可输入，系统自动生成" class="layui-input layui-disabled" disabled="disabled">
+                                           placeholder="不可输入，系统自动生成" class="layui-input layui-disabled"
+                                           disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">

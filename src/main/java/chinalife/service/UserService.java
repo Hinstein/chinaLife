@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
  * @BelongsPackage: chinalife.service
  * @Author: Hinstein
  * @CreateTime: 2019-03-14 12:35
- * @Description:
+ * @Description: 用户service
  */
 @Service
 public class UserService {
@@ -24,11 +24,24 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User findByUsername(String username){
+    /**
+     * 通过用户名查找用户
+     *
+     * @param username
+     * @return 用户信息
+     */
+    public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public Page<User> findAll(int pageNo, int pageSize){
+    /**
+     * 分页查找所有用户
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Page<User> findAll(int pageNo, int pageSize) {
         if (pageNo == 0) {
             pageNo = 1;
         }
@@ -36,21 +49,54 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-    public User findById(int id){
+    /**
+     * 通过id查找用户
+     *
+     * @param id
+     * @return
+     */
+    public User findById(int id) {
         return userRepository.findById(id);
     }
 
-    public void save(User user){
+    /**
+     * 保存用户
+     *
+     * @param user
+     */
+    public void save(User user) {
         userRepository.save(user);
     }
 
-    public void deleteById(int id){
+    /**
+     * 通过id删除用户
+     *
+     * @param id
+     */
+    public void deleteById(int id) {
         userRepository.deleteById(id);
     }
 
-    public void changePassword(String password,int id,String time){userRepository.changePassword(password,id,time);}
+    /**
+     * 更新用户密码
+     *
+     * @param password
+     * @param id
+     * @param time
+     */
+    public void changePassword(String password, int id, String time) {
+        userRepository.changePassword(password, id, time);
+    }
 
-    @Transactional
+    /**
+     * 分页模糊查询用户信息
+     *
+     * @param content
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Transactional(rollbackOn = Exception.class)
     public Page<User> findByContent(String content, int pageNo, int pageSize) {
         if (pageNo == 0) {
             pageNo = 1;
@@ -59,28 +105,55 @@ public class UserService {
         return userRepository.findBycontent(content, pageable);
     }
 
-    public void changeInformation(String username,int id){userRepository.changeInformation(username,id);}
+    /**
+     * 更新用户信息
+     *
+     * @param username
+     * @param id
+     */
+    public void changeInformation(String username, int id) {
+        userRepository.changeInformation(username, id);
+    }
 
-    public void active(int id){
+    /**
+     * 用户活跃量加一
+     *
+     * @param id
+     */
+    public void active(int id) {
         userRepository.active(id);
     }
 
-    public void  baodanNumber(int id){
+    /**
+     * 用户保单数加一
+     *
+     * @param id
+     */
+    public void baodanNumber(int id) {
         userRepository.baodanNumber(id);
     }
 
-
-    @Transactional
+    /**
+     * 用户活跃榜单
+     *
+     * @return 榜单信息
+     */
+    @Transactional(rollbackOn = Exception.class)
     public Page<User> activeRank() {
         Sort sort = new Sort(Sort.Direction.DESC, "activeNumber");
-        PageRequest pageable = PageRequest.of(0 , 5,sort);
+        PageRequest pageable = PageRequest.of(0, 5, sort);
         return userRepository.activeRank(pageable);
     }
 
-    @Transactional
+    /**
+     * 用户业绩榜单
+     *
+     * @return 榜单信息
+     */
+    @Transactional(rollbackOn = Exception.class)
     public Page<User> baodanRank() {
         Sort sort = new Sort(Sort.Direction.DESC, "baodanNumber");
-        PageRequest pageable = PageRequest.of(0 , 5,sort);
+        PageRequest pageable = PageRequest.of(0, 5, sort);
         return userRepository.baodanRank(pageable);
     }
 }

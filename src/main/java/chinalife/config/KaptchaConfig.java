@@ -12,7 +12,7 @@ import java.util.Properties;
  * @BelongsPackage: chinalife.config
  * @Author: Hinstein
  * @CreateTime: 2019-03-21 16:36
- * @Description:
+ * @Description:使用kaptcha作为登录验证码插件
  */
 
 @Component

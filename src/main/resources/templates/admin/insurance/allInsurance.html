@@ -69,7 +69,7 @@
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
                     lay-filter="layadmin-system-side-menu">
-                    <li  shiro:hasPermission="admin" class="layui-nav-item layui-this">
+                    <li shiro:hasPermission="admin" class="layui-nav-item layui-this">
                         <a th:href="@{/admin/insurance}">所有保单</a>
                     </li>
                     <li class="layui-nav-item" shiro:hasPermission="admin">
@@ -115,7 +115,7 @@
                             <div class="layui-inline">
                                 <form class="layui-form">
                                     <div class="layui-input-block">
-                                        <select name="type" id="type"  lay-verify="required">
+                                        <select name="type" id="type" lay-verify="required">
                                             <option value="4">全部类型</option>
                                             <option value="0">意外险</option>
                                             <option value="1">健康险</option>
@@ -167,8 +167,8 @@
             , size: 'lg'
             , cols: [[ //表头
                 {type: 'checkbox'}
-                , {field: 'id', title: 'ID',width:'7%', sort: true}
-                , {field: 'holderName', title: '投保人',width:'8%'}
+                , {field: 'id', title: 'ID', width: '7%', sort: true}
+                , {field: 'holderName', title: '投保人', width: '8%'}
                 , {field: 'mobile', title: '电话号码'}
                 , {field: 'birthDate', title: '出生日期', sort: true}
                 , {field: 'money', title: '保费', sort: true}

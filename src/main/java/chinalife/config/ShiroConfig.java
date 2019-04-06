@@ -15,7 +15,7 @@ import java.util.Map;
  * @BelongsPackage: chinalife.config
  * @Author: Hinstein
  * @CreateTime: 2019-03-17 13:38
- * @Description:
+ * @Description:使用shiro作为权限管理
  */
 @Configuration
 public class ShiroConfig {
@@ -40,7 +40,7 @@ public class ShiroConfig {
          */
         Map<String, String> filterMap = new LinkedHashMap<String, String>();
         filterMap.put("/index/**", "authc");
-        filterMap.put("/editor/**","authc");
+        filterMap.put("/editor/**", "authc");
         //授权过滤器
         //注意：当前授权拦截后，shiro会自动跳转到未授权页面
         filterMap.put("/admin/**", "perms[admin]");

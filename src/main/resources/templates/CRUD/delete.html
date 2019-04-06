@@ -69,7 +69,7 @@
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
                     lay-filter="layadmin-system-side-menu">
-                    <li  shiro:hasPermission="admin" class="layui-nav-item ">
+                    <li shiro:hasPermission="admin" class="layui-nav-item ">
                         <a th:href="@{/admin/insurance}">所有保单</a>
                     </li>
                     <li class="layui-nav-item" shiro:hasPermission="admin">
@@ -84,7 +84,7 @@
                         <a class="" href="javascript:;">保单管理</a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/create}">添加</a></dd>
-                            <dd  class="layui-this"><a th:href="@{/delete}">删除</a></dd>
+                            <dd class="layui-this"><a th:href="@{/delete}">删除</a></dd>
                             <dd><a th:href="@{/retrieve}">查找</a></dd>
                             <dd><a th:href="@{/update}">更新</a></dd>
                         </dl>
@@ -149,11 +149,11 @@
             , limit: 10 //每页默认显示的数量
             // , skin: 'line'
             , size: 'lg'
-            ,cellMinWidth: 80
+            , cellMinWidth: 80
             , cols: [[ //表头
                 {type: 'checkbox'}
-                , {field: 'id', title: 'ID' ,width:'7%', sort: true}
-                , {field: 'holderName', title: '投保人',width:'8%'}
+                , {field: 'id', title: 'ID', width: '7%', sort: true}
+                , {field: 'holderName', title: '投保人', width: '8%'}
                 , {field: 'mobile', title: '电话号码'}
                 , {field: 'birthDate', title: '出生日期'}
                 , {field: 'money', title: '保费', sort: true}
@@ -169,8 +169,8 @@
                             return "分红险";
                     }
                 }
-                , {field: 'inforceTime', title: '添加时间' , sort: true}
-                , { title: '操作', align: 'center', toolbar: '#action'}
+                , {field: 'inforceTime', title: '添加时间', sort: true}
+                , {title: '操作', align: 'center', toolbar: '#action'}
             ]]
         });
         table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -186,7 +186,7 @@
                     , area: ['550px', '680px']
                 });
             } else if (layEvent === 'delete') { //删除
-                layer.confirm('删除投保人姓名为“' + data.holderName+ '”的保单么', function (index) {
+                layer.confirm('删除投保人姓名为“' + data.holderName + '”的保单么', function (index) {
                     $.ajax({
                         url: '/delete/insurance/' + data.id,
                         method: "delete",

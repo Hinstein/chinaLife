@@ -7,14 +7,14 @@ import javax.persistence.*;
  * @BelongsPackage: chinalife.entity
  * @Author: Hinstein
  * @CreateTime: 2019-04-01 20:41
- * @Description:
+ * @Description: 头像实体类
  */
 @Entity
 @Table(name = "photo")
 public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer id;
+    private Integer id;
 
     @Column(length = 50)
     private String datePath;

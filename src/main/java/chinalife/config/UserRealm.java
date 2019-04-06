@@ -32,6 +32,7 @@ public class UserRealm extends AuthorizingRealm {
 
     /**
      * 执行授权逻辑
+     *
      * @param principalCollection
      * @return
      */
@@ -40,15 +41,17 @@ public class UserRealm extends AuthorizingRealm {
 //        System.out.println("执行授权逻辑");
 
         //给资源进行授权
-        SimpleAuthorizationInfo info =new SimpleAuthorizationInfo();
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         //添加资源的授权字符串
-
         Subject subject = SecurityUtils.getSubject();
-        User user =(User)subject.getPrincipal();
-        User user1=userService.findById(user.getId());
-        List<Permission> perms=permsService.findByUserId(user1.getId());
-        for(Permission p:perms){
+        User user = (User) subject.getPrincipal();
+        //通过前端传来的id查找用户
+        User user1 = userService.findById(user.getId());
+        //通过id查找所有权限
+        List<Permission> perms = permsService.findByUserId(user1.getId());
+        //循环遍历添加资源的授权字符串
+        for (Permission p : perms) {
             info.addStringPermission(p.getPerms());
         }
 
@@ -57,6 +60,7 @@ public class UserRealm extends AuthorizingRealm {
 
     /**
      * 执行认证逻辑
+     *
      * @param authenticationToken
      * @return
      * @throws AuthenticationException
@@ -67,16 +71,16 @@ public class UserRealm extends AuthorizingRealm {
 
         //编写shiro判断逻辑，判断用户名和密码
         //1、判断用户名
-        UsernamePasswordToken token =(UsernamePasswordToken)authenticationToken;
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 
-        User user =userService.findById(Integer.parseInt(token.getUsername()));
+        User user = userService.findById(Integer.parseInt(token.getUsername()));
 
-        if(user==null){
+        if (user == null) {
             //用户名不存在
             return null;
         }
 
         //2.判断密码
-        return new SimpleAuthenticationInfo(user,user.getPassword(),"");
+        return new SimpleAuthenticationInfo(user, user.getPassword(), "");
     }
 }

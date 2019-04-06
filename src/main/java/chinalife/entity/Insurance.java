@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @BelongsPackage: chinalife.entity
  * @Author: Hinstein
  * @CreateTime: 2019-03-27 19:38
- * @Description:
+ * @Description: 保单实体类
  */
 @Entity
 @Table(name = "insurance")
@@ -18,16 +18,16 @@ public class Insurance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String holderName;
 
-    @Column(nullable =false)
+    @Column(nullable = false)
     private int sex;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String birthDate;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String mobile;
 
     @Column
@@ -36,25 +36,25 @@ public class Insurance {
     @Column
     private int money;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String insuredName1;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String rel1;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String insuredName2;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String rel2;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String inforceTime;
 
     @Column
     private int clerkId;
 
-    @Column(length =50)
+    @Column(length = 50)
     private String baodanNo;
 
     public String getBaodanNo() {

@@ -12,7 +12,7 @@ import java.util.List;
  * @BelongsPackage: chinalife.service
  * @Author: Hinstein
  * @CreateTime: 2019-03-18 08:57
- * @Description:
+ * @Description: 权限service
  */
 @Service
 public class PermissionService {
@@ -20,37 +20,88 @@ public class PermissionService {
     @Autowired
     PermissionRepository permsRepository;
 
-    public List<Permission> findByUserId(int userId){
+    /**
+     * 通过用户id查找权限
+     *
+     * @param userId
+     * @return 权限
+     */
+    public List<Permission> findByUserId(int userId) {
         return permsRepository.findByUserId(userId);
     }
 
-    public Permission findByUserIdAndPerms(int userId,String perms){
-        return permsRepository.findByUserIdAndPerms(userId,perms);
+    /**
+     * 通过用户id和权限名称查找权限
+     *
+     * @param userId
+     * @param perms
+     * @return 权限
+     */
+    public Permission findByUserIdAndPerms(int userId, String perms) {
+        return permsRepository.findByUserIdAndPerms(userId, perms);
     }
 
-    public void save(Permission permission){
+    /**
+     * 保存权限
+     *
+     * @param permission
+     */
+    public void save(Permission permission) {
         permsRepository.save(permission);
     }
 
-    public void deleteByUserIdAndPerms(int userId,String perms){
-         permsRepository.deleteByUserIdAndPerms(userId,perms);
+    /**
+     * 通过用户id的权限名称删除权限
+     *
+     * @param userId
+     * @param perms
+     */
+    public void deleteByUserIdAndPerms(int userId, String perms) {
+        permsRepository.deleteByUserIdAndPerms(userId, perms);
     }
 
-    public void deleteByUserId(int userId){
+    /**
+     * 通过用户id删除权限
+     *
+     * @param userId
+     */
+    public void deleteByUserId(int userId) {
         permsRepository.deleteByUserId(userId);
     }
 
-    public long createCounts(){
+    /**
+     * 删除的权限数量
+     *
+     * @return 删除的权限数量
+     */
+    public long createCounts() {
         return permsRepository.countByPerms("create");
     }
 
-    public long updateCounts(){
+    /**
+     * 更新的权限数量
+     *
+     * @return 更新的权限数量
+     */
+    public long updateCounts() {
         return permsRepository.countByPerms("update");
     }
-    public long deleteCounts(){
+
+    /**
+     * 删除的权限数量
+     *
+     * @return 删除的权限数量
+     */
+    public long deleteCounts() {
         return permsRepository.countByPerms("delete");
     }
-    public long retrieveCounts(){
+
+    /**
+     * 查看的权限数量
+     *
+     * @return 查看的权限数量
+     */
+    public long retrieveCounts() {
         return permsRepository.countByPerms("retrieve");
     }
 

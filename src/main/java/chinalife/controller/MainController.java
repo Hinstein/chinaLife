@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -31,7 +30,7 @@ import java.util.Map;
  * @BelongsPackage: chinalife.controller
  * @Author: Hinstein
  * @CreateTime: 2019-03-12 19:00
- * @Description:
+ * @Description: 登录和主页的控制层
  */
 
 @Controller
@@ -46,11 +45,21 @@ public class MainController {
     @Autowired
     PermissionService permissionService;
 
+    /**
+     * 来到登录页面
+     *
+     * @return 登录页面
+     */
     @GetMapping("/login")
     public String login() {
         return "/login";
     }
 
+    /**
+     * 退出页面
+     *
+     * @return 退出页面
+     */
     @GetMapping("/exit")
     public String exit() {
         Subject subject = SecurityUtils.getSubject();
@@ -58,39 +67,50 @@ public class MainController {
         return "redirect:/login";
     }
 
+    /**
+     * 异步登录
+     *
+     * @param user
+     * @param request
+     * @param session
+     * @return json数据
+     */
     @ResponseBody
     @PostMapping("/login/post")
     public Map<String, Object> loginPost(User user, HttpServletRequest request, HttpSession session) {
+        //从session中获取kaptcha生成在session中的正确验证码
         String rightCode = (String) request.getSession().getAttribute("rightCode");
+        //从前端页面获取用户输入的验证码
         String tryCode = request.getParameter("tryCode");
         Map<String, Object> map = new HashMap<>(10);
 
-        //1.获取subject
-        Subject subject = SecurityUtils.getSubject();
-
-        //2.封装用户数据
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getId().toString(), user.getPassword());
-
-        //3.判断验证码是否正确
+        //1.判断验证码是否正确
         if (tryCode.equals(rightCode)) {
+
+            //2.获取subject
+            Subject subject = SecurityUtils.getSubject();
+
+            //3.封装用户数据
+            UsernamePasswordToken token = new UsernamePasswordToken(user.getId().toString(), user.getPassword());
+
             //4.执行登录方法
             try {
                 subject.login(token);
-                User user1 =userService.findById(user.getId());
-                session.setAttribute("user",user1);
+                User user1 = userService.findById(user.getId());
+                session.setAttribute("user", user1);
                 map.put("success", "登录成功");
                 //判断是否是管理员登录
-                if(user1.getId()==10000000) {
+                if (user1.getId() == 10000000) {
                     session.setAttribute("baodan0", insuranceService.baodan0());
                     session.setAttribute("baodan1", insuranceService.baodan1());
                     session.setAttribute("baodan2", insuranceService.baodan2());
                     session.setAttribute("baodan3", insuranceService.baodan3());
-                    session.setAttribute("baodanNumbers", insuranceService.numbers());
-                    session.setAttribute("createCounts",permissionService.createCounts());
-                    session.setAttribute("updateCounts",permissionService.updateCounts());
-                    session.setAttribute("deleteCounts",permissionService.deleteCounts());
-                    session.setAttribute("retrieveCounts",permissionService.retrieveCounts());
-                }else {
+                    session.setAttribute("baodanNumbers", insuranceService.numbers() - 1);
+                    session.setAttribute("createCounts", permissionService.createCounts() - 1);
+                    session.setAttribute("updateCounts", permissionService.updateCounts() - 1);
+                    session.setAttribute("deleteCounts", permissionService.deleteCounts() - 1);
+                    session.setAttribute("retrieveCounts", permissionService.retrieveCounts() - 1);
+                } else {
                     userService.active(user1.getId());
                 }
                 //登录成功
@@ -105,24 +125,46 @@ public class MainController {
         return map;
     }
 
+    /**
+     * 来到未授权页面
+     *
+     * @return 未授权页面
+     */
     @GetMapping("/noAuth")
     public String unAuth() {
         return "/noAuth";
     }
 
+    /**
+     * 来到主页
+     *
+     * @param session
+     * @param model
+     * @return 主页
+     */
     @GetMapping("/index")
     public String index(HttpSession session, Model model) {
-        User user1 =(User)session.getAttribute("user");
-        if(user1.getId()!=10000000){
+        //通过session查看当前登录的用户信息
+        User user1 = (User) session.getAttribute("user");
+        //如果用户不是总管理员
+        if (user1.getId() != 10000000) {
+            //向session中添加保单的数量信息
+            //意外险数量
             session.setAttribute("baodan0", insuranceService.baodan0(user1.getId()));
+            //健康险数量
             session.setAttribute("baodan1", insuranceService.baodan1(user1.getId()));
+            //补充医疗险数量
             session.setAttribute("baodan2", insuranceService.baodan2(user1.getId()));
+            //分红险数量
             session.setAttribute("baodan3", insuranceService.baodan3(user1.getId()));
-        }else {
-            Page<User> activeRank =userService.activeRank();
-            Page<User> baodanRank =userService.baodanRank();
-            model.addAttribute("activeRank",activeRank);
-model.addAttribute("baodanRank",baodanRank);
+        }
+        //如果是总管理员
+        else {
+            //获取用户活跃数和用户业绩排名
+            Page<User> activeRank = userService.activeRank();
+            Page<User> baodanRank = userService.baodanRank();
+            model.addAttribute("activeRank", activeRank);
+            model.addAttribute("baodanRank", baodanRank);
         }
         return "/index";
     }

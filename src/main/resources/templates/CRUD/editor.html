@@ -22,7 +22,8 @@
                         <label class="layui-form-label">保单号</label>
                         <div class="layui-input-block">
                             <input type="text" name="baodanNo" lay-verify="required" autocomplete="off"
-                                   placeholder="请输入工号" class="layui-input layui-disabled" th:value="${insurance.baodanNo}">
+                                   placeholder="请输入工号" class="layui-input layui-disabled"
+                                   th:value="${insurance.baodanNo}">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -109,7 +110,7 @@
 
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <input  name="id" hidden="hidden" th:value="${insurance.id}">
+                            <input name="id" hidden="hidden" th:value="${insurance.id}">
                             <button class="layui-btn" lay-submit="" lay-filter="save">保存</button>
                         </div>
                     </div>

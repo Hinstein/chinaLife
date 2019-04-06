@@ -10,22 +10,47 @@ import org.springframework.stereotype.Service;
  * @BelongsPackage: chinalife.service
  * @Author: Hinstein
  * @CreateTime: 2019-04-01 20:48
- * @Description:
+ * @Description: 头像service
  */
 @Service
 public class PhotoService {
     @Autowired
     PhotoRepository photoRepository;
 
-    public void save(Photo photo){
+    /**
+     * 保存头像
+     *
+     * @param photo
+     */
+    public void save(Photo photo) {
         photoRepository.save(photo);
     }
 
-    public Photo findByUserId(int userId){
+    /**
+     * 通过用户id查找头像
+     *
+     * @param userId
+     * @return 头像信息
+     */
+    public Photo findByUserId(int userId) {
         return photoRepository.findByUserId(userId);
     }
 
-    public void update(Photo photo){
+    /**
+     * 更新头像头像
+     *
+     * @param photo
+     */
+    public void update(Photo photo) {
         photoRepository.update(photo);
+    }
+
+    /**
+     * 通过用户id删除头像
+     *
+     * @param id
+     */
+    public void deleteByUserId(int id) {
+        photoRepository.deleteByUserId(id);
     }
 }
