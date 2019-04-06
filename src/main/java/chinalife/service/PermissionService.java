@@ -5,6 +5,8 @@ import chinalife.repository.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,6 +49,9 @@ public class PermissionService {
      * @param permission
      */
     public void save(Permission permission) {
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        permission.setTime(df.format(new Date()));
         permsRepository.save(permission);
     }
 

@@ -25,6 +25,12 @@ public class Photo {
     @Column
     private String relativePath;
 
+    @Column
+    private String pathName;
+
+    @Column
+    private Integer userId;
+
     public String getRelativePath() {
         return relativePath;
     }
@@ -32,12 +38,6 @@ public class Photo {
     public void setRelativePath(String relativePath) {
         this.relativePath = relativePath;
     }
-
-    @Column
-    private String pathName;
-
-    @Column
-    private Integer userId;
 
     public Integer getUserId() {
         return userId;

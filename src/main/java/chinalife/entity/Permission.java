@@ -23,6 +23,17 @@ public class Permission {
     @Column
     private int userId;
 
+    @Column(length = 50)
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public int getUserId() {
         return userId;
     }
