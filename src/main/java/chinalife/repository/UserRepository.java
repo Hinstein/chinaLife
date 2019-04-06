@@ -42,4 +42,22 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "UPDATE User user  SET user.username=?1 " +
             "WHERE user.id = ?2")
     void changeInformation(String username, int id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE User user  SET user.activeNumber= user.activeNumber+1" +
+            "WHERE user.id = ?1")
+    void active(int id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE User user  SET user.baodanNumber= user.baodanNumber+1" +
+            "WHERE user.id = ?1")
+    void baodanNumber(int id);
+
+    @Query("select user  from User user where user.username<>'admin'")
+    Page<User> activeRank(Pageable pageable);
+
+    @Query("select user  from User user where user.username<>'admin'")
+    Page<User> baodanRank(Pageable pageable);
 }

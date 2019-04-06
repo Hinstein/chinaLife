@@ -11,10 +11,14 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,6 +90,8 @@ public class MainController {
                     session.setAttribute("updateCounts",permissionService.updateCounts());
                     session.setAttribute("deleteCounts",permissionService.deleteCounts());
                     session.setAttribute("retrieveCounts",permissionService.retrieveCounts());
+                }else {
+                    userService.active(user1.getId());
                 }
                 //登录成功
             } catch (UnknownAccountException e) {
@@ -105,14 +111,18 @@ public class MainController {
     }
 
     @GetMapping("/index")
-    public String index( HttpSession session) {
+    public String index(HttpSession session, Model model) {
         User user1 =(User)session.getAttribute("user");
         if(user1.getId()!=10000000){
             session.setAttribute("baodan0", insuranceService.baodan0(user1.getId()));
             session.setAttribute("baodan1", insuranceService.baodan1(user1.getId()));
             session.setAttribute("baodan2", insuranceService.baodan2(user1.getId()));
             session.setAttribute("baodan3", insuranceService.baodan3(user1.getId()));
-            session.setAttribute("baodanNumbers", insuranceService.numbers(user1.getId()));
+        }else {
+            Page<User> activeRank =userService.activeRank();
+            Page<User> baodanRank =userService.baodanRank();
+            model.addAttribute("activeRank",activeRank);
+model.addAttribute("baodanRank",baodanRank);
         }
         return "/index";
     }

@@ -3,6 +3,7 @@ package chinalife.controller;
 import chinalife.entity.Insurance;
 import chinalife.entity.User;
 import chinalife.service.InsuranceService;
+import chinalife.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,9 @@ public class CreateController {
     @Autowired
     InsuranceService insuranceService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("")
     public String create() {
         return "/CRUD/create";
@@ -45,6 +49,7 @@ public class CreateController {
         insurance.setClerkId(user.getId());
         insuranceService.save(insurance);
         Map<String, Object> map = new HashMap<>();
+        userService.baodanNumber(user.getId());
         map.put("success", "添加保单成功！");
         return map;
     }

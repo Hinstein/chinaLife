@@ -6,6 +6,7 @@ import chinalife.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -59,4 +60,27 @@ public class UserService {
     }
 
     public void changeInformation(String username,int id){userRepository.changeInformation(username,id);}
+
+    public void active(int id){
+        userRepository.active(id);
+    }
+
+    public void  baodanNumber(int id){
+        userRepository.baodanNumber(id);
+    }
+
+
+    @Transactional
+    public Page<User> activeRank() {
+        Sort sort = new Sort(Sort.Direction.DESC, "activeNumber");
+        PageRequest pageable = PageRequest.of(0 , 5,sort);
+        return userRepository.activeRank(pageable);
+    }
+
+    @Transactional
+    public Page<User> baodanRank() {
+        Sort sort = new Sort(Sort.Direction.DESC, "baodanNumber");
+        PageRequest pageable = PageRequest.of(0 , 5,sort);
+        return userRepository.baodanRank(pageable);
+    }
 }
