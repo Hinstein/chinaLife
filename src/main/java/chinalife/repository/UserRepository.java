@@ -125,4 +125,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      */
     @Query("select user  from User user where user.username<>'admin'")
     Page<User> baodanRank(Pageable pageable);
+
+    /**
+     * 更新用户保单数据
+     *
+     * @param baodanNumber
+     * @param id
+     */
+    @Transactional(rollbackOn = Exception.class)
+    @Modifying
+    @Query(value = "UPDATE User user  SET user.baodanNumber= ?1 " +
+            "WHERE user.id = ?2")
+    void changeBaodanNumber(int baodanNumber, int id);
 }

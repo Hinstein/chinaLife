@@ -7,10 +7,8 @@ import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
@@ -108,5 +106,14 @@ public class RetrieveController {
         result.put("code", 0);
         result.put("msg", "");
         return result;
+    }
+
+    @GetMapping("/check/{id}")
+    public String insuranceEditor(@PathVariable("id") int id, Model model) {
+        //通过保单id查找保单
+        Insurance insurance = insuranceService.findById(id);
+        //视图层显示
+        model.addAttribute("recycle", insurance);
+        return "/CRUD/check";
     }
 }

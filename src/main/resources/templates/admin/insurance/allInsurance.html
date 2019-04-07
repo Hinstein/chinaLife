@@ -20,12 +20,6 @@
             <!-- 头部区域 -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
-                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
-                    </a>
-                </li>
-
-                <li class="layui-nav-item layadmin-flexible" lay-unselect>
                     <a th:href="@{/index}" layadmin-event="flexible" title="">
                         <i class="layui-icon layui-icon-home"></i>
                     </a>
@@ -49,7 +43,7 @@
                         <dd layadmin-event="logout" style="text-align: center;"><a
                                 th:href="@{/editor/information}">修改信息</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a
-                                th:href="@{/editor/headPhoto}">修改头像</a></dd>
+                                th:href="@{/editor/headPhoto}" shiro:lacksPermission="admin">修改头像</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
                     </dl>
                 </li>
@@ -64,19 +58,19 @@
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
                 <div class="layui-logo" lay-href="home/console.html">
-                    <span>后台管理系统</span>
+                    <span><a th:href="@{/index}"> <img th:src="@{/css/images/logo1.png}" width="30" height="30"> 后台管理系统</a></span>
                 </div>
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
                     lay-filter="layadmin-system-side-menu">
                     <li shiro:hasPermission="admin" class="layui-nav-item layui-this">
-                        <a th:href="@{/admin/insurance}">所有保单</a>
+                        <a th:href="@{/admin/insurance}">保单管理</a>
                     </li>
                     <li class="layui-nav-item" shiro:hasPermission="admin">
                         <a class="" href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
-                            <dd><a th:href="@{/admin/createUser}">添加管理员</a></dd>
+                            <dd><a th:href="@{/admin/createUser}">添加用户</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item " shiro:lacksPermission="admin">
@@ -99,13 +93,13 @@
             </div>
         </div>
         <div class="layadmin-pagetabs" id="LAY_app_tabs">
-            <a>主页</a>
+            <a>保单管理页面</a>
         </div>
         <!-- 主体内容 -->
         <div class="layui-body">
             <div class="layui-fluid">
                 <div class="layui-card">
-                    <div class="layui-card-header">查找</div>
+                    <div class="layui-card-header">保单管理</div>
                     <div class="layui-card-body">
                         <div class="demoTable">
                             <div class="layui-inline">
@@ -256,10 +250,11 @@
         $(function () {
             $("#search").click(function () {
                 var content = $('#content').val();
+                var fitter = $('#type').val();
                 tableIns.reload({
                     where: { //设定异步数据接口的额外参数，任意设
-                        content: content
-                        //…
+                        content: content,
+                        fitter: fitter
                     }
                     , page: {
                         curr: 1 //重新从第 1 页开始

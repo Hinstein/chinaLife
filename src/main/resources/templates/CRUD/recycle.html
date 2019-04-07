@@ -19,12 +19,6 @@
             <!-- 头部区域 -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
-                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
-                    </a>
-                </li>
-
-                <li class="layui-nav-item layadmin-flexible" lay-unselect>
                     <a th:href="@{/index}" layadmin-event="flexible" title="">
                         <i class="layui-icon layui-icon-home"></i>
                     </a>
@@ -48,7 +42,7 @@
                         <dd layadmin-event="logout" style="text-align: center;"><a
                                 th:href="@{/editor/information}">修改信息</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a
-                                th:href="@{/editor/headPhoto}">修改头像</a></dd>
+                                th:href="@{/editor/headPhoto}" shiro:lacksPermission="admin">修改头像</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
                     </dl>
                 </li>
@@ -62,7 +56,7 @@
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
                 <div class="layui-logo" lay-href="home/console.html">
-                    <span>后台管理系统</span>
+                    <span> <a th:href="@{/index}"> <img th:src="@{/css/images/logo1.png}" width="30" height="30"> 后台管理系统</a></span>
                 </div>
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
@@ -102,7 +96,7 @@
             </div>
         </div>
         <div class="layadmin-pagetabs" id="LAY_app_tabs">
-            <a>主页</a>
+            <a>保单管理 / 保单回收站页面</a>
         </div>
         <!-- 主体内容 -->
         <div class="layui-body">
@@ -110,26 +104,6 @@
                 <div class="layui-card">
                     <div class="layui-card-header">查找保单</div>
                     <div class="layui-card-body">
-<!--                        <div class="demoTable">-->
-<!--                            <div class="layui-inline">-->
-<!--                                <input class="layui-input" id="content" autocomplete="off" placeholder="输入投保人姓名或者电话">-->
-<!--                            </div>-->
-<!--                            <button class="layui-btn" id="search" type="button">搜索</button>-->
-<!--                            <div class="layui-inline">-->
-<!--                                <form class="layui-form">-->
-<!--                                    <div class="layui-input-block">-->
-<!--                                        <select name="type" id="type" lay-verify="required">-->
-<!--                                            <option value="4">全部类型</option>-->
-<!--                                            <option value="0">意外险</option>-->
-<!--                                            <option value="1">健康险</option>-->
-<!--                                            <option value="2">补充医疗险</option>-->
-<!--                                            <option value="3">分红险</option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                            <button class="layui-btn" id="fitter" type="button">分类</button>-->
-<!--                        </div>-->
                         <table class="layui-table" id="userData" lay-filter="test"
                                lay-skin="line" shiro:lacksPermission="admin">
                         </table>
@@ -222,7 +196,7 @@
                         }
                     });
                 });
-            }else {
+            } else {
                 layer.confirm('恢复投保人姓名为“' + data.holderName + '”的保单么', function (index) {
                     $.ajax({
                         url: '/recycle/recover/' + data.id,

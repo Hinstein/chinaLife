@@ -20,12 +20,6 @@
             <!-- 头部区域 -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
-                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
-                    </a>
-                </li>
-
-                <li class="layui-nav-item layadmin-flexible" lay-unselect>
                     <a th:href="@{/index}" layadmin-event="flexible" title="">
                         <i class="layui-icon layui-icon-home"></i>
                     </a>
@@ -49,7 +43,7 @@
                         <dd layadmin-event="logout" style="text-align: center;"><a
                                 th:href="@{/editor/information}">修改信息</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a
-                                th:href="@{/editor/headPhoto}">修改头像</a></dd>
+                                th:href="@{/editor/headPhoto}" shiro:lacksPermission="admin">修改头像</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
                     </dl>
                 </li>
@@ -64,7 +58,7 @@
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
                 <div class="layui-logo" lay-href="home/console.html">
-                    <span>后台管理系统</span>
+                    <span> <a th:href="@{/index}"> <img th:src="@{/css/images/logo1.png}" width="30" height="30"> 后台管理系统</a></span>
                 </div>
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
@@ -87,6 +81,7 @@
                             <dd><a th:href="@{/delete}">删除</a></dd>
                             <dd><a th:href="@{/retrieve}">查找</a></dd>
                             <dd class="layui-this"><a th:href="@{/update}">更新</a></dd>
+                            <dd><a class="" th:href="@{/recycle}">回收站</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -103,18 +98,19 @@
             </div>
         </div>
         <div class="layadmin-pagetabs" id="LAY_app_tabs">
-            <a>主页</a>
+            <a>保单管理 / 更新保单页面</a>
         </div>
         <!-- 主体内容 -->
         <div class="layui-body">
             <div class="layui-fluid">
                 <div class="layui-card">
                     <div class="layui-card-header">更新保单</div>
-                    <div class="layui-card-body">
+                    <div class="layui-card-body" shiro:hasPermission="retrieve">
                         <table class="layui-table" id="userData" lay-filter="test"
-                               lay-skin="line" shiro:lacksPermission="admin">
+                               lay-skin="line">
                         </table>
-                        <script type="text/html" id="toolbarDemo">
+
+                        <script type="text/html" id="toolbarDemo" shiro:hasPermission="delete">
                             <div class="layui-btn-container">
                                 <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchDelete">批量删除
                                 </button>
@@ -122,11 +118,20 @@
                         </script>
                         <script type="text/html" id="action">
                             <div class="layui-btn-container">
-                                <button class="layui-btn layui-btn-sm" lay-event="pass">编辑</button>
-                                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除
+                                <button class="layui-btn layui-btn-sm" lay-event="check">
+                                    查看
+                                </button>
+                                <button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="pass"
+                                        shiro:hasPermission="update">编辑
+                                </button>
+                                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"
+                                        shiro:hasPermission="delete">删除
                                 </button>
                             </div>
                         </script>
+                    </div>
+                    <div class="layui-card-body" shiro:lacksPermission="retrieve">
+                        <span style="color: red"> 您暂无查看权限，请联系管理员获取权限</span>
                     </div>
                 </div>
 
@@ -200,6 +205,14 @@
                             layer.msg("您暂无权限，删除失败");
                         }
                     });
+                });
+            } else {
+                layer.open({
+                    type: 2
+                    , title: '保单查看'
+                    , content: ["/retrieve/check/" + data.id, 'no']
+                    , maxmin: true
+                    , area: ['550px', '640px']
                 });
             }
         });

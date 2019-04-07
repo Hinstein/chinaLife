@@ -63,10 +63,10 @@ public class RecycleController {
     @ResponseBody
     @PostMapping("/recover/{id}")
     public Map<String, Object> recoverInsurance(@PathVariable("id") int id) {
-        Recycle recycle =recycleService.findById(id);
+        Recycle recycle = recycleService.findById(id);
         Insurance insurance = new Insurance();
         //将recycleBin对象复制到insurance对象
-        BeanUtils.copyProperties(recycle,insurance);
+        BeanUtils.copyProperties(recycle, insurance);
         //回收站存入该保单信息
         insuranceService.save(insurance);
         //从数据库中删除该保单信息

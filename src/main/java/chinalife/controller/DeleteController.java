@@ -50,7 +50,7 @@ public class DeleteController {
     @ResponseBody
     @DeleteMapping("/insurance/{id}")
     public Map<String, Object> deleteInsurance(@PathVariable("id") int id) {
-        Insurance insurance =insuranceService.findById(id);
+        Insurance insurance = insuranceService.findById(id);
         Recycle recycle = new Recycle();
         //将insurance对象复制到recycleBin对象
         BeanUtils.copyProperties(insurance, recycle);

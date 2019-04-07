@@ -20,11 +20,6 @@
         <div class="layui-header">
             <!-- 头部区域 -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
-                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
-                    </a>
-                </li>
 
                 <li class="layui-nav-item layadmin-flexible" lay-unselect>
                     <a th:href="@{/index}" layadmin-event="flexible" title="">
@@ -50,7 +45,7 @@
                         <dd layadmin-event="logout" style="text-align: center;"><a
                                 th:href="@{/editor/information}">修改信息</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a
-                                th:href="@{/editor/headPhoto}">修改头像</a></dd>
+                                th:href="@{/editor/headPhoto}" shiro:lacksPermission="admin">修改头像</a></dd>
                         <dd layadmin-event="logout" style="text-align: center;"><a th:href="@{/exit}">退出</a></dd>
                     </dl>
                 </li>
@@ -65,19 +60,19 @@
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
                 <div class="layui-logo" lay-href="home/console.html">
-                    <span>后台管理系统</span>
+                    <span> <a th:href="@{/index}"> <img th:src="@{/css/images/logo1.png}" width="30" height="30"> 后台管理系统</a></span>
                 </div>
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
                     lay-filter="layadmin-system-side-menu">
                     <li shiro:hasPermission="admin" class="layui-nav-item ">
-                        <a th:href="@{/admin/insurance}">所有保单</a>
+                        <a th:href="@{/admin/insurance}">保单管理</a>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed" shiro:hasPermission="admin">
                         <a class="" href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
-                            <dd class="layui-this"><a th:href="@{/admin/createUser}">添加管理员</a></dd>
+                            <dd class="layui-this"><a th:href="@{/admin/createUser}">添加用户</a></dd>
                         </dl>
                     </li>
 
@@ -101,13 +96,13 @@
             </div>
         </div>
         <div class="layadmin-pagetabs" id="LAY_app_tabs">
-            <a>主页</a>
+            <a>用户管理 / 添加用户页面</a>
         </div>
         <!-- 主体内容 -->
         <div class="layui-body">
             <div class="layui-fluid">
                 <div class="layui-card">
-                    <div class="layui-card-header">添加管理员</div>
+                    <div class="layui-card-header">添加用户</div>
                     <div class="layui-card-body">
                         <form class="layui-form" action="" lay-filter="example" id="form">
                             <div class="layui-form-item">
@@ -128,7 +123,16 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">密码</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="password" lay-verify="required|password"
+                                    <input type="password" id="password" name="required|password"
+                                           lay-verify="required|password"
+                                           placeholder="请输入密码"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">确认密码</label>
+                                <div class="layui-input-block">
+                                    <input type="password" id="confirm" lay-verify="required|password"
                                            placeholder="请输入密码"
                                            autocomplete="off" class="layui-input">
                                 </div>
@@ -149,7 +153,6 @@
                                     <button class="layui-btn" lay-submit="" lay-filter="save">添加用户</button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -172,30 +175,38 @@
                 , '姓名只能是中文，长度为2-7位'
             ]
         });
+
+
         form.on('submit(save)', function (data) {
-            console.log(data.elem);//被执行事件的元素DOM对象，一般为button对象
-            console.log(data.form);//被执行提交的form对象，一般在存在form标签时才会返回
-            console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
-            $.ajax({
-                url: "/admin/createUser/save",
-                method: "post",
-                data: data.field,
-                dataType: "json",
-                success: function (msg) {
-                    // //清除表单内容
-                    layer.msg(msg.success);
-                    $('#form')[0].reset();
-                    setTimeout(function () {
-                        location.href = "/admin/allUser";
-                    }, 2000)
-                },
-                error: function () {
-                    layer.msg("网络错误，注册失败");
+                console.log(data.elem);//被执行事件的元素DOM对象，一般为button对象
+                console.log(data.form);//被执行提交的form对象，一般在存在form标签时才会返回
+                console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
+                var password = $("#password").val();
+                var confirm = $("#confirm").val();
+                if (password === confirm) {
+                    $.ajax({
+                        url: "/admin/createUser/save",
+                        method: "post",
+                        data: data.field,
+                        dataType: "json",
+                        success: function (msg) {
+                            // //清除表单内容
+                            layer.msg(msg.success);
+                            $('#form')[0].reset();
+                            setTimeout(function () {
+                                location.href = "/admin/allUser";
+                            }, 2000)
+                        },
+                        error: function () {
+                            layer.msg("网络错误，注册失败");
+                        }
+                    });
+                } else {
+                    layer.msg("两次密码不同", {time: 2000, icon: 5, shift: 6});
                 }
-            });
-            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-        });
-        //各种基于事件的操作，下面会有进一步介绍
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            }
+        );
     });
 </script>
 </body>

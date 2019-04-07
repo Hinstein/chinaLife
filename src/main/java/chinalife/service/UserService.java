@@ -156,4 +156,9 @@ public class UserService {
         PageRequest pageable = PageRequest.of(0, 5, sort);
         return userRepository.baodanRank(pageable);
     }
+
+
+    public void changeBaodanNumber(int baodanNumber, int userId) {
+        userRepository.changeBaodanNumber(baodanNumber, userId);
+    }
 }
