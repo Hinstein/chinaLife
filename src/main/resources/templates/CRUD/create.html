@@ -157,7 +157,7 @@
                                     <div class="layui-form-item ">
                                         <label class="layui-form-label">保费金额</label>
                                         <div class="layui-input-block ">
-                                            <input type="text" name="money" lay-verify="required|number"
+                                            <input type="text" name="money" lay-verify="required|money"
                                                    placeholder="请输入保费金额"
                                                    autocomplete="off" class="layui-input">
                                         </div>
@@ -169,7 +169,7 @@
                                                placeholder="请输入被险保人姓名"
                                                autocomplete="off" class="layui-input layui-input-inline">
                                         <label class="layui-form-label">关系</label>
-                                        <input type="text" name="rel1" lay-verify="required"
+                                        <input type="text" name="rel1" lay-verify="required|relation"
                                                placeholder="请输入与投保人关系"
                                                autocomplete="off" class="layui-input layui-input-inline">
                                     </div>
@@ -180,7 +180,7 @@
                                                placeholder="请输入被险保人姓名"
                                                autocomplete="off" class="layui-input layui-input-inline">
                                         <label class="layui-form-label">关系</label>
-                                        <input type="text" name="rel2" lay-verify="required"
+                                        <input type="text" name="rel2" lay-verify="required|relation"
                                                placeholder="请输入与投保人关系"
                                                autocomplete="off" class="layui-input layui-input-inline">
                                     </div>
@@ -214,6 +214,14 @@
             name: [
                 /^([\u4e00-\u9fa5]){2,7}$/
                 , '姓名只能是中文，长度为2-7位'
+            ],
+            money: [
+                /^(?:(?!0)\d{1,8}|10{8})$/
+                , '投保金额为1-100000000'
+            ],
+            relation: [
+                /^([\u4e00-\u9fa5]){2,7}$/
+                , '关系只能是中文，长度为2-7位'
             ]
         });
         form.on('submit(save)', function (data) {
@@ -237,7 +245,6 @@
                     layer.msg("网络错误，注册失败");
                 }
             });
-
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
     });

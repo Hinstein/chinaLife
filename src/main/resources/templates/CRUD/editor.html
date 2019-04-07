@@ -74,7 +74,7 @@
                     <div class="layui-form-item ">
                         <label class="layui-form-label">保费金额</label>
                         <div class="layui-input-block ">
-                            <input type="text" name="money" lay-verify="required|number" placeholder="请输入保费金额"
+                            <input type="text" name="money" lay-verify="required|money" placeholder="请输入保费金额"
                                    autocomplete="off" class="layui-input" th:value="${insurance.money}">
                         </div>
                     </div>
@@ -82,28 +82,28 @@
                     <div class="layui-form-item ">
                         <label class="layui-form-label">被险保人1</label>
                         <div class="layui-input-block ">
-                            <input type="text" name="insuredName1" lay-verify="required" placeholder="请输入被险保人姓名"
+                            <input type="text" name="insuredName1" lay-verify="required|name" placeholder="请输入被险保人姓名"
                                    autocomplete="off" class="layui-input" th:value="${insurance.insuredName1}">
                         </div>
                     </div>
                     <div class="layui-form-item ">
                         <label class="layui-form-label">关系</label>
                         <div class="layui-input-block ">
-                            <input type="text" name="rel1" lay-verify="required" placeholder="请输入被险保人姓名"
+                            <input type="text" name="rel1" lay-verify="required|relation" placeholder="请输入被险保人姓名"
                                    autocomplete="off" class="layui-input" th:value="${insurance.rel1}">
                         </div>
                     </div>
                     <div class="layui-form-item ">
                         <label class="layui-form-label">被险保人2</label>
                         <div class="layui-input-block ">
-                            <input type="text" name="insuredName2" lay-verify="required" placeholder="请输入被险保人姓名"
+                            <input type="text" name="insuredName2" lay-verify="required|name" placeholder="请输入被险保人姓名"
                                    autocomplete="off" class="layui-input" th:value="${insurance.insuredName2}">
                         </div>
                     </div>
                     <div class="layui-form-item ">
                         <label class="layui-form-label">关系</label>
                         <div class="layui-input-block ">
-                            <input type="text" name="rel2" lay-verify="required" placeholder="请输入被险保人姓名"
+                            <input type="text" name="rel2" lay-verify="required|relation" placeholder="请输入被险保人姓名"
                                    autocomplete="off" class="layui-input" th:value="${insurance.rel2}">
                         </div>
                     </div>
@@ -132,13 +132,17 @@
             elem: '#test1' //指定元素
         });
         form.verify({
-            password: [
-                /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[_\-@&=])[a-z0-9_\-@&=]{6,12}/
-                , '密码必须6到12位，且必须包含字母数字和特殊字符'
-            ],
             name: [
                 /^([\u4e00-\u9fa5]){2,7}$/
                 , '姓名只能是中文，长度为2-7位'
+            ],
+            money: [
+                /^(?:(?!0)\d{1,8}|10{8})$/
+                , '投保金额为1-100000000'
+            ],
+            relation: [
+                /^([\u4e00-\u9fa5]){2,7}$/
+                , '关系只能是中文，长度为2-7位'
             ]
         });
         form.on('submit(save)', function (data) {
