@@ -7,8 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/assets/layui/css/layui.css"
-          th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/css/adminLogin/admin.css}">
 
 </head>
@@ -59,7 +58,6 @@
                 </li>
             </ul>
         </div>
-
         <!-- 侧边菜单 -->
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
@@ -84,9 +82,10 @@
                         <a class="" href="javascript:;">保单管理</a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/create}">添加</a></dd>
-                            <dd class="layui-this"><a th:href="@{/delete}">删除</a></dd>
+                            <dd><a th:href="@{/delete}">删除</a></dd>
                             <dd><a th:href="@{/retrieve}">查找</a></dd>
                             <dd><a th:href="@{/update}">更新</a></dd>
+                            <dd class="layui-this"><a th:href="@{/recycle}">回收站</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -109,27 +108,48 @@
         <div class="layui-body">
             <div class="layui-fluid">
                 <div class="layui-card">
-                    <div class="layui-card-header">删除保单</div>
+                    <div class="layui-card-header">查找保单</div>
                     <div class="layui-card-body">
+<!--                        <div class="demoTable">-->
+<!--                            <div class="layui-inline">-->
+<!--                                <input class="layui-input" id="content" autocomplete="off" placeholder="输入投保人姓名或者电话">-->
+<!--                            </div>-->
+<!--                            <button class="layui-btn" id="search" type="button">搜索</button>-->
+<!--                            <div class="layui-inline">-->
+<!--                                <form class="layui-form">-->
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <select name="type" id="type" lay-verify="required">-->
+<!--                                            <option value="4">全部类型</option>-->
+<!--                                            <option value="0">意外险</option>-->
+<!--                                            <option value="1">健康险</option>-->
+<!--                                            <option value="2">补充医疗险</option>-->
+<!--                                            <option value="3">分红险</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                            <button class="layui-btn" id="fitter" type="button">分类</button>-->
+<!--                        </div>-->
                         <table class="layui-table" id="userData" lay-filter="test"
                                lay-skin="line" shiro:lacksPermission="admin">
                         </table>
                         <script type="text/html" id="toolbarDemo">
                             <div class="layui-btn-container">
+                                <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="batchRecover">批量恢复
+                                </button>
                                 <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchDelete">批量删除
                                 </button>
                             </div>
                         </script>
                         <script type="text/html" id="action">
                             <div class="layui-btn-container">
-                                <button class="layui-btn layui-btn-sm" lay-event="pass">编辑</button>
-                                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除
-                                </button>
+                                <button class="layui-btn layui-btn-sm" lay-event="check">查看</button>
+                                <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="recover">恢复</button>
+                                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除</button>
                             </div>
                         </script>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -142,7 +162,7 @@
         var form = layui.form;
         var tableIns = table.render({
             elem: '#userData'
-            , url: '/retrieve/insurance/data' //数据接口
+            , url: '/recycle/insurance' //数据接口
             , toolbar: '#toolbarDemo'
             , page: true //开启分页
             , limits: [10, 20, 50, 100]  //每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。
@@ -177,19 +197,36 @@
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的DOM对象
-            if (layEvent === 'pass') { //通过
+            if (layEvent === 'check') { //通过
                 layer.open({
                     type: 2
-                    , title: '保单更改'
-                    , content: ["/update/insurance/" + data.id, 'no']
+                    , title: '保单查看'
+                    , content: ["/recycle/check/" + data.id, 'no']
                     , maxmin: true
-                    , area: ['550px', '680px']
+                    , area: ['550px', '640px']
                 });
             } else if (layEvent === 'delete') { //删除
                 layer.confirm('删除投保人姓名为“' + data.holderName + '”的保单么', function (index) {
                     $.ajax({
-                        url: '/delete/insurance/' + data.id,
+                        url: '/recycle/delete/' + data.id,
                         method: "delete",
+                        dataType: "json",
+                        success: function (msg) {
+                            tableIns.reload();
+                            layer.msg(msg.success);
+                            // //清除表单内容
+
+                        },
+                        error: function () {
+                            layer.msg("网络错误，删除失败");
+                        }
+                    });
+                });
+            }else {
+                layer.confirm('恢复投保人姓名为“' + data.holderName + '”的保单么', function (index) {
+                    $.ajax({
+                        url: '/recycle/recover/' + data.id,
+                        method: "post",
                         dataType: "json",
                         success: function (msg) {
                             layer.msg(msg.success);
@@ -197,7 +234,7 @@
                             tableIns.reload();
                         },
                         error: function () {
-                            layer.msg("您暂无权限，删除失败");
+                            layer.msg("网络错误，删除失败");
                         }
                     });
                 });
@@ -221,24 +258,81 @@
                     layer.confirm('删除投保人姓名为“' + ids + '”的保单么', function (index) {
                         for (var i = 0; i < data.length; i++) {
                             $.ajax({
-                                url: '/delete/insurance/' + data[i].id,
+                                url: '/recycle/delete/' + data[i].id,
                                 method: "delete",
                                 dataType: "json",
                                 success: function (msg) {
-                                    layer.msg(msg.success);
                                     tableIns.reload();
+                                    layer.msg(msg.success);
                                     // //清除表单内容
                                 },
                                 error: function () {
-                                    layer.msg("网络错误，通过失败");
+                                    layer.msg("您暂无权限，删除失败");
                                 }
                             });
                         }
+                        tableIns.reload();
+                    });
+                    break;
+                case 'batchRecover':
+                    var data = checkStatus.data;
 
+                    var ids = '';
+                    for (var i = 0; i < data.length; i++) {
+                        if (i !== (data.length - 1)) {
+                            ids += data[i].holderName + ",";
+                        } else {
+                            ids += data[i].holderName;
+                        }
+                    }
+                    layer.confirm('恢复投保人姓名为“' + ids + '”的保单么', function (index) {
+                        for (var i = 0; i < data.length; i++) {
+                            $.ajax({
+                                url: '/recycle/recover/' + data[i].id,
+                                method: "post",
+                                dataType: "json",
+                                success: function (msg) {
+                                    tableIns.reload();
+                                    layer.msg(msg.success);
+                                    // //清除表单内容
+                                },
+                                error: function () {
+                                    layer.msg("您暂无权限，删除失败");
+                                }
+                            });
+                        }
+                        tableIns.reload();
                     });
                     break;
             }
         });
+        // $(function () {
+        //     $("#search").click(function () {
+        //         var content = $('#content').val();
+        //         var fitter = $('#type').val();
+        //         tableIns.reload({
+        //             where: { //设定异步数据接口的额外参数，任意设
+        //                 content: content,
+        //                 fitter: fitter
+        //             }
+        //             , page: {
+        //                 curr: 1 //重新从第 1 页开始
+        //             }
+        //         });
+        //     });
+        //     $("#fitter").click(function () {
+        //         var content = $('#type').val();
+        //         tableIns.reload({
+        //             where: { //设定异步数据接口的额外参数，任意设
+        //                 fitter: content
+        //                 //…
+        //             }
+        //             , page: {
+        //                 curr: 1 //重新从第 1 页开始
+        //             }
+        //         });
+        //     })
+        // });
     });
 </script>
 </body>

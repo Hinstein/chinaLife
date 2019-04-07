@@ -146,6 +146,7 @@ public class MainController {
     public String index(HttpSession session, Model model) {
         //通过session查看当前登录的用户信息
         User user1 = (User) session.getAttribute("user");
+        session.setAttribute("user",userService.findById(user1.getId()));
         //如果用户不是总管理员
         if (user1.getId() != 10000000) {
             //向session中添加保单的数量信息

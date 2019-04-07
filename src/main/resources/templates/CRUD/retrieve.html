@@ -244,6 +244,7 @@
                                 dataType: "json",
                                 success: function (msg) {
                                     layer.msg(msg.success);
+                                    tableIns.reload();
                                     // //清除表单内容
                                 },
                                 error: function () {
