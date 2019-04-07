@@ -2,6 +2,7 @@ package chinalife.controller;
 
 import chinalife.entity.Insurance;
 import chinalife.entity.Recycle;
+import chinalife.entity.User;
 import chinalife.repository.InsuranceRepository;
 import chinalife.service.InsuranceService;
 import chinalife.service.RecycleService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,13 +51,16 @@ public class DeleteController {
      */
     @ResponseBody
     @DeleteMapping("/insurance/{id}")
-    public Map<String, Object> deleteInsurance(@PathVariable("id") int id) {
-        Insurance insurance = insuranceService.findById(id);
-        Recycle recycle = new Recycle();
-        //将insurance对象复制到recycleBin对象
-        BeanUtils.copyProperties(insurance, recycle);
-        //回收站存入该保单信息
-        recycleService.save(recycle);
+    public Map<String, Object> deleteInsurance(@PathVariable("id") int id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if(user.getId()!=10000000) {
+            Insurance insurance = insuranceService.findById(id);
+            Recycle recycle = new Recycle();
+            //将insurance对象复制到recycleBin对象
+            BeanUtils.copyProperties(insurance, recycle);
+            //回收站存入该保单信息
+            recycleService.save(recycle);
+        }
         //从数据库中删除该保单信息
         insuranceService.deleteById(id);
         //返回json数据

@@ -64,8 +64,10 @@ public class MainController {
     @GetMapping("/exit")
     public String exit(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        int baodanNumber = Integer.parseInt(session.getAttribute("baodanNumbers").toString());
-        userService.changeBaodanNumber(baodanNumber, user.getId());
+        if(user.getId()!=10000000) {
+            int baodanNumber = Integer.parseInt(session.getAttribute("baodanNumbers").toString());
+            userService.changeBaodanNumber(baodanNumber, user.getId());
+        }
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return "redirect:/login";
