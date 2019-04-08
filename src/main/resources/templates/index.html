@@ -28,6 +28,11 @@
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
                     <a href="javascript:;">
+
+                    </a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;">
                         <cite>工号：[[${session.user.id}]]</cite>
                     </a>
                 </li>
@@ -35,7 +40,7 @@
                 <li class="layui-nav-item" lay-unselect>
 
                     <a href="javascript:;">
-                        <cite>姓名：[[${session.user.username}]]</cite>
+                        <cite> 姓名：[[${session.user.username}]]</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd layadmin-event="logout" style="text-align: center;"><a
@@ -70,7 +75,7 @@
                         <a class="" href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
-                            <dd><a th:href="@{/admin/createUser}">添加管理员</a></dd>
+                            <dd><a th:href="@{/admin/createUser}">添加用户</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item " shiro:lacksPermission="admin">

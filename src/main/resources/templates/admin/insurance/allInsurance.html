@@ -196,7 +196,7 @@
                     , area: ['550px', '680px']
                 });
             } else if (layEvent === 'delete') { //删除
-                layer.confirm('删除投保人姓名为“' + data.holderName + '”的保单么', function (index) {
+                layer.confirm('删除投保人姓名为“' + data.holderName + '”的保单么，管理员删除将不可恢复', function (index) {
                     $.ajax({
                         url: '/delete/insurance/' + data.id,
                         method: "delete",
@@ -228,7 +228,7 @@
                             ids += data[i].holderName;
                         }
                     }
-                    layer.confirm('删除投保人姓名为“' + ids + '”的保单么', function (index) {
+                    layer.confirm('删除投保人姓名为“' + ids + '”的保单么，管理员删除将不可恢复', function (index) {
                         for (var i = 0; i < data.length; i++) {
                             $.ajax({
                                 url: '/delete/insurance/' + data[i].id,

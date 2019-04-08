@@ -6,6 +6,8 @@ import chinalife.entity.User;
 import chinalife.repository.InsuranceRepository;
 import chinalife.service.InsuranceService;
 import chinalife.service.RecycleService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,7 +55,10 @@ public class DeleteController {
     @DeleteMapping("/insurance/{id}")
     public Map<String, Object> deleteInsurance(@PathVariable("id") int id, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if(user.getId()!=10000000) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.isPermitted("admin")) {
+
+        }else {
             Insurance insurance = insuranceService.findById(id);
             Recycle recycle = new Recycle();
             //将insurance对象复制到recycleBin对象

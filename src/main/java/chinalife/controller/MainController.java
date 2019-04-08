@@ -5,6 +5,7 @@ import chinalife.entity.User;
 import chinalife.service.InsuranceService;
 import chinalife.service.PermissionService;
 import chinalife.service.UserService;
+import org.apache.lucene.index.DocIDMerger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -64,11 +65,12 @@ public class MainController {
     @GetMapping("/exit")
     public String exit(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if(user.getId()!=10000000) {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isPermitted("admin")) {
+        } else {
             int baodanNumber = Integer.parseInt(session.getAttribute("baodanNumbers").toString());
             userService.changeBaodanNumber(baodanNumber, user.getId());
         }
-        Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return "redirect:/login";
     }
@@ -106,7 +108,7 @@ public class MainController {
                 session.setAttribute("user", user1);
                 map.put("success", "登录成功");
                 //判断是否是管理员登录
-                if (user1.getId() == 10000000) {
+                if (subject.isPermitted("admin")) {
                     session.setAttribute("baodan0", insuranceService.baodan0());
                     session.setAttribute("baodan1", insuranceService.baodan1());
                     session.setAttribute("baodan2", insuranceService.baodan2());
@@ -152,9 +154,19 @@ public class MainController {
     public String index(HttpSession session, Model model) {
         //通过session查看当前登录的用户信息
         User user1 = (User) session.getAttribute("user");
+        Subject subject = SecurityUtils.getSubject();
         session.setAttribute("user", userService.findById(user1.getId()));
+        //如果是总管理员
+        if (subject.isPermitted("admin")) {
+            //获取用户活跃数和用户业绩排名
+            Page<User> activeRank = userService.activeRank();
+            Page<User> baodanRank = userService.baodanRank();
+            model.addAttribute("activeRank", activeRank);
+            model.addAttribute("baodanRank", baodanRank);
+
+        }
         //如果用户不是总管理员
-        if (user1.getId() != 10000000) {
+        else {
             //向session中添加保单的数量信息
             //意外险数量
             session.setAttribute("baodan0", insuranceService.baodan0(user1.getId()));
@@ -166,14 +178,6 @@ public class MainController {
             session.setAttribute("baodan3", insuranceService.baodan3(user1.getId()));
             //保单总量
             session.setAttribute("baodanNumbers", insuranceService.numbers(user1.getId()));
-        }
-        //如果是总管理员
-        else {
-            //获取用户活跃数和用户业绩排名
-            Page<User> activeRank = userService.activeRank();
-            Page<User> baodanRank = userService.baodanRank();
-            model.addAttribute("activeRank", activeRank);
-            model.addAttribute("baodanRank", baodanRank);
         }
         return "/index";
     }
