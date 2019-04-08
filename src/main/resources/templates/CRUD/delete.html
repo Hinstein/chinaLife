@@ -28,14 +28,37 @@
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
                     <a href="javascript:;">
+
+                    </a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;">
                         <cite>工号：[[${session.user.id}]]</cite>
                     </a>
                 </li>
-
+                <li class="layui-nav-item layui-hide-md" lay-unselect shiro:lacksPermission="admin" >
+                    <a href="javascript:;" layadmin-event="about"><cite>保单管理</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a class="" th:href="@{/create}">添加</a></dd>
+                        <dd><a class="" th:href="@{/delete}">删除</a></dd>
+                        <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
+                        <dd><a class="" th:href="@{/update}">更新</a></dd>
+                        <dd><a class="" th:href="@{/recycle}">回收站</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-md" lay-unselect shiro:hasPermission="admin" >
+                    <a class="" th:href="@{/admin/insurance}"> <cite>保单管理</cite></a>
+                </li>
+                <li class="layui-nav-item layui-hide-md" lay-unselect shiro:hasPermission="admin" >
+                    <a href="javascript:;" layadmin-event="about"><cite>用户管理</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
+                        <dd><a th:href="@{/admin/createUser}">添加用户</a></dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item" lay-unselect>
-
                     <a href="javascript:;">
-                        <cite>姓名：[[${session.user.username}]]</cite>
+                        <cite> 姓名：[[${session.user.username}]]</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd layadmin-event="logout" style="text-align: center;"><a
@@ -48,8 +71,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="javascript:;" layadmin-event="about"><i
-                            class="layui-icon layui-icon-more-vertical"></i></a>
+                    <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
             </ul>
         </div>
@@ -63,32 +85,39 @@
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
                     lay-filter="layadmin-system-side-menu">
+                    <li  class="layui-nav-item ">
+                        <a class="" th:href="@{/index}"> <i class="layui-icon layui-icon-home"> </i><cite>
+                            主页</cite></a>
+                    </li>
                     <li shiro:hasPermission="admin" class="layui-nav-item ">
-                        <a th:href="@{/admin/insurance}">所有保单</a>
+                        <a class="" th:href="@{/admin/insurance}"> <i class="layui-icon layui-icon-user"> </i><cite>
+                            保单管理</cite></a>
                     </li>
                     <li class="layui-nav-item" shiro:hasPermission="admin">
-                        <a class="" href="javascript:;">用户管理</a>
+                        <a class="" href="javascript:;"> <i class="layui-icon layui-icon-auz"> </i><cite>
+                            用户管理</cite></a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
-                            <dd><a th:href="@{/admin/createUser}">添加管理员</a></dd>
+                            <dd><a th:href="@{/admin/createUser}">添加用户</a></dd>
                         </dl>
                     </li>
-
                     <li class="layui-nav-item layui-nav-itemed" shiro:lacksPermission="admin">
-                        <a class="" href="javascript:;">保单管理</a>
+                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"> </i><cite>
+                            保单管理</cite></a>
                         <dl class="layui-nav-child">
-                            <dd><a th:href="@{/create}">添加</a></dd>
-                            <dd class="layui-this"><a th:href="@{/delete}">删除</a></dd>
-                            <dd><a th:href="@{/retrieve}">查找</a></dd>
-                            <dd><a th:href="@{/update}">更新</a></dd>
+                            <dd><a class="" th:href="@{/create}">添加</a></dd>
+                            <dd><a class="layui-this" th:href="@{/delete}">删除</a></dd>
+                            <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
+                            <dd><a  th:href="@{/update}">更新</a></dd>
                             <dd><a class="" th:href="@{/recycle}">回收站</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item">
-                        <a class="" href="javascript:;">个人信息管理</a>
+                    <li class="layui-nav-item ">
+                        <a class="" href="javascript:;"> <i class="layui-icon layui-icon-set"> </i><cite>
+                            个人信息管理</cite></a>
                         <dl class="layui-nav-child">
-                            <dd><a th:href="@{/editor/password}">修改密码</a></dd>
-                            <dd><a th:href="@{/editor/information}">修改信息</a></dd>
+                            <dd ><a th:href="@{/editor/password}">修改密码</a></dd>
+                            <dd ><a th:href="@{/editor/information}">修改信息</a></dd>
                             <dd shiro:lacksPermission="admin">
                                 <a th:href="@{/editor/headPhoto}">修改头像</a>
                             </dd>

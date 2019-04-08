@@ -36,9 +36,27 @@
                         <cite>工号：[[${session.user.id}]]</cite>
                     </a>
                 </li>
-
+                <li class="layui-nav-item layui-hide-md" lay-unselect shiro:lacksPermission="admin" >
+                    <a href="javascript:;" layadmin-event="about"><cite>保单管理</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a class="" th:href="@{/create}">添加</a></dd>
+                        <dd><a class="" th:href="@{/delete}">删除</a></dd>
+                        <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
+                        <dd><a class="" th:href="@{/update}">更新</a></dd>
+                        <dd><a class="" th:href="@{/recycle}">回收站</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-md" lay-unselect shiro:hasPermission="admin" >
+                    <a class="" th:href="@{/admin/insurance}"> <cite>保单管理</cite></a>
+                </li>
+                <li class="layui-nav-item layui-hide-md" lay-unselect shiro:hasPermission="admin" >
+                    <a href="javascript:;" layadmin-event="about"><cite>用户管理</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
+                        <dd><a th:href="@{/admin/createUser}">添加用户</a></dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item" lay-unselect>
-
                     <a href="javascript:;">
                         <cite> 姓名：[[${session.user.username}]]</cite>
                     </a>
@@ -53,8 +71,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="javascript:;" layadmin-event="about"><i
-                            class="layui-icon layui-icon-more-vertical"></i></a>
+                    <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
             </ul>
         </div>
@@ -68,18 +85,25 @@
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY--side-menu"
                     lay-filter="layadmin-system-side-menu">
+                    <li  class="layui-nav-item layui-this">
+                        <a class="" th:href="@{/index}"> <i class="layui-icon layui-icon-home"> </i><cite>
+                            主页</cite></a>
+                    </li>
                     <li shiro:hasPermission="admin" class="layui-nav-item ">
-                        <a th:href="@{/admin/insurance}">保单管理</a>
+                        <a class="" th:href="@{/admin/insurance}"> <i class="layui-icon layui-icon-user"> </i><cite>
+                            保单管理</cite></a>
                     </li>
                     <li class="layui-nav-item" shiro:hasPermission="admin">
-                        <a class="" href="javascript:;">用户管理</a>
+                        <a class="" href="javascript:;"> <i class="layui-icon layui-icon-auz"> </i><cite>
+                            用户管理</cite></a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
                             <dd><a th:href="@{/admin/createUser}">添加用户</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item " shiro:lacksPermission="admin">
-                        <a class="" href="javascript:;">保单管理</a>
+                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"> </i><cite>
+                            保单管理</cite></a>
                         <dl class="layui-nav-child">
                             <dd><a class="" th:href="@{/create}">添加</a></dd>
                             <dd><a class="" th:href="@{/delete}">删除</a></dd>
@@ -89,7 +113,8 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="" href="javascript:;">个人信息管理</a>
+                        <a class="" href="javascript:;"> <i class="layui-icon layui-icon-set"> </i><cite>
+                            个人信息管理</cite></a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/editor/password}">修改密码</a></dd>
                             <dd><a th:href="@{/editor/information}">修改信息</a></dd>
@@ -219,12 +244,22 @@
                                             <li class="layui-this">保单险种分布</li>
                                             <li>权限分布</li>
                                         </ul>
-                                        <div class="layui-tab-content">
-                                            <div class="layui-tab-item layui-show">
-                                                <div id="baodanAdmin" style="width: 811px;height:400px;"></div>
+                                        <div class="layui-tab-content ">
+                                            <div class="layui-tab-item layui-show ">
+                                                <div class="layui-hide-xs">
+                                                    <div id="baodanAdmin" style="width: 811px;height:400px;"></div>
+                                                </div>
+                                                <div class="layui-hide-md">
+                                                    <div id="baodanAdmin1" style="width: 360px;height:200px;"></div>
+                                                </div>
                                             </div>
                                             <div class="layui-tab-item">
-                                                <div id="permissionAdmin" style="width: 811px;height:400px;"></div>
+                                                <div class=" layui-hide-xs ">
+                                                    <div id="permissionAdmin" style="width: 811px;height:400px;"></div>
+                                                </div>
+                                                <div class=" layui-hide-md ">
+                                                    <div id="permissionAdmin1" style="width: 360px;height:200px;"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +268,6 @@
                         </div>
                     </div>
                     <div class="layui-col-md4">
-
                         <div class="layui-card">
                             <div class="layui-card-header">版本信息</div>
                             <div class="layui-card-body layui-text">
@@ -347,18 +381,19 @@
             </div>
             <div class="layui-fluid" shiro:lacksPermission="admin">
                 <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md8">
+                    <div class="layui-col-md8 ">
                         <div class="layui-card">
-                            <div class="layui-tab layui-tab-brief layadmin-latestData">
-                                <ul class="layui-tab-title">
-                                    <li class="layui-this">保单险种分布</li>
-
-                                </ul>
-                                <div class="layui-tab-content">
+                            <div class="layui-card-header">保单种类分布</div>
+                            <div class="layui-card-body">
+                                <div class="layui-tab-content layui-hide-xs">
                                     <div class="layui-tab-item layui-show">
                                         <div id="baodan" style="width: 841px;height:400px;"></div>
                                     </div>
-
+                                </div>
+                                <div class="layui-tab-content layui-hide-md">
+                                    <div class="layui-tab-item layui-show">
+                                        <div id="baodan1" style="width: 360px;height:200px;"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -419,7 +454,10 @@
 <script th:src="@{/js/echarts.js}"></script>
 <script shiro:lacksPermission="admin">
     // 绘制图表。
-    echarts.init(document.getElementById('baodan')).setOption({
+    var myChart = echarts.init(document.getElementById('baodan'));
+    var myChart1 = echarts.init(document.getElementById('baodan1'));
+
+    var option = {
         title: {
             text: '保单种类分布',
             subtext: '',
@@ -465,11 +503,18 @@
                 }
             }
         }]
-    });
+    };
+
+    myChart.setOption(option);
+    myChart1.setOption(option);
 </script>
 <script shiro:hasPermission="admin">
+    var myChart = echarts.init(document.getElementById('baodanAdmin'));
+    var myChart1 = echarts.init(document.getElementById('baodanAdmin1'));
+    var myChart2 = echarts.init(document.getElementById('permissionAdmin'));
+    var myChart3 = echarts.init(document.getElementById('permissionAdmin1'));
     // 绘制图表。
-    echarts.init(document.getElementById('baodanAdmin')).setOption({
+    var option = {
         title: {
             text: '保单种类分布',
             subtext: '',
@@ -515,8 +560,8 @@
                 }
             }
         }]
-    });
-    echarts.init(document.getElementById('permissionAdmin')).setOption({
+    };
+    var option1 = {
         title: {
             text: '权限分布',
             subtext: '',
@@ -562,7 +607,11 @@
                 }
             }
         }]
-    });
+    };
+    myChart.setOption(option);
+    myChart1.setOption(option);
+    myChart2.setOption(option1);
+    myChart3.setOption(option1);
 </script>
 </body>
 </html>
