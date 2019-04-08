@@ -34,11 +34,23 @@ public class RecycleController {
     @Autowired
     InsuranceService insuranceService;
 
+    /**
+     * 来到回收站主页
+     *
+     * @return
+     */
     @GetMapping("")
     public String recycle() {
         return "/CRUD/recycle";
     }
 
+    /**
+     * 异步获取回收站信息
+     *
+     * @param request
+     * @param session
+     * @return
+     */
     @ResponseBody
     @GetMapping("/insurance")
     public Map<String, Object> recycleData(HttpServletRequest request, HttpSession session) {
@@ -60,6 +72,12 @@ public class RecycleController {
         return result;
     }
 
+    /**
+     * 恢复保单信息
+     *
+     * @param id
+     * @return
+     */
     @ResponseBody
     @PostMapping("/recover/{id}")
     public Map<String, Object> recoverInsurance(@PathVariable("id") int id) {
@@ -77,6 +95,12 @@ public class RecycleController {
         return map;
     }
 
+    /**
+     * 删除保单信息
+     *
+     * @param id
+     * @return
+     */
     @ResponseBody
     @DeleteMapping("/delete/{id}")
     public Map<String, Object> deleteRecycle(@PathVariable("id") int id) {
@@ -87,6 +111,13 @@ public class RecycleController {
         return map;
     }
 
+    /**
+     * 查看保单信息
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/check/{id}")
     public String insuranceEditor(@PathVariable("id") int id, Model model) {
         //通过保单id查找保单

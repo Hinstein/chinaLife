@@ -20,14 +20,32 @@ public class RecycleService {
     @Autowired
     RecycleRepository recycleRepository;
 
+    /**
+     * 通过id删除回收站信息
+     *
+     * @param id
+     */
     public void deleteById(int id) {
         recycleRepository.deleteById(id);
     }
 
+    /**
+     * 保存信息到回收站
+     *
+     * @param recycle
+     */
     public void save(Recycle recycle) {
         recycleRepository.save(recycle);
     }
 
+    /**
+     * 通过员工号查找信息
+     *
+     * @param clerkId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     public Page<Recycle> findAllByClerkId(int clerkId, int pageNo, int pageSize) {
         if (pageNo == 0) {
             pageNo = 1;
@@ -36,6 +54,12 @@ public class RecycleService {
         return recycleRepository.findAllByClerkId(clerkId, pageable);
     }
 
+    /**
+     * 通过id找到信息
+     *
+     * @param id
+     * @return
+     */
     public Recycle findById(int id) {
         return recycleRepository.findById(id);
     }

@@ -20,7 +20,7 @@ import java.util.List;
  * @BelongsPackage: chinalife.config
  * @Author: Hinstein
  * @CreateTime: 2019-03-17 13:40
- * @Description:自定义realm
+ * @Description: 自定义realm
  */
 public class UserRealm extends AuthorizingRealm {
 

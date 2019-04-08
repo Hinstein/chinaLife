@@ -56,9 +56,9 @@ public class DeleteController {
     public Map<String, Object> deleteInsurance(@PathVariable("id") int id, HttpSession session) {
         User user = (User) session.getAttribute("user");
         Subject subject = SecurityUtils.getSubject();
-        if(subject.isPermitted("admin")) {
+        if (subject.isPermitted("admin")) {
 
-        }else {
+        } else {
             Insurance insurance = insuranceService.findById(id);
             Recycle recycle = new Recycle();
             //将insurance对象复制到recycleBin对象

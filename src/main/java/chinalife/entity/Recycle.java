@@ -7,7 +7,7 @@ import javax.persistence.*;
  * @BelongsPackage: chinalife.entity
  * @Author: Hinstein
  * @CreateTime: 2019-04-07 12:50
- * @Description:
+ * @Description: 回收站实体类
  */
 @Entity
 @Table(name = "recycle")

@@ -15,7 +15,7 @@ import java.util.Map;
  * @BelongsPackage: chinalife.config
  * @Author: Hinstein
  * @CreateTime: 2019-03-17 13:38
- * @Description:使用shiro作为权限管理
+ * @Description: 使用shiro作为权限管理
  */
 @Configuration
 public class ShiroConfig {

@@ -158,6 +158,12 @@ public class UserService {
     }
 
 
+    /**
+     * 更新用户保单数
+     *
+     * @param baodanNumber
+     * @param userId
+     */
     public void changeBaodanNumber(int baodanNumber, int userId) {
         userRepository.changeBaodanNumber(baodanNumber, userId);
     }

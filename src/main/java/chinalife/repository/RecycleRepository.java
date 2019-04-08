@@ -13,9 +13,27 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Description:
  */
 public interface RecycleRepository extends JpaRepository<Recycle, Integer> {
+    /**
+     * 通过id删除信息
+     *
+     * @param id
+     */
     void deleteById(int id);
 
+    /**
+     * 通过业务员工号找到信息
+     *
+     * @param id
+     * @param pageable
+     * @return
+     */
     Page<Recycle> findAllByClerkId(int id, Pageable pageable);
 
+    /**
+     * 通过id找到信息
+     *
+     * @param id
+     * @return
+     */
     Recycle findById(int id);
 }
