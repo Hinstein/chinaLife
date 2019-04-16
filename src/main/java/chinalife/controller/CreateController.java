@@ -70,7 +70,7 @@ public class CreateController {
         userService.baodanNumber(user.getId());
         //返回json数据
         Map<String, Object> map = new HashMap<>();
-        map.put("success", "添加保单成功！");
+        map.put("success", "添加保单成功，正在跳转我的保单页面！");
         return map;
     }
 }

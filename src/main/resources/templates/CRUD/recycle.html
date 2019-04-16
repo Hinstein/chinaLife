@@ -108,7 +108,7 @@
                             <dd><a class="" th:href="@{/delete}">删除</a></dd>
                             <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
                             <dd><a th:href="@{/update}">更新</a></dd>
-                            <dd><a class="layui-this" th:href="@{/recycle}">回收站</a></dd>
+                            <dd class="layui-this"><a  th:href="@{/recycle}">回收站</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item ">
@@ -132,7 +132,7 @@
         <div class="layui-body">
             <div class="layui-fluid">
                 <div class="layui-card">
-                    <div class="layui-card-header">查找保单</div>
+                    <div class="layui-card-header">保单回收站</div>
                     <div class="layui-card-body">
                         <table class="layui-table" id="userData" lay-filter="test"
                                lay-skin="line" shiro:lacksPermission="admin">

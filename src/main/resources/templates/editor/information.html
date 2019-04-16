@@ -150,7 +150,7 @@
                                 <div class="layui-input-block ">
                                     <input shiro:hasPermission="admin" type="text" name="username" lay-verify="required"
                                            placeholder="请输入用户名"
-                                           autocomplete="off" class="layui-input layui-disabled"
+                                           autocomplete="off" class="layui-input layui-disabled" disabled="disabled"
                                            th:value="${user.username}">
                                     <input shiro:lacksPermission="admin" type="text" name="username"
                                            lay-verify="required|name" placeholder="请输入用户名"
