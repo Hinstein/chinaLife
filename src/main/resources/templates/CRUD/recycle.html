@@ -104,11 +104,19 @@
                         <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"> </i><cite>
                             保单管理</cite></a>
                         <dl class="layui-nav-child">
-                            <dd><a class="" th:href="@{/create}">添加</a></dd>
-                            <dd><a class="" th:href="@{/delete}">删除</a></dd>
-                            <dd><a class="" th:href="@{/retrieve}">查找</a></dd>
-                            <dd><a th:href="@{/update}">更新</a></dd>
-                            <dd class="layui-this"><a  th:href="@{/recycle}">回收站</a></dd>
+                            <dd><a class="" th:href="@{/create}" shiro:hasPermission="create">添加</a></dd>
+                            <dd><a class="" th:href="@{/create}" shiro:lacksPermission="create"
+                                   style="color: red" target="_blank">添加(未授权)</a></dd>
+                            <dd><a class="" th:href="@{/delete}" shiro:hasPermission="delete">删除</a></dd>
+                            <dd><a class="" th:href="@{/delete}" shiro:lacksPermission="delete"
+                                   style="color: red" target="_blank">删除(未授权)</a></dd>
+                            <dd><a class="" th:href="@{/retrieve}" shiro:hasPermission="retrieve">查找</a></dd>
+                            <dd><a class="" th:href="@{/retrieve}" shiro:lacksPermission="retrieve"
+                                   style="color: red" target="_blank">查找(未授权)</a></dd>
+                            <dd><a class="" th:href="@{/update}" shiro:hasPermission="update">更新</a></dd>
+                            <dd><a class="" th:href="@{/update}" shiro:lacksPermission="update"
+                                   style="color: red" target="_blank">更新(未授权)</a></dd>
+                            <dd class="layui-this"><a class="" th:href="@{/recycle}">回收站</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item ">

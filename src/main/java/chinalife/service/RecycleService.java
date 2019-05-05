@@ -63,4 +63,8 @@ public class RecycleService {
     public Recycle findById(int id) {
         return recycleRepository.findById(id);
     }
+
+    public void  deleteByClerkId(int id){
+        recycleRepository.deleteByClerkId(id);
+    }
 }

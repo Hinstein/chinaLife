@@ -24,6 +24,9 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    RecycleService recycleService;
+
     /**
      * 通过用户名查找用户
      *
@@ -74,6 +77,7 @@ public class UserService {
      * @param id
      */
     public void deleteById(int id) {
+        recycleService.deleteByClerkId(id);
         userRepository.deleteById(id);
     }
 

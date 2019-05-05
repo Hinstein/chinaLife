@@ -4,6 +4,10 @@ import chinalife.entity.Recycle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+import javax.transaction.Transactional;
 
 /**
  * @BelongsProject: chinalife
@@ -19,6 +23,15 @@ public interface RecycleRepository extends JpaRepository<Recycle, Integer> {
      * @param id
      */
     void deleteById(int id);
+
+    /**
+     * 通过员工id删除回收站信息
+     * @param id
+     */
+    @Transactional(rollbackOn = Exception.class)
+    @Modifying
+    @Query(value = "delete from Recycle a where a.clerkId = ?1 ")
+    void deleteByClerkId(int id);
 
     /**
      * 通过业务员工号找到信息
