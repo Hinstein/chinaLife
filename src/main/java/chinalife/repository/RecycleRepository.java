@@ -26,6 +26,7 @@ public interface RecycleRepository extends JpaRepository<Recycle, Integer> {
 
     /**
      * 通过员工id删除回收站信息
+     *
      * @param id
      */
     @Transactional(rollbackOn = Exception.class)

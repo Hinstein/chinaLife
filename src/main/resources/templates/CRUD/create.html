@@ -114,7 +114,8 @@
                         <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"> </i><cite>
                             保单管理</cite></a>
                         <dl class="layui-nav-child">
-                            <dd class="layui-this"><a class="" th:href="@{/create}" shiro:hasPermission="create">添加</a></dd>
+                            <dd class="layui-this"><a class="" th:href="@{/create}" shiro:hasPermission="create">添加</a>
+                            </dd>
                             <dd><a class="" th:href="@{/create}" shiro:lacksPermission="create"
                                    style="color: red" target="_blank">添加(未授权)</a></dd>
                             <dd><a class="" th:href="@{/delete}" shiro:hasPermission="delete">删除</a></dd>
@@ -256,15 +257,15 @@
     layui.use('laydate', function () {
         var laydate = layui.laydate;
         var myDate = new Date();
-        var year=myDate.getFullYear();
-        var month=myDate.getMonth()+1;
-        var date=myDate.getDate();
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth() + 1;
+        var date = myDate.getDate();
         var form = layui.form;
         //执行一个laydate实例
         laydate.render({
-            elem: '#test1' ,//指定元素
-            max: year+'-'+month+"-"+date
-    });
+            elem: '#test1',//指定元素
+            max: year + '-' + month + "-" + date
+        });
         form.verify({
             name: [
                 /^([\u4e00-\u9fa5]){2,7}$/

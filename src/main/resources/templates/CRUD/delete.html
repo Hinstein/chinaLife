@@ -117,7 +117,8 @@
                             <dd><a class="" th:href="@{/create}" shiro:hasPermission="create">添加</a></dd>
                             <dd><a class="" th:href="@{/create}" shiro:lacksPermission="create"
                                    style="color: red" target="_blank">添加(未授权)</a></dd>
-                            <dd class="layui-this"><a class="" th:href="@{/delete}" shiro:hasPermission="delete">删除</a></dd>
+                            <dd class="layui-this"><a class="" th:href="@{/delete}" shiro:hasPermission="delete">删除</a>
+                            </dd>
                             <dd><a class="" th:href="@{/delete}" shiro:lacksPermission="delete"
                                    style="color: red" target="_blank">删除(未授权)</a></dd>
                             <dd><a class="" th:href="@{/retrieve}" shiro:hasPermission="retrieve">查找</a></dd>
