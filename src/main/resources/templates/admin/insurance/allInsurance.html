@@ -27,17 +27,17 @@
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="javascript:;">
+                    <a href="javascript:">
 
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <cite>工号：[[${session.user.id}]]</cite>
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-md" lay-unselect shiro:lacksPermission="admin">
-                    <a href="javascript:;" layadmin-event="about"><cite>保单管理</cite></a>
+                    <a href="javascript:" layadmin-event="about"><cite>保单管理</cite></a>
                     <dl class="layui-nav-child">
                         <dd><a class="" th:href="@{/create}">添加</a></dd>
                         <dd><a class="" th:href="@{/delete}">删除</a></dd>
@@ -50,14 +50,14 @@
                     <a class="" th:href="@{/admin/insurance}"> <cite>保单管理</cite></a>
                 </li>
                 <li class="layui-nav-item layui-hide-md" lay-unselect shiro:hasPermission="admin">
-                    <a href="javascript:;" layadmin-event="about"><cite>用户管理</cite></a>
+                    <a href="javascript:" layadmin-event="about"><cite>用户管理</cite></a>
                     <dl class="layui-nav-child">
                         <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
                         <dd><a th:href="@{/admin/createUser}">添加用户</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item" lay-unselect>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <cite> 姓名：[[${session.user.username}]]</cite>
                     </a>
                     <dl class="layui-nav-child">
@@ -71,7 +71,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="javascript:;" layadmin-event="about"><i
+                    <a href="javascript:" layadmin-event="about"><i
                             class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
             </ul>
@@ -95,7 +95,7 @@
                             保单管理</cite></a>
                     </li>
                     <li class="layui-nav-item" shiro:hasPermission="admin">
-                        <a class="" href="javascript:;"> <i class="layui-icon layui-icon-auz"> </i><cite>
+                        <a class="" href="javascript:"> <i class="layui-icon layui-icon-auz"> </i><cite>
                             用户管理</cite></a>
                         <dl class="layui-nav-child ">
                             <dd><a th:href="@{/admin/allUser}">权限管理</a></dd>
@@ -103,7 +103,7 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item " shiro:lacksPermission="admin">
-                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"> </i><cite>
+                        <a class="" href="javascript:"><i class="layui-icon layui-icon-user"> </i><cite>
                             保单管理</cite></a>
                         <dl class="layui-nav-child">
                             <dd><a class="" th:href="@{/create}">添加</a></dd>
@@ -114,7 +114,7 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="" href="javascript:;"> <i class="layui-icon layui-icon-set"> </i><cite>
+                        <a class="" href="javascript:"> <i class="layui-icon layui-icon-set"> </i><cite>
                             个人信息管理</cite></a>
                         <dl class="layui-nav-child">
                             <dd><a th:href="@{/editor/password}">修改密码</a></dd>
@@ -167,7 +167,8 @@
                         </script>
                         <script type="text/html" id="action">
                             <div class="layui-btn-container">
-                                <button class="layui-btn layui-btn-sm" lay-event="pass">编辑</button>
+                                <button class="layui-btn layui-btn-sm" lay-event="check">查看</button>
+                                <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="pass">编辑</button>
                                 <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除
                                 </button>
                             </div>
@@ -197,12 +198,12 @@
             , cols: [[ //表头
                 {type: 'checkbox'}
                 , {field: 'id', title: 'ID', width: '7%', sort: true}
-                , {field: 'holderName', title: '投保人', width: '8%'}
-                , {field: 'mobile', title: '电话号码'}
-                , {field: 'birthDate', title: '出生日期', sort: true}
-                , {field: 'money', title: '保费', sort: true}
+                , {field: 'holderName', title: '投保人', width: '9%'}
+                , {field: 'mobile', title: '电话号码', width: '11%'}
+                , {field: 'birthDate', title: '出生日期', sort: true, width: '10%'}
+                , {field: 'money', title: '保费', sort: true, width: '8%'}
                 , {
-                    field: 'polName', title: '险种名称', templet: function (d) {
+                    field: 'polName', title: '险种名称', width: '10%', templet: function (d) {
                         if (d.polName === 0)
                             return "意外险";
                         else if (d.polName === 1)
@@ -213,9 +214,9 @@
                             return "分红险";
                     }
                 }
-                , {field: 'clerkId', title: '操作员', sort: true}
+                , {field: 'clerkId', title: '操作员', width: '10%', sort: true}
                 , {field: 'inforceTime', title: '添加时间', sort: true, width: '15%'}
-                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#action', width: '10%'}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#action'}
             ]]
         });
         table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -245,6 +246,14 @@
                             layer.msg("网络错误，通过失败");
                         }
                     });
+                });
+            }else {
+                layer.open({
+                    type: 2
+                    , title: '保单查看'
+                    , content: ["/retrieve/print/" + data.id, 'yes']
+                    , maxmin: true
+                    , area: ['550px', '680px']
                 });
             }
         });

@@ -108,12 +108,13 @@ public class RetrieveController {
         return result;
     }
 
-    @GetMapping("/check/{id}")
-    public String insuranceEditor(@PathVariable("id") int id, Model model) {
+
+    @GetMapping("/print/{id}")
+    public String insurancePrint(@PathVariable("id") int id, Model model) {
         //通过保单id查找保单
         Insurance insurance = insuranceService.findById(id);
         //视图层显示
         model.addAttribute("recycle", insurance);
-        return "/CRUD/check";
+        return "/CRUD/print";
     }
 }

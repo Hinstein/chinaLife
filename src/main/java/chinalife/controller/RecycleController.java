@@ -118,12 +118,12 @@ public class RecycleController {
      * @param model
      * @return
      */
-    @GetMapping("/check/{id}")
-    public String insuranceEditor(@PathVariable("id") int id, Model model) {
+    @GetMapping("/print/{id}")
+    public String insurancePrint(@PathVariable("id") int id, Model model) {
         //通过保单id查找保单
         Recycle recycle = recycleService.findById(id);
         //视图层显示
         model.addAttribute("recycle", recycle);
-        return "/CRUD/check";
+        return "/CRUD/print";
     }
 }

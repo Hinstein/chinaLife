@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+
+</head>
+<body>
+<div id="export_word" >
+    <p style="font-size:22pt; line-height:200%; margin:0pt; orphans:0; text-align:center; widows:0"><span
+            style="font-family:黑体; font-size:22pt; font-weight:bold">投保单</span></p>
+    <p
+            style="font-size:12pt; line-height:200%; margin:0pt; orphans:0; text-align:center; text-indent:24pt; widows:0">
+        <span style="font-family:宋体; font-size:12pt">保险单号码：</span><span
+            style="font-family:宋体; font-size:12pt">[[${recycle.baodanNo}]]</span><span
+            style="font-family:宋体; font-size:12pt">  </span><span style="font-family:宋体; font-size:12pt">
+            </span><span style="font-family:宋体; font-size:12pt">编号：</span><span
+            style="font-family:宋体; font-size:12pt">1</span><span style="font-family:宋体; font-size:12pt">[[${recycle.id}]]</span></p>
+    <div style="text-align:center" class="layui-container">
+        <table cellspacing="0" cellpadding="0" style="border-collapse:collapse; margin:0 auto">
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">投保</span><span
+                            style="font-family:宋体; font-size:12pt">人姓名</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">[[${recycle.holderName}]]</span></p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">投保人性别</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0">
+                        <span style="font-family:宋体; font-size:12pt" th:if="${recycle.sex}==0">男</span>
+                        <span style="font-family:宋体; font-size:12pt" th:if="${recycle.sex}==1">女</span>
+                    </p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">出生日期</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">[[${recycle.birthDate}]]</span></p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">电话号码</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="font-size:12pt; line-height:150%; margin:0pt; orphans:0; text-align:center; widows:0">
+                        <span style="font-family:宋体; font-size:12pt">[[${recycle.mobile}]]</span></p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">险种名称</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0">
+                        <span style="font-family:宋体; font-size:12pt" th:if="${recycle.polName}==0">意外险</span>
+                        <span style="font-family:宋体; font-size:12pt" th:if="${recycle.polName}==1">健康险</span>
+                        <span style="font-family:宋体; font-size:12pt" th:if="${recycle.polName}==2">补充医疗险</span>
+                        <span style="font-family:宋体; font-size:12pt" th:if="${recycle.polName}==3">分红险</span>
+                    </p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">保费</span><span
+                            style="font-family:宋体; font-size:12pt">金额</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="font-size:12pt; line-height:150%; margin:0pt; orphans:0; text-align:center; widows:0">
+                        <span style="font-family:宋体; font-size:12pt">[[${recycle.money}]]</span><span
+                            style="font-family:宋体; font-size:12pt">（</span><span
+                            style="font-family:宋体; font-size:12pt">元</span><span
+                            style="font-family:宋体; font-size:12pt">）</span></p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">被保人1</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">[[${recycle.insuredName1}]]</span></p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">关系</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">[[${recycle.rel1}]]</span></p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">被</span><span
+                            style="font-family:宋体; font-size:12pt">险</span><span
+                            style="font-family:宋体; font-size:12pt">保人2</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">[[${recycle.insuredName2}]]</span></p>
+                </td>
+            </tr>
+            <tr style="height:48.2pt">
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:141.6pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">关系</span></p>
+                </td>
+                <td
+                        style="border-bottom-color:#000000; border-bottom-style:solid; border-bottom-width:0.75pt; border-left-color:#000000; border-left-style:solid; border-left-width:0.75pt; border-right-color:#000000; border-right-style:solid; border-right-width:0.75pt; border-top-color:#000000; border-top-style:solid; border-top-width:0.75pt; padding-left:5.03pt; padding-right:5.03pt; vertical-align:middle; width:286.2pt">
+                    <p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+                            style="font-family:宋体; font-size:12pt">[[${recycle.rel2}]]</span></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <p style="font-size:12pt; line-height:200%; margin:0pt; orphans:0; widows:0"><span
+            style="font-family:宋体; font-size:12pt">&#xa0;</span></p>
+    <p style="font-size:12pt; line-height:200%; margin:0pt; orphans:0; text-align:right; widows:0"><span
+            style="font-family:宋体; font-size:12pt">投保时间:</span><span
+            style="font-family:宋体; font-size:12pt">[[${recycle.inforceTime}]]</span>
+    </p>
+</div>
+<div class="layui-container"><a href="javascript:void(0)" class="layui-btn" onclick="exportWord()">导出</a></div>
+<br>
+<input hidden="hidden" th:value="${recycle.holderName}" id="name">
+<script th:src="@{/jquery/jquery.js}"></script>
+<script th:src="@{/layui/layui.all.js}"></script>
+<script>
+    var username = $("#name").val() + '的保单信息';
+    var saveAs = saveAs || (function (view) {
+        "use strict";
+        // IE <10 is explicitly unsupported
+        if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+            return;
+        }
+        var
+            doc = view.document
+            // only get URL when necessary in case Blob.js hasn't overridden it yet
+            , get_URL = function () {
+                return view.URL || view.webkitURL || view;
+            }
+            , save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
+            , can_use_save_link = "download" in save_link
+            , click = function (node) {
+                var event = new MouseEvent("click");
+                node.dispatchEvent(event);
+            }
+            , is_safari = /constructor/i.test(view.HTMLElement)
+            , is_chrome_ios = /CriOS\/[\d]+/.test(navigator.userAgent)
+            , throw_outside = function (ex) {
+                (view.setImmediate || view.setTimeout)(function () {
+                    throw ex;
+                }, 0);
+            }
+            , force_saveable_type = "application/octet-stream"
+            // the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
+            , arbitrary_revoke_timeout = 1000 * 40 // in ms
+            , revoke = function (file) {
+                var revoker = function () {
+                    if (typeof file === "string") { // file is an object URL
+                        get_URL().revokeObjectURL(file);
+                    } else { // file is a File
+                        file.remove();
+                    }
+                };
+                setTimeout(revoker, arbitrary_revoke_timeout);
+            }
+            , dispatch = function (filesaver, event_types, event) {
+                event_types = [].concat(event_types);
+                var i = event_types.length;
+                while (i--) {
+                    var listener = filesaver["on" + event_types[i]];
+                    if (typeof listener === "function") {
+                        try {
+                            listener.call(filesaver, event || filesaver);
+                        } catch (ex) {
+                            throw_outside(ex);
+                        }
+                    }
+                }
+            }
+            , auto_bom = function (blob) {
+                // prepend BOM for UTF-8 XML and text/* types (including HTML)
+                // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+                if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+                    return new Blob([String.fromCharCode(0xFEFF), blob], {type: blob.type});
+                }
+                return blob;
+            }
+            , FileSaver = function (blob, name, no_auto_bom) {
+                if (!no_auto_bom) {
+                    blob = auto_bom(blob);
+                }
+                // First try a.download, then web filesystem, then object URLs
+                var
+                    filesaver = this
+                    , type = blob.type
+                    , force = type === force_saveable_type
+                    , object_url
+                    , dispatch_all = function () {
+                        dispatch(filesaver, "writestart progress write writeend".split(" "));
+                    }
+                    // on any filesys errors revert to saving with object URLs
+                    , fs_error = function () {
+                        if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
+                            // Safari doesn't allow downloading of blob urls
+                            var reader = new FileReader();
+                            reader.onloadend = function () {
+                                var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+                                var popup = view.open(url, '_blank');
+                                if (!popup) view.location.href = url;
+                                url = undefined; // release reference before dispatching
+                                filesaver.readyState = filesaver.DONE;
+                                dispatch_all();
+                            };
+                            reader.readAsDataURL(blob);
+                            filesaver.readyState = filesaver.INIT;
+                            return;
+                        }
+                        // don't create more object URLs than needed
+                        if (!object_url) {
+                            object_url = get_URL().createObjectURL(blob);
+                        }
+                        if (force) {
+                            view.location.href = object_url;
+                        } else {
+                            var opened = view.open(object_url, "_blank");
+                            if (!opened) {
+                                // Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
+                                view.location.href = object_url;
+                            }
+                        }
+                        filesaver.readyState = filesaver.DONE;
+                        dispatch_all();
+                        revoke(object_url);
+                    }
+                ;
+                filesaver.readyState = filesaver.INIT;
+
+                if (can_use_save_link) {
+                    object_url = get_URL().createObjectURL(blob);
+                    setTimeout(function () {
+                        save_link.href = object_url;
+                        save_link.download = name;
+                        click(save_link);
+                        dispatch_all();
+                        revoke(object_url);
+                        filesaver.readyState = filesaver.DONE;
+                    });
+                    return;
+                }
+
+                fs_error();
+            }
+            , FS_proto = FileSaver.prototype
+            , saveAs = function (blob, name, no_auto_bom) {
+                return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
+            }
+        ;
+        // IE 10+ (native saveAs)
+        if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+            return function (blob, name, no_auto_bom) {
+                name = name || blob.name || "download";
+
+                if (!no_auto_bom) {
+                    blob = auto_bom(blob);
+                }
+                return navigator.msSaveOrOpenBlob(blob, name);
+            };
+        }
+
+        FS_proto.abort = function () {
+        };
+        FS_proto.readyState = FS_proto.INIT = 0;
+        FS_proto.WRITING = 1;
+        FS_proto.DONE = 2;
+
+        FS_proto.error =
+            FS_proto.onwritestart =
+                FS_proto.onprogress =
+                    FS_proto.onwrite =
+                        FS_proto.onabort =
+                            FS_proto.onerror =
+                                FS_proto.onwriteend =
+                                    null;
+
+        return saveAs;
+    }(
+        typeof self !== "undefined" && self
+        || typeof window !== "undefined" && window
+        || this.content
+    ));
+    // `self` is undefined in Firefox for Android content script context
+    // while `this` is nsIContentFrameMessageManager
+    // with an attribute `content` that corresponds to the window
+
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports.saveAs = saveAs;
+    } else if ((typeof define !== "undefined" && define !== null) && (define.amd !== null)) {
+        define([], function () {
+            return saveAs;
+        });
+    }
+
+    if (typeof jQuery !== "undefined" && typeof saveAs !== "undefined") {
+        (function ($) {
+            $.fn.wordExport = function (fileName) {
+                fileName = typeof fileName !== 'undefined' ? fileName : username;
+                var static = {
+                    mhtml: {
+                        top: "Mime-Version: 1.0\nContent-Base: " + location.href + "\nContent-Type: Multipart/related; boundary=\"NEXT.ITEM-BOUNDARY\";type=\"text/html\"\n\n--NEXT.ITEM-BOUNDARY\nContent-Type: text/html; charset=\"utf-8\"\nContent-Location: " + location.href + "\n\n<!DOCTYPE html>\n<html>\n_html_</html>",
+                        head: "<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n<style>\n_styles_\n</style>\n</head>\n",
+                        body: "<body>_body_</body>"
+                    }
+                };
+                var options = {
+                    maxWidth: 624
+                };
+                // Clone selected element before manipulating it
+                var markup = $(this).clone();
+
+                // Remove hidden elements from the output
+                markup.each(function () {
+                    var self = $(this);
+                    if (self.is(':hidden'))
+                        self.remove();
+                });
+
+                // Embed all images using Data URLs
+                var images = Array();
+                var img = markup.find('img');
+                for (var i = 0; i < img.length; i++) {
+                    // Calculate dimensions of output image
+                    var w = Math.min(img[i].width, options.maxWidth);
+                    var h = img[i].height * (w / img[i].width);
+                    // Create canvas for converting image to data URL
+                    var canvas = document.createElement("CANVAS");
+                    canvas.width = w;
+                    canvas.height = h;
+                    // Draw image to canvas
+                    var context = canvas.getContext('2d');
+                    context.drawImage(img[i], 0, 0, w, h);
+                    // Get data URL encoding of image
+                    var uri = canvas.toDataURL("image/png");
+                    $(img[i]).attr("src", img[i].src);
+                    img[i].width = w;
+                    img[i].height = h;
+                    // Save encoded image to array
+                    images[i] = {
+                        type: uri.substring(uri.indexOf(":") + 1, uri.indexOf(";")),
+                        encoding: uri.substring(uri.indexOf(";") + 1, uri.indexOf(",")),
+                        location: $(img[i]).attr("src"),
+                        data: uri.substring(uri.indexOf(",") + 1)
+                    };
+                }
+
+                // Prepare bottom of mhtml file with image data
+                var mhtmlBottom = "\n";
+                for (var i = 0; i < images.length; i++) {
+                    mhtmlBottom += "--NEXT.ITEM-BOUNDARY\n";
+                    mhtmlBottom += "Content-Location: " + images[i].location + "\n";
+                    mhtmlBottom += "Content-Type: " + images[i].type + "\n";
+                    mhtmlBottom += "Content-Transfer-Encoding: " + images[i].encoding + "\n\n";
+                    mhtmlBottom += images[i].data + "\n\n";
+                }
+                mhtmlBottom += "--NEXT.ITEM-BOUNDARY--";
+
+                //TODO: load css from included stylesheet
+                var styles = "";
+
+                // Aggregate parts of the file together
+                var fileContent = static.mhtml.top.replace("_html_", static.mhtml.head.replace("_styles_", styles) + static.mhtml.body.replace("_body_", markup.html())) + mhtmlBottom;
+
+                // Create a Blob with the file contents
+                var blob = new Blob([fileContent], {
+                    type: "application/msword;charset=utf-8"
+                });
+                saveAs(blob, fileName + ".doc");
+            };
+        })(jQuery);
+    } else {
+        if (typeof jQuery === "undefined") {
+            console.error("jQuery Word Export: missing dependency (jQuery)");
+        }
+        if (typeof saveAs === "undefined") {
+            console.error("jQuery Word Export: missing dependency (FileSaver.js)");
+        }
+    }
+
+
+    function exportWord() {
+        $("#export_word").wordExport();
+    };
+    $(function () {
+        $("#headPhoto").click(function () {
+            location.href = "/worker/editor/headPhoto";
+        })
+    })
+</script>
+</body>
+</html>
