@@ -67,7 +67,7 @@ public class CreateController {
         //保存保单
         insuranceService.save(insurance);
         //用户表中保单数加一
-        userService.baodanNumber(user.getId());
+        userService.baodanPlus(user.getId());
         //返回json数据
         Map<String, Object> map = new HashMap<>();
         map.put("success", "添加保单成功，正在跳转我的保单页面！");

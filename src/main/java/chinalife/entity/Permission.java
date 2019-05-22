@@ -13,16 +13,28 @@ import javax.persistence.*;
 @Entity
 public class Permission {
 
+    /**
+     * 权限id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * 权限名
+     */
     @Column(length = 50)
     private String perms;
 
+    /**
+     * 用户id
+     */
     @Column
     private int userId;
 
+    /**
+     * 权限添加时间
+     */
     @Column(length = 50)
     private String time;
 

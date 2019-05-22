@@ -53,13 +53,13 @@ public class DeleteController {
      */
     @ResponseBody
     @DeleteMapping("/insurance/{id}")
-    public Map<String, Object> deleteInsurance(@PathVariable("id") int id, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public Map<String, Object> deleteInsurance(@PathVariable("id") int id) {
         Subject subject = SecurityUtils.getSubject();
+        Insurance insurance = insuranceService.findById(id);
         if (subject.isPermitted("admin")) {
 
         } else {
-            Insurance insurance = insuranceService.findById(id);
+
             Recycle recycle = new Recycle();
             //将insurance对象复制到recycleBin对象
             BeanUtils.copyProperties(insurance, recycle);
@@ -67,7 +67,7 @@ public class DeleteController {
             recycleService.save(recycle);
         }
         //从数据库中删除该保单信息
-        insuranceService.deleteById(id);
+        insuranceService.deleteById(id,insurance.getClerkId());
         //返回json数据
         HashMap<String, Object> map = new HashMap<>();
         map.put("success", "删除成功");

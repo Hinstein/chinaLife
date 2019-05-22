@@ -5,6 +5,7 @@ import chinalife.entity.Recycle;
 import chinalife.entity.User;
 import chinalife.service.InsuranceService;
 import chinalife.service.RecycleService;
+import chinalife.service.UserService;
 import net.sf.json.JSONArray;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class RecycleController {
 
     @Autowired
     InsuranceService insuranceService;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 来到回收站主页
@@ -85,6 +89,8 @@ public class RecycleController {
         Insurance insurance = new Insurance();
         //将recycleBin对象复制到insurance对象
         BeanUtils.copyProperties(recycle, insurance);
+        //员工保单数加一
+        userService.baodanPlus(insurance.getClerkId());
         //回收站存入该保单信息
         insuranceService.save(insurance);
         //从数据库中删除该保单信息

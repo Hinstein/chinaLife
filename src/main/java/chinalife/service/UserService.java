@@ -27,6 +27,9 @@ public class UserService {
     @Autowired
     RecycleService recycleService;
 
+    @Autowired
+    InsuranceService insuranceService;
+
     /**
      * 通过用户名查找用户
      *
@@ -77,6 +80,7 @@ public class UserService {
      * @param id
      */
     public void deleteById(int id) {
+        insuranceService.deleteByClerkId(id);
         recycleService.deleteByClerkId(id);
         userRepository.deleteById(id);
     }
@@ -133,8 +137,17 @@ public class UserService {
      *
      * @param id
      */
-    public void baodanNumber(int id) {
-        userRepository.baodanNumber(id);
+    public void baodanPlus(int id) {
+        userRepository.baodanPlus(id);
+    }
+
+    /**
+     * 用户保单数减一
+     *
+     * @param id
+     */
+    public void baodanMinus(int id) {
+        userRepository.baodanMinus(id);
     }
 
     /**
@@ -170,5 +183,15 @@ public class UserService {
      */
     public void changeBaodanNumber(int baodanNumber, int userId) {
         userRepository.changeBaodanNumber(baodanNumber, userId);
+    }
+
+
+    /**
+     * 所有员工数量
+     *
+     * @return 员工数量
+     */
+    public Long numbers() {
+        return userRepository.count()-1;
     }
 }

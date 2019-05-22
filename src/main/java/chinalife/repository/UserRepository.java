@@ -106,7 +106,19 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query(value = "UPDATE User user  SET user.baodanNumber= user.baodanNumber+1" +
             "WHERE user.id = ?1")
-    void baodanNumber(int id);
+    void baodanPlus(int id);
+
+    /**
+     * 用户保单数加一
+     *
+     * @param id
+     */
+    @Transactional(rollbackOn = Exception.class)
+    @Modifying
+    @Query(value = "UPDATE User user  SET user.baodanNumber= user.baodanNumber-1" +
+            "WHERE user.id = ?1")
+    void baodanMinus(int id);
+
 
     /**
      * 通过用户活跃量排名查找
@@ -137,4 +149,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "UPDATE User user  SET user.baodanNumber= ?1 " +
             "WHERE user.id = ?2")
     void changeBaodanNumber(int baodanNumber, int id);
+
+    /**
+     * 所有员工数量
+     *
+     * @return 员工数量
+     */
+    @Override
+    long count();
 }

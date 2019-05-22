@@ -113,11 +113,12 @@ public class MainController {
                     session.setAttribute("baodan1", insuranceService.baodan1());
                     session.setAttribute("baodan2", insuranceService.baodan2());
                     session.setAttribute("baodan3", insuranceService.baodan3());
-                    session.setAttribute("baodanNumbers", insuranceService.numbers() - 1);
-                    session.setAttribute("createCounts", permissionService.createCounts() - 1);
-                    session.setAttribute("updateCounts", permissionService.updateCounts() - 1);
-                    session.setAttribute("deleteCounts", permissionService.deleteCounts() - 1);
-                    session.setAttribute("retrieveCounts", permissionService.retrieveCounts() - 1);
+                    session.setAttribute("baodanNumbers", insuranceService.numbers());
+                    session.setAttribute("createCounts", permissionService.createCounts());
+                    session.setAttribute("updateCounts", permissionService.updateCounts());
+                    session.setAttribute("deleteCounts", permissionService.deleteCounts());
+                    session.setAttribute("retrieveCounts", permissionService.retrieveCounts());
+                    session.setAttribute("userCounts", userService.numbers());
                 } else {
                     userService.active(user1.getId());
                 }

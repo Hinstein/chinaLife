@@ -44,6 +44,16 @@ public interface InsuranceRepository extends JpaRepository<Insurance, Integer> {
     void deleteById(int id);
 
     /**
+     * 通过员工id删除保单信息
+     *
+     * @param id
+     */
+    @Transactional(rollbackOn = Exception.class)
+    @Modifying
+    @Query(value = "delete from Insurance a where a.clerkId = ?1 ")
+    void deleteByClerkId(int id);
+
+    /**
      * 通过保单id查找保单信息
      *
      * @param id

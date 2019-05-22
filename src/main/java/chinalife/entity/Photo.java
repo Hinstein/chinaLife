@@ -12,22 +12,40 @@ import javax.persistence.*;
 @Entity
 @Table(name = "photo")
 public class Photo {
+    /**
+     * 头像id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * 创建时间
+     */
     @Column(length = 50)
     private String datePath;
 
+    /**
+     * 文件名
+     */
     @Column(length = 50)
     private String fileName;
 
+    /**
+     * 相对路径
+     */
     @Column
     private String relativePath;
 
+    /**
+     * 绝对路径
+     */
     @Column
     private String pathName;
 
+    /**
+     * 用户id
+     */
     @Column
     private Integer userId;
 

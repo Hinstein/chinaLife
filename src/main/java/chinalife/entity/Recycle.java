@@ -13,46 +13,88 @@ import javax.persistence.*;
 @Table(name = "recycle")
 public class Recycle {
 
+    /**
+     * 回收站id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * 投保人姓名
+     */
     @Column(length = 50)
     private String holderName;
 
+    /**
+     * 投保人性别
+     */
     @Column(nullable = false)
     private int sex;
 
+    /**
+     * 投保人出生日期
+     */
     @Column(length = 50)
     private String birthDate;
 
+    /**
+     * 投保人电话
+     */
     @Column(length = 50)
     private String mobile;
 
+    /**
+     * 险种名称
+     */
     @Column
     private int polName;
 
+    /**
+     * 投保金额
+     */
     @Column
     private int money;
 
+    /**
+     * 被保人1姓名
+     */
     @Column(length = 50)
     private String insuredName1;
 
+    /**
+     * 投保人与被保人1的关系
+     */
     @Column(length = 50)
     private String rel1;
 
+    /**
+     * 被保人2姓名
+     */
     @Column(length = 50)
     private String insuredName2;
 
+    /**
+     * 投保人与被保人2的关系
+     */
     @Column(length = 50)
     private String rel2;
 
+    /**
+     * 出单时间
+     */
     @Column(length = 50)
     private String inforceTime;
 
+    /**
+     * 员工号
+     */
     @Column
     private int clerkId;
 
+    /**
+     * 保单id
+     */
     @Column(length = 50)
     private String baodanNo;
 

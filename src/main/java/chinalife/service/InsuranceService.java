@@ -1,6 +1,7 @@
 package chinalife.service;
 
 import chinalife.entity.Insurance;
+import chinalife.entity.User;
 import chinalife.repository.InsuranceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,9 @@ import java.util.List;
 public class InsuranceService {
     @Autowired
     InsuranceRepository insuranceRepository;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 保存保单信息
@@ -63,14 +67,22 @@ public class InsuranceService {
     }
 
     /**
-     * 通过用户id删除保单信息
-     *
-     * @param id
+     * 通过baodanId删除保单信息，并且用户保单数减一
+     * @param baodanId
+     * @param userId
      */
-    public void deleteById(int id) {
-        insuranceRepository.deleteById(id);
+    public void deleteById(int baodanId,int userId) {
+        userService.baodanMinus(userId);
+        insuranceRepository.deleteById(baodanId);
     }
 
+    /**
+     * 通过员工号删除保单信息
+     * @param userId
+     */
+    public void deleteByClerkId(int userId) {
+        insuranceRepository.deleteByClerkId(userId);
+    }
     /**
      * 通过用户id查找保单信息
      *
@@ -168,7 +180,7 @@ public class InsuranceService {
      * @return 保单数
      */
     public Long numbers() {
-        return insuranceRepository.count();
+        return insuranceRepository.count()-1;
     }
 
     /**

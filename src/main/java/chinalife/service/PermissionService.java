@@ -80,7 +80,7 @@ public class PermissionService {
      * @return 删除的权限数量
      */
     public long createCounts() {
-        return permsRepository.countByPerms("create");
+        return permsRepository.countByPerms("create")-1;
     }
 
     /**
@@ -89,7 +89,7 @@ public class PermissionService {
      * @return 更新的权限数量
      */
     public long updateCounts() {
-        return permsRepository.countByPerms("update");
+        return permsRepository.countByPerms("update")-1;
     }
 
     /**
@@ -98,7 +98,7 @@ public class PermissionService {
      * @return 删除的权限数量
      */
     public long deleteCounts() {
-        return permsRepository.countByPerms("delete");
+        return permsRepository.countByPerms("delete")-1;
     }
 
     /**
@@ -107,7 +107,7 @@ public class PermissionService {
      * @return 查看的权限数量
      */
     public long retrieveCounts() {
-        return permsRepository.countByPerms("retrieve");
+        return permsRepository.countByPerms("retrieve")-1;
     }
 
 }
