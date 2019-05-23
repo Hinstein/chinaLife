@@ -20,7 +20,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
      * 通过用户id查找头像
      *
      * @param userId
-     * @return 头像细腻
+     * @return 头像实体
      */
     Photo findByUserId(int userId);
 

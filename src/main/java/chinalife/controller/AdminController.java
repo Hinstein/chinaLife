@@ -295,6 +295,7 @@ public class AdminController {
         }
         //返回json数据
         Map<String, Object> map = new HashMap<>(10);
+        userService.save(user);
         map.put("success", "保存成功！");
         return map;
     }

@@ -163,6 +163,7 @@ public class EditorController {
                 //如果不存在，则创建新文件夹
                 File f = new File(path);
                 if (!f.exists()) {
+                    //创建文件夹
                     f.mkdirs();
                 }
                 //新生成的文件名称
