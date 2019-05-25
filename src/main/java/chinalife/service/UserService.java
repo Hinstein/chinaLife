@@ -192,6 +192,6 @@ public class UserService {
      * @return 员工数量
      */
     public Long numbers() {
-        return userRepository.count()-1;
+        return userRepository.count() - 1;
     }
 }

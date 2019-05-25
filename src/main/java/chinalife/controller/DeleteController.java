@@ -67,7 +67,7 @@ public class DeleteController {
             recycleService.save(recycle);
         }
         //从数据库中删除该保单信息
-        insuranceService.deleteById(id,insurance.getClerkId());
+        insuranceService.deleteById(id, insurance.getClerkId());
         //返回json数据
         HashMap<String, Object> map = new HashMap<>();
         map.put("success", "删除成功");

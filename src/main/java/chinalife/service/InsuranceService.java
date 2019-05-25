@@ -68,21 +68,24 @@ public class InsuranceService {
 
     /**
      * 通过baodanId删除保单信息，并且用户保单数减一
+     *
      * @param baodanId
      * @param userId
      */
-    public void deleteById(int baodanId,int userId) {
+    public void deleteById(int baodanId, int userId) {
         userService.baodanMinus(userId);
         insuranceRepository.deleteById(baodanId);
     }
 
     /**
      * 通过员工号删除保单信息
+     *
      * @param userId
      */
     public void deleteByClerkId(int userId) {
         insuranceRepository.deleteByClerkId(userId);
     }
+
     /**
      * 通过用户id查找保单信息
      *
@@ -180,7 +183,7 @@ public class InsuranceService {
      * @return 保单数
      */
     public Long numbers() {
-        return insuranceRepository.count()-1;
+        return insuranceRepository.count() - 1;
     }
 
     /**
