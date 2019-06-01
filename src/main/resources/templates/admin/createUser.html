@@ -218,7 +218,7 @@
                 var confirm = $("#confirm").val();
                 if (password === confirm) {
                     $.ajax({
-                        url: "/admin/createUser/save",
+                        url: "/chinaLife/admin/createUser/save",
                         method: "post",
                         data: data.field,
                         dataType: "json",
@@ -227,7 +227,7 @@
                             layer.msg(msg.success);
                             $('#form')[0].reset();
                             setTimeout(function () {
-                                location.href = "/admin/allUser";
+                                location.href = "/chinaLife/admin/allUser";
                             }, 2000)
                         },
                         error: function () {

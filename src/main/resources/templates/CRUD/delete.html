@@ -191,7 +191,7 @@
         var form = layui.form;
         var tableIns = table.render({
             elem: '#userData'
-            , url: '/retrieve/insurance/data' //数据接口
+            , url: '/chinaLife/retrieve/insurance/data' //数据接口
             , toolbar: '#toolbarDemo'
             , page: true //开启分页
             , limits: [10, 20, 50, 100]  //每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。
@@ -230,14 +230,14 @@
                 layer.open({
                     type: 2
                     , title: '保单更改'
-                    , content: ["/update/insurance/" + data.id, 'no']
+                    , content: ["/chinaLife/update/insurance/" + data.id, 'no']
                     , maxmin: true
                     , area: ['550px', '680px']
                 });
             } else if (layEvent === 'delete') { //删除
                 layer.confirm('删除投保人姓名为“' + data.holderName + '”的保单么', function (index) {
                     $.ajax({
-                        url: '/delete/insurance/' + data.id,
+                        url: '/chinaLife/delete/insurance/' + data.id,
                         method: "delete",
                         dataType: "json",
                         success: function (msg) {
@@ -254,7 +254,7 @@
                 layer.open({
                     type: 2
                     , title: '保单查看'
-                    , content: ["/retrieve/print/" + data.id, 'yes']
+                    , content: ["/chinaLife/retrieve/print/" + data.id, 'yes']
                     , maxmin: true
                     , area: ['550px', '680px']
                 });
@@ -278,7 +278,7 @@
                     layer.confirm('删除投保人姓名为“' + ids + '”的保单么', function (index) {
                         for (var i = 0; i < data.length; i++) {
                             $.ajax({
-                                url: '/delete/insurance/' + data[i].id,
+                                url: '/chinaLife/delete/insurance/' + data[i].id,
                                 method: "delete",
                                 dataType: "json",
                                 success: function (msg) {

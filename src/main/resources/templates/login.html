@@ -29,7 +29,7 @@
                     <div class="relative">
                         <input type="text" placeholder="请输入验证码" lay-verify="required" class="layui-input login03"
                                id="tryCode">
-                        <div class="yzm"><img onclick="this.src='/defaultKaptcha?d='+new Date()*1"
+                        <div class="yzm"><img onclick="this.src='defaultKaptcha?d='+new Date()*1"
                                               th:src="@{/defaultKaptcha}" id="code"></div>
                     </div>
                     <button class="layui-btn login-btn" lay-submit="" lay-filter="save">登录</button>
@@ -60,7 +60,7 @@
             var tryCode = $("#tryCode").val();
 
             $.ajax({
-                url: "/login/post",
+                url: "login/post",
                 data: {
                     id: id,
                     password: password,
@@ -70,7 +70,7 @@
                 dataType: "json",
                 success: function (data) {
                     if (data.success) {
-                        location.href = "/index";
+                        location.href = "index";
                     } else {
                         layer.msg(data.error, {time: 2000, icon: 5, shift: 6});
                         $("#code").click();
